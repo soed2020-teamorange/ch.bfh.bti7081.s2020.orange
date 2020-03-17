@@ -13,7 +13,7 @@ Thema | Datum | Zeit | Anwesende
 -----------|------------|------------|--------
 
 ### Termine und Bewertung
-Präsentation der finanalen Resultate Task 1
+Präsentation der finalen Resultate Task 1
 Termin: 30.03
 Bewertung 5 Punkte
 Dauer: 10Minuten
