@@ -2,7 +2,7 @@
 ### Kürzel
 Name | Kürzel
 -----|--------
-Adrian Berger | berga
+Adrian Berger | berga12
 Oliver Kunz | kunzo
 Fabian Küng | kungf
 Lorenz Sieber | siebl
