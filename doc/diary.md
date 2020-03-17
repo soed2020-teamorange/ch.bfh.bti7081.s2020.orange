@@ -4,7 +4,7 @@ Name | Kürzel
 -----|--------
 Adrian Berger | berga12
 Oliver Kunz | kunzo
-Fabian Küng | kungf
+Fabian Küng | kungf3
 Lorenz Sieber | siebl
 Jonas Herzog | herzj
 
