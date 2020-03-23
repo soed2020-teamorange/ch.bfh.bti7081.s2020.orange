@@ -12,7 +12,7 @@
 8. Wie gut können/konnten dir Ärzte und Psychologen mit deiner Kranktheit helfen?
 9. Was erwartest du als Person mit Depressionen von einem elektronischen Patientensystem. Was für Features wären dir wichtig?
 
-## Fragen an einen aktuellen/ehemaligen Patienten
+## Fragen an einen Therapeuten
 
 ### Allgemein
 
