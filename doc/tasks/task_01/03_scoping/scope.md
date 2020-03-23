@@ -22,11 +22,11 @@
 
 ## Projekteinschränkungen
 
-* Team member and skills
+* Teammitglieder und Fähigkeiten
 	* Kein medizinisches Hintergrundwissen und keine Erfahrung mit der Erkrankung
 	* Aufgrund der aktuellen Lage (Corona Virus) können sich die Projektmitglieder nur Online treffen
 
-* Timeline and modus operandi
+* Zeitleiste und 'modus operandi'
 	* Meetings werden Online über den Microsoft Teams Kanal der BFH abghalten
 	* Keine freie Technologiewahl (Java, GitHub etc.)
 
