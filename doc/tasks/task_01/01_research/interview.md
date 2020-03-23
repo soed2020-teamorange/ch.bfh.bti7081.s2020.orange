@@ -18,4 +18,20 @@ Was würdest du dir von deinen Mitmenschen in Bezug auf deine Kankheit (mehr) w�
 
 ## Frage 5
 
-Was erwartest du als Person mit Depressionen von einem elektronischen Patientensystem. Was ist dir wichtig?
+Hast du auch schon mal über Suizid nachgedacht?
+
+## Frage 6
+
+Falls ja, wie bist du dann damit umgegangen?
+
+## Frage 7
+
+Wünschst du dir mehr Austausch mit anderen Depressiven?
+
+## Frage 8
+
+Wie gut können/konnten dir Ärzte und Psychologen mit deiner Kranktheit helfen?
+
+## Frage 9
+
+Was erwartest du als Person mit Depressionen von einem elektronischen Patientensystem. Was für Features wären dir wichtig?
