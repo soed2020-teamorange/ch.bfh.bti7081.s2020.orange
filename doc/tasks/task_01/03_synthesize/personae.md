@@ -2,6 +2,8 @@
 
 ## Matthias Perez
 
+<img src="matthias_perez.jpg" width="512">
+
 * Alter: 19 Jahre
 * Zivilstand: ledig
 * Wohnort: Ipsach
@@ -14,6 +16,8 @@ Er ist derzeit Single. Seine letzte Beziehung war mit einer Schneiderin mit dem 
 Matthias bester Freund ist ein Teenager namens Stefan Wegmüller. Mit ihm praktiziert er das sogenannte 'Upcycling'.
 
 ## Philip Gerber
+
+<img src="philip_gerber.jpg" width="512">
 
 * Alter: 41 Jahre
 * Zivilstand: verheiratet
