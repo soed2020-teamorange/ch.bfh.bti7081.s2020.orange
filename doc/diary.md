@@ -21,13 +21,13 @@ Folgendes wurde besprochen: <ul><li>Möglichkeit Person für Interview: Keine</l
 
 ***
 
-### Meeting 2 - 
+### Meeting 2 - 23.03.2020
 Thema | Datum | Zeit | Anwesende
 :-----------:|:------------:|:------------:|:--------:
-Kick-Off | Dienstag, 23.03.2020 | 17:00-21.30 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
+Task 01 | Montag, 23.03.2020 | 16:30-19.00 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
 
 Besprochene Punkte | Nächste Schritte
 ---------|----------
-Folgendes wurde besprochen: <ul><li>Scope</li><li>Storyboards</li><li>Prototypes</li><li>Interviewfragen</li> | <ul><li>Portotypes</li><li>Storyboards zeichnen</li></ul>
+Folgendes wurde besprochen: <ul><li>Scope</li><li>Storyboards</li><li>Prototypes</li><li>Interviewfragen</li> | <ul><li>Personas erstellen</li><li>Prototypes</li><li>Storyboards zeichnen</li></ul>
 
 ***
