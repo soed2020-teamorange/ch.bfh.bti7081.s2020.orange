@@ -29,9 +29,7 @@ Matthias bester Freund ist ein Teenager namens Stefan Wegmüller. Mit ihm prakti
     * Frau: Stefanie
     * Sohn: Kevin (aus 1. Ehe)
     * Tochter: Sina
-* Medizinische Hintergrundgeschichte: Philip studierte Medizin an der Universität in Bern mit dem Nebenfach Psychologie. Später doktorierte er im Bereich Neurologie.
+* Medizinische Hintergrundgeschichte: Philip studierte Medizin an der Universität in Bern mit dem Nebenfach Psychologie. Später doktorierte er im Bereich Psychologie mit Schwerpunkt Depressionskrankheiten.
 
 Philipp wuchs in Langnau im Emmental auf. Zusammen mit seiner Familie zog er im Alter von 10 Jahren nach Biel.  
 Mit 32 Jahren heiratete er seine erste Frau, Katja, mit welcher zusammen er einen Sohn (Kevin) hat.
-
-Vor kurzem wurde bei Philip eine Depression diagnostiziert.
