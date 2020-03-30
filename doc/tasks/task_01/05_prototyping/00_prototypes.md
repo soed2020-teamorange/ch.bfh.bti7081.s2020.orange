@@ -1,4 +1,4 @@
-# Storyboards
+# Prototypes
 
 ## Eintrag im Stimmungstagebuch
 
