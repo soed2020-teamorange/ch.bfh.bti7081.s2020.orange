@@ -39,3 +39,7 @@
 ## Notruf wählen (Button)
 
 ![Notruf wählen (Button)](10_notruf_waehlen.jpg "Notruf wählen (Button)")
+
+## Chatfunktion mit Fachperson
+
+![Chatfunktion mit Fachperson](11_chatfunktion_mit_fachperson.jpg "Chatfunktion mit Fachperson")
