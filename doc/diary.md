@@ -42,3 +42,14 @@ Besprochene Punkte | Nächste Schritte
 Folgendes wurde besprochen: <ul><li>Zuweisung der Storyboards auf use case Diagramm</li><li>Detaillierte use cases in use case form:<ul><li>Medikamente</li><li>Tätigkeitsbuch & Stimmungstagebuch</li></ul></li><li>System requirements</li><li>Requirements document</li></ul> | <ul><li>Task 2.1<ul><li>Oliver Kunz: use case diagram</li><li>Jonas Herzog: use case form</li><li>Adrian Berger: use case form</li></ul><li>Task 2.2<ul><li>Fabian Küng: System requirements</li></ul><li>Task 2.3<ul><li>Adrian Berger: Preface & Introduction</li><li>Jonas Herzog: User requirements definition, System architecture & System requirements specification</li><li>Lorenz Sieber: System models, System evolution & Testing</li><li>Alle zusammen: Glossary, Appendices & index</li></ul></li></ul>
 
 ***
+
+### Meeting 4 - 06.04.2020
+Thema | Datum | Zeit | Anwesende
+:-----------:|:------------:|:------------:|:--------:
+Task 02 Final | Montag, 06.04.2020 | 17:00-19:00 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
+
+Besprochene Punkte | Nächste Schritte
+---------|----------
+
+
+***
