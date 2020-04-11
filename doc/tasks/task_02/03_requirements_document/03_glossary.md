@@ -12,3 +12,4 @@ Cloud | Teile der Infrastruktur, die über das Internet zugänglich sind.
 Java | Die objektorientierte Programmiersprache, die für diese Applikation unter anderem verwendet wird.
 Datenbank | System zur Datenspeicherung und deren Abfrage.
 Unit Test | Kleine, einzelne Funktionen der Applikation werden mit Unit Tests getestet.
+DSGVO | Datenschutz-Grundverordnung
