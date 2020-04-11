@@ -43,10 +43,10 @@ Folgendes wurde besprochen: <ul><li>Zuweisung der Storyboards auf use case Diagr
 
 ***
 
-### Meeting 4 - 06.04.2020
+### Meeting 4 - 13.04.2020
 Thema | Datum | Zeit | Anwesende
 :-----------:|:------------:|:------------:|:--------:
-Task 02 Final | Montag, 06.04.2020 | 17:00-19:00 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
+Task 02 Final | Montag, 13.04.2020 | 17:00-19:00 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
 
 Besprochene Punkte | Nächste Schritte
 ---------|----------
