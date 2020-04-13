@@ -1,4 +1,23 @@
 # User Requirements
+Im Use-Case-Daigram wurden allen Use-Cases aus Task 01 abgebildet und unten in Verbindung mit Ihren Aktoren gesetzt.
+Wichtig für uns ist die Umsetzung der im Diagram abgebildeten Use-Cases.
+Es ist durchaus denkbar, dass im Verlauf der Enticklung des PMS noch Abhängigkeiten von bestimmten Use-Cases angepasst werden müssen.
+## Auflistung Use-Cases 
+
+Nr. | Use-Case
+-----|-------
+01 | Neuen Termin erfassen
+02 | Informationsseite
+03 | Stimmung erfassen
+04 | Neuen Patienten im System registrieren
+05 | Therapeut bestätigt Patiententermin
+06 | Therapeut fügt neues Medikament für den Patienten hinzu
+07 | Eintrag ins Tätigkeitsbuch
+08 | Erinnerung an die Medikamenteneinnahme
+09 | Im Notfall einen Therapeuten anrufen
+10 | Notruf wählen
+11 | Chatfunktion mit Fachperson
+
 
 ![UseCases](resources/04_user_requirements_definition.jpg "Use Cases")
 
