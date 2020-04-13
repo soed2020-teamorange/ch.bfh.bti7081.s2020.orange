@@ -49,7 +49,11 @@ Thema | Datum | Zeit | Anwesende
 Task 02 Final | Montag, 13.04.2020 | 17:00-19:00 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
 
 Besprochene Punkte | Nächste Schritte
----------|----------
-
+---------|----------<li>
+| Adrian | Introduction: System functions ,Aktivitätsdiagram                                                                                                |
+|--------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| Fabian | Funktionale Anforderungen (siehe Team Red and Yellow) ,Technologien bestimmen, DB, GUI, etc. ,Schnittstellen zu anderen Datenbanken und Systemen |
+| Oli    | Use-Case Diagram beschreiben ,Nummerierung von Task1 übernehmen                                                                                  |
+| Jonas  | Aktivitätsdiagram ,Formattierung -> Word/PDF      
 
 ***
