@@ -48,7 +48,9 @@ Thema | Datum | Zeit | Anwesende
 :-----------:|:------------:|:------------:|:--------:
 Task 02 Final | Montag, 13.04.2020 | 17:00-19:00 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
 
-Besprochene Punkte | Nächste Schritte
+Besprochen wurden alle bereits erledigten Sachen und die ToDos verteilt:
+
+Nächste Schritte
 ---------|----------<li>
 | Adrian | Introduction: System functions ,Aktivitätsdiagram                                                                                                |
 |--------|--------------------------------------------------------------------------------------------------------------------------------------------------|
