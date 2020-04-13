@@ -1,7 +1,7 @@
 <!-- Bitte Unterkapitel mit ### fortführen damit das Dokument nach dem Merge dann bereits sauber gegliedert ist -->
 ## System models
 
-![System models](07_system_models.jpg "System models")
+![System models](resources/07_system_models.jpg "System models")
 
 Das Datenflow-Diagramm zeigt aus der Sicht eines Patienten, wie die Daten im System verarbeitet werden.
 

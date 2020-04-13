@@ -1,7 +1,7 @@
 <!-- Bitte Unterkapitel mit ### fortführen damit das Dokument nach dem Merge dann bereits sauber gegliedert ist -->
 ## System architecture
 
-![Systemarchitektur](05_system_architecture.jpg "Systemarchitektur")
+![Systemarchitektur](resources/05_system_architecture.jpg "Systemarchitektur")
 
 Die Endversion dieser Applikation wird eine Webapplikation sein, welche über Laptops, Computer und Smartphones über einen modernen Browser abrufbar ist. Damit die Applikation überall identisch ist und die gleichen Funktionen bietet, wird ein responsive Design erstellt.
 
