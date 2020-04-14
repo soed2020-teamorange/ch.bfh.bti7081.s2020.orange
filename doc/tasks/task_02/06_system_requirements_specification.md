@@ -46,4 +46,4 @@ Nr. | Art | Beschreibung
 12 | Verfügbarkeit | Die Applikation soll unterbruchsfrei durchgehend verfügbar sein.
 13 | Verfügbarkeit | Die Applikation soll mit den gängisten und neusten Webbrowser (Evergreen browsers) ausführbar sein.
 14 | Performance | Die Applikation soll in Seiten und Daten performant und ohne Wartezeit laden. Das bedeutet, dass keine Wartezeit von mehr als 3 Sekunden auftritt.
-15 | Rechtliches | Das System hält sich an die 2 Gesetztestexte<ul><li>Data Protection Act that governs the confidentiality of personal information.</li><li>Mental Health Act that governs the compulsory detention of patients deemed to be a danger to themselves or others.</li></ul>
+15 | Rechtliches | Das System hält sich an die 2 Gesetztestexte<ul><li>Data Protection Act that governs the confidentiality of personal information.</li><li>Mental Health Act that governs the compulsory detention of patients deemed to be a danger to themselves or others.</li><li>Vorschriften swissmedic</li></ul>
