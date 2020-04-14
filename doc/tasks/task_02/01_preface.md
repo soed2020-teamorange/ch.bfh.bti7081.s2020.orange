@@ -23,3 +23,4 @@ Dieses Dokument ist für Kunden, Manager & Ingenieure, welche in diesem Projekt 
 |0.4|Jonas Herzog|Kapitel: System architecture|10.04.2020|
 |0.5|Jonas Herzog|Kapitel: System models  & System requirements specification, Glossar & Rechtschreibefehler|11.04.2020|
 |0.6|Adrian Berger|Entwurf: Kapitel Preface & Introduction|13.04.2020|
+|0.7|Fabian Küng|Kapitel: System requirements & System architecture|14.04.2020|
