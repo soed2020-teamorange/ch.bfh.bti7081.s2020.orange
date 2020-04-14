@@ -40,10 +40,11 @@ Nr. | Art | Beschreibung
 06 | Benutzerfreundlichkeit | Nebst IT-affinen Personen sollen auch unerfahrene Benutzer die Applikation einfach bedienen können.
 07 | Benutzerfreundlichkeit | Die App ist für das Handy sowie Laptop, Tablet, etc. implementiert (responsive Design)
 08 | Benutzerfreundlichkeit | Eingabefelder sollen validiert werden und dem Benutzer entsprechend gekennzeichnet werden
-09 | Entwicklung | Es gibt eine Möglichkeit, dem Benutzer Push-Benachrichtigungen zu schicken. 
-10 | Entwicklung | Grössere Änderungen am Programmcode müssen von einer zweiten Person angesehen und freigegeben werden.
-11 | Entwicklung | Sourcecode sowie Dokumentation wird in die Versionsverwaltung eingecheckt. 
-12 | Verfügbarkeit | Die Applikation soll unterbruchsfrei durchgehend verfügbar sein.
-13 | Verfügbarkeit | Die Applikation soll mit den gängisten und neusten Webbrowser (Evergreen browsers) ausführbar sein.
-14 | Performance | Die Applikation soll in Seiten und Daten performant und ohne Wartezeit laden. Das bedeutet, dass keine Wartezeit von mehr als 3 Sekunden auftritt.
-15 | Rechtliches | Das System hält sich an die 2 Gesetztestexte<ul><li>Data Protection Act that governs the confidentiality of personal information.</li><li>Mental Health Act that governs the compulsory detention of patients deemed to be a danger to themselves or others.</li><li>Vorschriften swissmedic</li></ul>
+09 | Benutzerfreundlichkeit | Barrierefreiheit, für Menschen mit Behinderung, muss gegeben sein
+10 | Entwicklung | Es gibt eine Möglichkeit, dem Benutzer Push-Benachrichtigungen zu schicken. 
+11 | Entwicklung | Grössere Änderungen am Programmcode müssen von einer zweiten Person angesehen und freigegeben werden.
+12 | Entwicklung | Sourcecode sowie Dokumentation wird in die Versionsverwaltung eingecheckt. 
+13 | Verfügbarkeit | Die Applikation soll unterbruchsfrei durchgehend verfügbar sein.
+14 | Verfügbarkeit | Die Applikation soll mit den gängisten und neusten Webbrowser (Evergreen browsers) ausführbar sein.
+15 | Performance | Die Applikation soll in Seiten und Daten performant und ohne Wartezeit laden. Das bedeutet, dass keine Wartezeit von mehr als 3 Sekunden auftritt.
+16 | Rechtliches | Das System hält sich an die 2 Gesetztestexte<ul><li>Data Protection Act that governs the confidentiality of personal information.</li><li>Mental Health Act that governs the compulsory detention of patients deemed to be a danger to themselves or others.</li><li>Vorschriften swissmedic</li></ul>
