@@ -5,7 +5,7 @@ Eine regionale Gesundheitsbehörde ist auf der Suche nach einem Patientenmanagem
 * Das Vereinfachen der Behandlung von Patienten durch die medizinischen Angestellten (Ärzte und Gesundheitsbesucher) mithilfe von wichtigen Informationen
 * Das Unterstützen von Patienten und deren Angehörigen im Umgang mit der Krankheit
 
-Das hier beschriebene System legt den primären Fokus auf den *(ambulaten) Patienten*, welcher an einer *Depression* leidet.  
+Das hier beschriebene System legt den primären Fokus auf den *(ambulanten) Patienten*, welcher an einer *Depression* leidet.  
 Zusätzlich soll es aber auch für Ärzte nutzbar sein, welche über das System eine 1-n Beziehung zu den Patienten haben sollen.  
 Für die Patienten untereinander gibt es keine spezifischen Funktionalitäten.
 

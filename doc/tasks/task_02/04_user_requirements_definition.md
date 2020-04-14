@@ -1,7 +1,7 @@
 # User Requirements
-Im Use-Case-Daigram wurden allen Use-Cases aus Task 01 abgebildet und unten in Verbindung mit Ihren Aktoren gesetzt.
-Wichtig für uns ist die Umsetzung der im Diagram abgebildeten Use-Cases.
-Es ist durchaus denkbar, dass im Verlauf der Enticklung des PMS noch Abhängigkeiten von bestimmten Use-Cases angepasst werden müssen.
+Im Use-Case-Diagramm wurden allen Use-Cases aus Task 01 abgebildet und unten in Verbindung mit Ihren Aktoren gesetzt.
+Wichtig für uns ist die Umsetzung der im Diagramm abgebildeten Use-Cases.
+Es ist durchaus denkbar, dass im Verlauf der Entwicklung des PMS noch Abhängigkeiten von bestimmten Use-Cases angepasst werden müssen.
 ## Auflistung Use-Cases 
 
 Nr. | Use-Case
@@ -29,7 +29,7 @@ Was | Text
 -----|--------
 Nr. und Name | 03 Stimmung erfassen
 Szenario | Der Patient muss jeden Tag seine Stimmung im PMS erfassen.
-Kurzbeschreibung | Am Abend öffnet der Patient das PMS und trägt im heutigen Tag ein wie er seine Stimmung wargenommen hat und schreibt vielleicht noch einen Kommentar.
+Kurzbeschreibung | Am Abend öffnet der Patient das PMS und trägt im heutigen Tag ein wie er seine Stimmung wahrgenommen hat und schreibt vielleicht noch einen Kommentar.
 Beteiligte Akteure | Patient (Therapeut schaut sich das Tagebuch anschliessend an)
 Auslöser/Vorbedingung | Patient ist vom Therapeut aufgefordert seine Stimmung täglich zu erfassen um den Fortschritt zu tracken.
 Ergebnisse/Nachbedingung | Der Therapeut erhält eine Übersicht über den Verlauf der Stimmung des Patienten während der Behandlungsdauer.
@@ -39,8 +39,8 @@ Ergebnisse/Nachbedingung | Der Therapeut erhält eine Übersicht über den Verla
 Nr. | Wer | Was
 -----|--------|--------
 01 | Patient | Öffnet das PMS um seinen täglichen Eintrag über seine Stimmung zu machen.
-02 | Patient | Beschreibt seine Stimmung anhand von verscheidenen Smileys und fügt optional noch einen Kommentar hinzu.
-03 | Patient & Therapeut | Sehen den Verlauf der Stimmung des Patienten über den Behandlungszeitraum
+02 | Patient | Beschreibt seine Stimmung anhand von verschiedenen Smileys und fügt optional noch einen Kommentar hinzu.
+03 | Patient & Therapeut | Sehen den Verlauf der Stimmung des Patienten über den Behandlungszeitraum.
 
 ![Aktivitätsdiagramm](resources/04_user_requirements_activitydiagram_2.jpg "Aktivitätsdiagramm")
 
@@ -69,12 +69,12 @@ Ergebnisse/Nachbedingung | Der Patient ist beruhigt und weiss was er tun muss. D
 
 Nr. | Wer | Was
 -----|--------|--------
-01 | Patient | Ist Unsicher über die Wirkungen eines Medikaments
-02 | Patient | Öffnet den Chat mit dem Therapeuten im PMS
-03 | Patient | Schreibt dem Therapeuten sein Anliegen
+01 | Patient | Ist Unsicher über die Wirkungen eines Medikaments.
+02 | Patient | Öffnet den Chat mit dem Therapeuten im PMS.
+03 | Patient | Schreibt dem Therapeuten sein Anliegen.
 04 | Therapeut | Erhält eine Benachrichtigung im PMS, dass eine neue Nachricht von Patient vorliegt.
-05 | Therapeut & Patient | Konversation im PMS
-06 | Therapeut und Patient| Sind informiert über die gegenseitige Lage
+05 | Therapeut & Patient | Konversation im PMS.
+06 | Therapeut & Patient| Sind informiert über die gegenseitige Lage.
 
 ![Aktivitätsdiagramm](resources/04_user_requirements_activitydiagram_1.jpg "Aktivitätsdiagramm")
 
@@ -82,8 +82,8 @@ Nr. | Wer | Was
 
 Nr. | Wer | Was
 -----|--------|--------
-01 | Therapeut | Die Anfrage des Patienten ist kompliziert und daher ruft ihn der Therapeut direkt an
+01 | Therapeut | Die Anfrage des Patienten ist kompliziert und daher ruft ihn der Therapeut direkt an.
 02 | Patient | Der Therapeut antwortet nicht sofort und daher ruft er den Therapeuten direkt an.
-03 | Patient | Die Antowrten im Chat reichen ihm nicht aus und er vereinbart einen Termin mit dem Therapeuten
+03 | Patient | Die Antowrten im Chat reichen ihm nicht aus und er vereinbart einen Termin mit dem Therapeuten.
 
 ***
