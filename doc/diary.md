@@ -50,6 +50,17 @@ Task 02 Final | Montag, 13.04.2020 | 17:00-19:00 Uhr | <ul><li>Adrian Berger</li
 
 Besprochene Punkte | Nächste Schritte
 ---------|----------
+Besprochen wurden alle bereits erledigten Sachen und die ToDos verteilt. | <ul><li>Adrian<ul>Introduction: System functions, Aktivitätsdiagram</ul></li><li>Fabian<ul>Funktionale Anforderungen, Technologien bestimmen, DB, GUI, etc. , Schnittstellen zu anderen Datenbanken und Systemen</ul></li><li>Oli<ul>Use-Case Diagram beschreiben, Nummerierung von Task 1 übernehmen</ul></li><li>Jonas<ul>Aktivitätsdiagram, Formattierung -> Word/PDF</ul></li></ul>
 
+***
+
+### Meeting 5 - 14.04.2020
+Thema | Datum | Zeit | Anwesende
+:-----------:|:------------:|:------------:|:--------:
+Task 03 | Dienstag, 14.04.2020 | 21:00-21:30 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
+
+Besprochene Punkte | Nächste Schritte
+---------|----------
+Vorgehen für Requirements Review | Jeder reviewed die Abschnitte, die er selber auch erarbeitet hat.
 
 ***

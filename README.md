@@ -9,5 +9,7 @@
 	* [Presentation](https://github.com/soed2020-teamorange/ch.bfi.bti7081.s2020.orange/blob/master/doc/tasks/task_01/07_presentation/task01.pdf)
 
 * Task 02
-	* [Documents](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/tree/master/doc/tasks/task_02)
-	* [Presentation]()
+	* [Requirements Specification](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/tree/master/doc/tasks/task_02/requirements_specification_team_orange.pdf)
+	
+* Task 03
+	* [Requirements Review for Team Red](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/tree/master/doc/tasks/task_03/requirements_review_team_orange_for_team_red.pdf)
