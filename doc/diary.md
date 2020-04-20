@@ -64,3 +64,16 @@ Besprochene Punkte | Nächste Schritte
 Vorgehen für Requirements Review | Jeder reviewed die Abschnitte, die er selber auch erarbeitet hat.
 
 ***
+
+### Meeting 6 - 20.04.2020
+Thema | Datum | Zeit | Anwesende
+:-----------:|:------------:|:------------:|:--------:
+Task 04 | Montag, 20.04.2020 | 21:00-21:30 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
+
+Besprochene Punkte | Nächste Schritte
+---------|----------
+UML Domain Model | Als UML Domain Model macht jeder einzelne ein Draft Version, welche dann am 24.04.2020 von 15:00 - 17:00 Uhr besprochen und zu einem einzigen UML Domain Model zusammengeführt wird.|
+UML Sequenzdiagramm | Als UML Sequenzdiagramm verwenden wir den Use Case 11 "Chatfunktion mit Fachperson".|
+UML Class Model | Das UML Class Model basiert auf dem gemeinsam erarbeiteten UML Domain Model. Das Vorgehen hier wird am nächsten Termin besprochen.|
+
+***
