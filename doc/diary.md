@@ -77,3 +77,15 @@ UML Sequenzdiagramm | Als UML Sequenzdiagramm verwenden wir den Use Case 11 "Cha
 UML Class Model | Das UML Class Model basiert auf dem gemeinsam erarbeiteten UML Domain Model. Das Vorgehen hier wird am nächsten Termin besprochen.|
 
 ***
+
+### Meeting 7 - 24.04.2020
+Thema | Datum | Zeit | Anwesende
+:-----------:|:------------:|:------------:|:--------:
+Task 04 | Freitag, 24.04.2020 | 15:00-16:30 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
+
+Besprochene Punkte | Nächste Schritte
+---------|----------
+UML Domain Model | Alle Vorschläge besprochen und zu einem einzigen Domain Model zusammengefügt. |
+UML Sequenzdiagramm | Gemeinsam Sequenzdiagramm für Use Case 11 "Chatfunktion mit Fachperson" erstellt. |
+
+***
