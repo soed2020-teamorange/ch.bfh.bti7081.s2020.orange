@@ -87,5 +87,6 @@ Besprochene Punkte | Nächste Schritte
 ---------|----------
 UML Domain Model | Alle Vorschläge besprochen und zu einem einzigen Domain Model zusammengefügt. |
 UML Sequenzdiagramm | Gemeinsam Sequenzdiagramm für Use Case 11 "Chatfunktion mit Fachperson" erstellt. |
+UML Class Model | Erste Version des Klassendiagramms erarbeitet.|
 
 ***
