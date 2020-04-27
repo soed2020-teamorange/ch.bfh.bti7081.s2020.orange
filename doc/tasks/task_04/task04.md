@@ -4,7 +4,7 @@
 
 ## Sequenzdiagramm
 
-![Domain model](02_sequenceDiagram/sequenceDiagram.png "Sequenzdiagramm")
+![Sequenzdiagramm](02_sequenceDiagram/sequenceDiagram.png "Sequenzdiagramm")
 
 ## Klassendiagramm
 
