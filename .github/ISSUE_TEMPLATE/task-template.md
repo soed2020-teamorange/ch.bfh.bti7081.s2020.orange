@@ -7,22 +7,22 @@ assignees: ''
 
 ---
 
-# Description
-Description of the task
+# Beschreibung
+Beschreibung des Tasks
 
 AK1: ...
 
 AK2: ...
 
-# Effort
+# Aufwand
 
-Estimated effort: 
+Geschätzter Aufwand: 
 
-Current effort:
+Aktueller Aufwand:
 
-Updated effort:
+Aktualisierter Aufwand:
 
 # Sub Tasks
-*If relevant, you can make a checklist for tasks.*
+*Checkliste von Subtasks.*
 
-1. - [ ] Link to subtask
+1. - [ ] Link zu subtask
