@@ -94,21 +94,29 @@ UML Class Model | Erste Version des Klassendiagramms erarbeitet.|
 ### Meeting 8 - 28.04.2020
 Thema | Datum | Zeit | Anwesende
 :-----------:|:------------:|:------------:|:--------:
-Sprint Framework & SCRUM in GitHub | Freitag, 28.04.2020 | 21:15-21:45 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li><li>Jürgen Vogel</li></ul>
-Projekt Setup | Freitag, 28.04.2020 | 21:15-21:45 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
-Task 05 | Freitag, 28.04.2020 | 21:15-21:45 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
-Task 06 | Freitag, 28.04.2020 | 21:15-21:45 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
+Sprint Framework & Scrum in GitHub, Projekt Setup, Task 5/6 | Dienstag, 28.04.2020 | 21:15-21:45 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li><li>Jürgen Vogel</li></ul>
 
 Besprochene Punkte | Nächste Schritte
 ---------|----------
-Sprint Framework & SCRUM in GitHub  | Verwendung von Spring Framework für Product Owner (J. Vogel) in Ordnung. Verwendung von GitHub Issues für Implementierung von SCRUM Methoden für Product Owner (J. Vogel) in Ordnung. Export der User Stories am Ende des Projektes notwendig. |
+Sprint Framework & Scrum in GitHub  | Verwendung von Spring Framework für Product Owner (J. Vogel) in Ordnung. Verwendung von GitHub Issues für Implementierung von Scrum Methoden für Product Owner (J. Vogel) in Ordnung. Export der User Stories am Ende des Projektes notwendig. |
 Projekt Setup | Wird durch Fabian Küng initial erstellt. |
-Varianten Vaadin | Jeder prüft die 2 Variante von Vaadin ([Bakery](https://vaadin.com/docs/v14/bakeryflow/overview.html) oder [Normal mit Plain Java](https://vaadin.com/docs/v8/framework/tutorial.html#framework.tutorial.form.java)) |
-UML component and deployment diagram | Werden durch Jonas Herzog & Adrian Berger erstellt |
-UML class diagram for main view of your application | View und Presenter Klassen zeichnen von Startseite der Applikation. Wird durch Fabian Küng erstellt. |
-product planning meeting | Wird am Freitag, 01.05.2020 ab 15:00 Uhr durchgeführt. |
-product backlog | Grobe Zusammenstellung wird durch Lorenz Sieber gemacht und ergibt sich aus [System requirements specification](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/blob/master/doc/tasks/task_02/06_system_requirements_specification.md). Wird am Meeting danach finalisiert und fertig geplant. |
-sprint planning meeting | Wird am Freitag, 01.05.2020 ab 15:00 Uhr durchgeführt. |
-sprint backlog | Ergibt sich am Meeting aus den Tasks des Product Backlog. |
+Varianten Vaadin | Jeder prüft die 2 Varianten von Vaadin ([Bakery](https://vaadin.com/docs/v14/bakeryflow/overview.html) oder [Normal mit Plain Java](https://vaadin.com/docs/v8/framework/tutorial.html#framework.tutorial.form.java)) |
+Komponenten- und Deploymentdiagramm | Werden durch Jonas Herzog & Adrian Berger erstellt |
+Klassendiagramm | View und Presenter Klassen zeichnen von Startseite der Applikation. Wird durch Fabian Küng erstellt. |
+Product planning meeting | Wird am Freitag, 01.05.2020 ab 15:00 Uhr durchgeführt. |
+Product backlog | Grobe Zusammenstellung wird durch Lorenz Sieber gemacht und ergibt sich aus [System requirements specification](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/blob/master/doc/tasks/task_02/06_system_requirements_specification.md). Wird am Meeting danach finalisiert und fertig geplant. |
+Sprint planning meeting | Wird am Freitag, 01.05.2020 ab 15:00 Uhr durchgeführt. |
+Sprint backlog | Ergibt sich am Meeting aus den Tasks des Product Backlog. |
+
+***
+
+### Meeting 9 - 01.05.2020
+Thema | Datum | Zeit | Anwesende
+:-----------:|:------------:|:------------:|:--------:
+Product/Sprint planning meeting | Freitag, 01.05.2020 | 15:00-17:00 Uhr | <ul><li>Adrian Berger</li><li>Oliver Kunz</li><li>Fabian Küng</li><li>Lorenz Sieber</li><li>Jonas Herzog</li></ul>
+
+Besprochene Punkte | Nächste Schritte
+---------|----------
+.. | ..
 
 ***
