@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2020.orange;
+package ch.bfh.bti7081.s2020.orange.backend.services;
 
 import java.io.Serializable;
 
