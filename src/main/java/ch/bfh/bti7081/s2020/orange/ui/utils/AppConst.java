@@ -4,12 +4,14 @@ import java.util.Locale;
 
 public class AppConst {
 
-  public static final Locale APP_LOCALE = Locale.US;
+  public static final Locale APP_LOCALE = Locale.GERMAN;
 
   public static final String PAGE_ROOT = "";
   public static final String PAGE_HOME = "home";
+  public static final String PAGE_LOGIN = "login";
 
   public static final String TITLE_HOME = "Home";
+  public static final String TITLE_LOGIN = "Login";
   public static final String TITLE_NOT_FOUND = "Page was not found";
   public static final String TITLE_ACCESS_DENIED = "Access denied";
 

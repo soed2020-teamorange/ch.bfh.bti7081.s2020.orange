@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Viewport(VIEWPORT)
-@PWA(name = "Team Orange - Projekt MHC-PMS", shortName = "MHC-PMS Orange")
+@PWA(name = "Team Orange - Projekt MHC-PMS", shortName = "MHC-PMS Orange", startPath = "login")
 public class MainView extends AppLayout {
 
   private final Tabs menu;
