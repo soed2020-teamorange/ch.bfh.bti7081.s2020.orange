@@ -40,9 +40,9 @@ Es sind drei Sprints geplant:
 
 | Sprint | Enddatum |
 | ------ | -------- |
-| Sprint 1 | 18.05.2020 |
-| Sprint 2 | 01.06.2020 |
-| Sprint 3 | 15.06.2020 |
+| Sprint 1 | 12.05.2020 |
+| Sprint 2 | 26.05.2020 |
+| Sprint 3 | 09.06.2020 |
 
 Jeder Sprint ist als Meilenstein erfasst. Sobald entschieden wird, dass ein Issue in einem Sprint bearbeitet wird, wird der Issue dem entsprechenden Meilenstein/Sprint zugeordnet. So kann auch das Kanbanboard entsprechend gefiltert werden.
 
