@@ -27,8 +27,10 @@
 								"$ref": "AAAAAAFF+qBtyKM79qY="
 							},
 							"font": "Arial;13;0",
-							"width": 1424,
-							"height": 552
+							"left": 16,
+							"top": 88,
+							"width": 1345,
+							"height": 345
 						},
 						{
 							"_type": "UMLNodeInstanceView",
@@ -1760,6 +1762,19 @@
 							"propertyLabel": {
 								"$ref": "AAAAAAFx4CCcWHFFDwE="
 							}
+						},
+						{
+							"_type": "UMLTextView",
+							"_id": "AAAAAAFx4COY58vX8UU=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"font": "Arial;20;0",
+							"left": 24,
+							"top": 96,
+							"width": 257,
+							"height": 38,
+							"text": "Deployment Diagramm"
 						}
 					]
 				},

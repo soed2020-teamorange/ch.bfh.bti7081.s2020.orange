@@ -18,7 +18,7 @@
 	* [DM/SQD/KD](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/tree/master/doc/tasks/task_04/task04.pdf)
 	
 * Task 05
-	* [Architecture](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/tree/master/doc/tasks/task_05/task05.md)
+	* [KP/DP/KL](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/tree/master/doc/tasks/task_05/task05.pdf)
 	
 * Task 06
 	* [Backlogs](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/blob/master/doc/tasks/task_06/documentation.md)
