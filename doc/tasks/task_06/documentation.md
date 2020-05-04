@@ -13,6 +13,14 @@ In Absprache mit J. Vogel verwenden wir GitHub Issues um unsere Tickets zu verwa
 * [Alle Userstories](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/labels/story)
 * [Alle Implementationstasks](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/labels/task)
 
+## Product backlog
+
+* [Product backlog](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/projects/3)
+
+## Sprint 1 Backlog
+
+* [Sprint 1 backlog](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/projects/4)
+
 ## Labels
 Um die Issues besser klassifizieren zu können, haben wir mehrere labels erstellt. Diese können jedem Issue hinzugefügt werden um sie besser einzuordnen:
 
@@ -33,6 +41,7 @@ Um die Issues besser klassifizieren zu können, haben wir mehrere labels erstell
 | high priority | Dieser Isssue hat eine hohe Priorität |
 | medium priority | Dieser Issue hat eine mittlere Priorität |
 | low priority | Dieser Issue hat eine tiefe Priorität |
+
 
 ## Sprints
 Es sind drei Sprints geplant:
