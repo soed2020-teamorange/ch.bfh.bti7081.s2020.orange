@@ -21,6 +21,18 @@
 					"defaultDiagram": true,
 					"ownedViews": [
 						{
+							"_type": "RectangleView",
+							"_id": "AAAAAAFx3r2XpR4gg3c=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"font": "Arial;13;0",
+							"left": 56,
+							"top": 400,
+							"width": 689,
+							"height": 705
+						},
+						{
 							"_type": "UMLClassView",
 							"_id": "AAAAAAFx24PZHoo0V8E=",
 							"_parent": {
@@ -2785,6 +2797,19 @@
 							},
 							"lineStyle": 1,
 							"points": "378:890;377:927"
+						},
+						{
+							"_type": "UMLTextView",
+							"_id": "AAAAAAFx3r5Pth51Twg=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"font": "Arial;20;0",
+							"left": 64,
+							"top": 408,
+							"width": 321,
+							"height": 51,
+							"text": "Klassendiagramm für MainView"
 						}
 					]
 				},
@@ -2841,6 +2866,7 @@
 							},
 							"name": "PAGE_ROOT",
 							"isStatic": true,
+							"type": "",
 							"defaultValue": "\"\""
 						},
 						{
@@ -3008,7 +3034,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFx25xCSJ2dGyM="
 									},
-									"name": "icon VaadinIcon"
+									"name": "icon VaadinIcon",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -3016,7 +3043,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFx25xCSJ2dGyM="
 									},
-									"name": "name String"
+									"name": "name String",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -3024,7 +3052,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFx25xCSJ2dGyM="
 									},
-									"name": "clazz Class"
+									"name": "clazz Class",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -3052,7 +3081,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFx254YY55aF9o="
 									},
-									"name": "comp Component"
+									"name": "comp Component",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -3080,7 +3110,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFx255YfJ6c1Vc="
 									},
-									"name": "type T"
+									"name": "type T",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -3088,7 +3119,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFx255YfJ6c1Vc="
 									},
-									"name": "icon VaadinIcon"
+									"name": "icon VaadinIcon",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -3096,7 +3128,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFx255YfJ6c1Vc="
 									},
-									"name": "name String"
+									"name": "name String",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -3149,7 +3182,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFx25/J0qA0bQ0="
 									},
-									"name": "args String[]"
+									"name": "args String[]",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",

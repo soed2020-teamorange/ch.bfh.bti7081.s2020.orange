@@ -117,6 +117,8 @@ Product/Sprint planning meeting | Freitag, 01.05.2020 | 15:00-17:00 Uhr | <ul><l
 
 Besprochene Punkte | Nächste Schritte
 ---------|----------
-.. | ..
+Gemeinsam Stories, Tasks, Labels angeschaut und angepasst. |
+Product backlog erstellt. |
+Sprint backlog erstellt. |
 
 ***
