@@ -21,5 +21,5 @@
 	* [KP/DP/KL](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/tree/master/doc/tasks/task_05/task05.pdf)
 	
 * Task 06
-	* [Backlogs](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/blob/master/doc/tasks/task_06/documentation.md)
+	* [Scrum Setup](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/blob/master/doc/tasks/task_06/documentation.md)
 	
