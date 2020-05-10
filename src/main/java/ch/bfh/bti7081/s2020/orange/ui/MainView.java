@@ -3,7 +3,7 @@ package ch.bfh.bti7081.s2020.orange.ui;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_HOME;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.VIEWPORT;
 
-import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeView;
+import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -67,7 +67,7 @@ public class MainView extends AppLayout {
   private static Tab[] getAvailableTabs() {
     final List<Tab> tabs = new ArrayList<>();
 
-    tabs.add(createTab(VaadinIcon.HOME, TITLE_HOME, HomeView.class));
+    tabs.add(createTab(VaadinIcon.HOME, TITLE_HOME, HomeViewRoute.class));
 
     return tabs.toArray(new Tab[tabs.size()]);
   }
