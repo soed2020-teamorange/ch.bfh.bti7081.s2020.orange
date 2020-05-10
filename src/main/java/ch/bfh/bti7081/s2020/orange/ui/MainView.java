@@ -1,63 +1,92 @@
 package ch.bfh.bti7081.s2020.orange.ui;
 
-import ch.bfh.bti7081.s2020.orange.backend.services.GreetService;
-import com.vaadin.flow.component.Key;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.dependency.CssImport;
-import com.vaadin.flow.component.notification.Notification;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.Route;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_HOME;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.VIEWPORT;
+
+import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeView;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasComponents;
+import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.page.Viewport;
+import com.vaadin.flow.component.tabs.Tab;
+import com.vaadin.flow.component.tabs.TabVariant;
+import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.router.RouteConfiguration;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-/**
- * A sample Vaadin view class.
- * <p>
- * To implement a Vaadin view just extend any Vaadin component and use @Route annotation to announce
- * it in a URL as a Spring managed bean. Use the @PWA annotation make the application installable on
- * phones, tablets and some desktop browsers.
- * <p>
- * A new instance of this class is created for every new user and every browser tab/window.
- */
-@Route
-@PWA(name = "Team Orange - Projekt MHC-PMS",
-    shortName = "MHC-PMS Orange",
-    description = "Team Orange - Projekt MHC-PMS",
-    enableInstallPrompt = false)
-@CssImport("./styles/shared-styles.css")
-@CssImport(value = "./styles/vaadin-text-field-styles.css", themeFor = "vaadin-text-field")
-public class MainView extends VerticalLayout {
+@Viewport(VIEWPORT)
+@PWA(name = "Team Orange - Projekt MHC-PMS", shortName = "MHC-PMS Orange")
+public class MainView extends AppLayout {
 
-  /**
-   * Construct a new Vaadin view.
-   * <p>
-   * Build the initial UI state for the user accessing the application.
-   *
-   * @param service The message service. Automatically injected Spring managed bean.
-   */
-  public MainView(@Autowired GreetService service) {
+  private final Tabs menu;
 
-    // Use TextField for standard text input
-    TextField textField = new TextField("Your name");
+  public MainView() {
+    this.setDrawerOpened(false);
+    Span appName = new Span("Team Orange - Projekt MHC-PMS");
+    appName.addClassName("hide-on-mobile");
 
-    // Button click listeners can be defined as lambda expressions
-    Button button = new Button("Say hello",
-        e -> Notification.show(service.greet(textField.getValue())));
+    menu = createMenuTabs();
 
-    // Theme variants give you predefined extra styles for components.
-    // Example: Primary button is more prominent look.
-    button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+    this.addToNavbar(appName);
+    this.addToNavbar(true, menu);
 
-    // You can specify keyboard shortcuts for buttons.
-    // Example: Pressing enter in this view clicks the Button.
-    button.addClickShortcut(Key.ENTER);
+    getElement().addEventListener("search-focus", e -> {
+      getElement().getClassList().add("hide-navbar");
+    });
 
-    // Use custom CSS classes to apply styling. This is defined in shared-styles.css.
-    addClassName("centered-content");
-
-    add(textField, button);
+    getElement().addEventListener("search-blur", e -> {
+      getElement().getClassList().remove("hide-navbar");
+    });
   }
 
+  @Override
+  protected void afterNavigation() {
+    super.afterNavigation();
+
+    String target = RouteConfiguration.forSessionScope().getUrl(this.getContent().getClass());
+    Optional<Component> tabToSelect = menu.getChildren().filter(tab -> {
+      Component child = tab.getChildren().findFirst().get();
+      return child instanceof RouterLink && ((RouterLink) child).getHref().equals(target);
+    }).findFirst();
+    tabToSelect.ifPresent(tab -> menu.setSelectedTab((Tab) tab));
+  }
+
+  private static Tabs createMenuTabs() {
+    final Tabs tabs = new Tabs();
+    tabs.setOrientation(Tabs.Orientation.HORIZONTAL);
+    tabs.add(getAvailableTabs());
+    return tabs;
+  }
+
+  private static Tab[] getAvailableTabs() {
+    final List<Tab> tabs = new ArrayList<>();
+
+    tabs.add(createTab(VaadinIcon.HOME, TITLE_HOME, HomeView.class));
+
+    return tabs.toArray(new Tab[tabs.size()]);
+  }
+
+  private static Tab createTab(VaadinIcon icon, String title,
+      Class<? extends Component> viewClass) {
+    return createTab(populateLink(new RouterLink(null, viewClass), icon, title));
+  }
+
+  private static Tab createTab(Component content) {
+    final Tab tab = new Tab();
+    tab.addThemeVariants(TabVariant.LUMO_ICON_ON_TOP);
+    tab.add(content);
+    return tab;
+  }
+
+  private static <T extends HasComponents> T populateLink(T a, VaadinIcon icon, String title) {
+    a.add(icon.create());
+    a.add(title);
+    return a;
+  }
 }
