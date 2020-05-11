@@ -3,6 +3,8 @@ package ch.bfh.bti7081.s2020.orange.ui;
 import ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos.EditUserInfosViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.registerPatient.RegisterPatientViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.viewMedicalSpecialist.ViewMedicalSpecialistViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.viewPatient.ViewPatientViewRoute;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -74,8 +76,7 @@ public class MainView extends AppLayout {
         tabs.add(createTab(VaadinIcon.PENCIL, TITLE_REGISTERPATIENT, RegisterPatientViewRoute.class));
         tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_EDITUSERINFOS, EditUserInfosViewRoute.class));
         tabs.add(createTab(VaadinIcon.PENCIL, TITLE_VIEWPATIENT, ViewPatientViewRoute.class));
-        tabs.add(createTab(VaadinIcon.PENCIL, TITLE_VIEWMEDICALSPECIALIST,
-                ViewMedicalSpecialistViewRoute.class));
+        tabs.add(createTab(VaadinIcon.PENCIL, TITLE_VIEWMEDICALSPECIALIST, ViewMedicalSpecialistViewRoute.class));
 
         return tabs.toArray(new Tab[tabs.size()]);
     }
