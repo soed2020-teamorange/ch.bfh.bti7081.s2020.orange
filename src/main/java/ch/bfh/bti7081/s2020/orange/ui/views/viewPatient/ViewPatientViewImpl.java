@@ -1,13 +1,13 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.viewPatient;
 
-import ch.bfh.bti7081.s2020.orange.backend.model.Patient;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ViewPatientViewImpl extends VerticalLayout implements
     ViewPatientView,
     HasLogger {
@@ -25,9 +25,6 @@ public class ViewPatientViewImpl extends VerticalLayout implements
 
     add(firstName);
     add(lastName);
-
-    List<Patient> l = observer.getAllPatients();
-    l.forEach(p -> getLogger().info(l.toString()));
   }
 
   @Override
