@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2020.orange.backend.services;
+package ch.bfh.bti7081.s2020.orange.backend.service;
 
 import org.springframework.stereotype.Service;
 

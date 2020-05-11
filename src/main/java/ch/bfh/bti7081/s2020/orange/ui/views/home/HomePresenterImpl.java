@@ -1,6 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.home;
 
-import ch.bfh.bti7081.s2020.orange.backend.services.HomeService;
+import ch.bfh.bti7081.s2020.orange.backend.service.HomeService;
 import ch.bfh.bti7081.s2020.orange.ui.utils.View;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
