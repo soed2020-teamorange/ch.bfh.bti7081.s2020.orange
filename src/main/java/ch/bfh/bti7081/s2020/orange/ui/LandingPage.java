@@ -13,12 +13,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.component.textfield.TextField;
 
-/**
- * A Designer generated component for the landing-page-alt template.
- *
- * Designer will add and remove fields with @Id mappings but
- * does not overwrite or otherwise change this file.
- */
+
 @Tag("landing-page-alt")
 @JsModule("./src/main/java/ch/bfh/bti7081/s2020/orange/ui/landing-page.js")
 public class LandingPage extends PolymerTemplate<LandingPage.LandingPageAltModel> {
