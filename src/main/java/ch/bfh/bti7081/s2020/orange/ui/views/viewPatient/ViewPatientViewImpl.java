@@ -1,6 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.viewPatient;
 
-import ch.bfh.bti7081.s2020.orange.backend.model.Patient;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;

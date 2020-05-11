@@ -2,6 +2,8 @@ package ch.bfh.bti7081.s2020.orange.backend.data.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.Email;
@@ -14,11 +16,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
-@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class User extends AbstractEntity {
 
   @NotEmpty

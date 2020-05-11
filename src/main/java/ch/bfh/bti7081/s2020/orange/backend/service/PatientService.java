@@ -1,9 +1,10 @@
 package ch.bfh.bti7081.s2020.orange.backend.service;
 
-import ch.bfh.bti7081.s2020.orange.backend.model.Patient;
-import ch.bfh.bti7081.s2020.orange.backend.repository.PatientRepository;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
+import ch.bfh.bti7081.s2020.orange.backend.repositories.PatientRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,18 +12,15 @@ import org.springframework.stereotype.Service;
 public class PatientService {
 
   private final PatientRepository patientRepository;
+  private final PasswordEncoder passwordEncoder;
 
-  public Patient createPatient(String firstName, String lastName) {
-    Patient patient = new Patient(firstName, lastName);
+  public Patient createPatient(String email, String password, String firstName,
+      String lastName) {
+    Patient patient = new Patient(email, passwordEncoder.encode(password), firstName, lastName);
 
     this.patientRepository.save(patient);
 
     return patient;
-  }
-
-  public Patient createPatient(Patient patient) {
-
-    return this.patientRepository.save(patient);
   }
 
   public Patient getPatient(long id) {
@@ -32,11 +30,11 @@ public class PatientService {
 
   public List<Patient> getAllPatients() {
 
-    return (List<Patient>) this.patientRepository.findAll();
+    return this.patientRepository.findAll();
   }
 
   public Patient getPatientByLastName(String lastName) {
-    return this.patientRepository.findByLastName(lastName);
+    return (Patient) this.patientRepository.findByLastName(lastName);
   }
 
   public void deletePatient(long id) {
