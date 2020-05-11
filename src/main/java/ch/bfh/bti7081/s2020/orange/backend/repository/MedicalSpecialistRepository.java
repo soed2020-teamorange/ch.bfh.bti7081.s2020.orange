@@ -6,4 +6,5 @@ import javax.transaction.Transactional;
 @Transactional
 public interface MedicalSpecialistRepository extends PersonBaseRepository<MedicalSpecialist> {
 
+  MedicalSpecialist findByLastName(String lastName);
 }

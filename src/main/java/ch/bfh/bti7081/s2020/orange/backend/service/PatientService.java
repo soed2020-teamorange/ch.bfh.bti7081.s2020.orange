@@ -29,6 +29,10 @@ public class PatientService {
     return this.patientRepository.findById(id).get();
   }
 
+  public Patient getPatientByLastName(String lastName) {
+    return this.patientRepository.findByLastName(lastName);
+  }
+
   public void deletePatient(long id) {
     this.patientRepository.deleteById(id);
   }
