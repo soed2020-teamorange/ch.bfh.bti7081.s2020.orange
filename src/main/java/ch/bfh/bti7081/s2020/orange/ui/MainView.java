@@ -14,6 +14,7 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.spring.annotation.VaadinSessionScope;
 
 import java.util.ArrayList;
 import java.util.List;

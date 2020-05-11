@@ -5,10 +5,12 @@ import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.validator.EmailValidator;
+import com.vaadin.flow.spring.annotation.VaadinSessionScope;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
@@ -28,9 +30,14 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
   @PostConstruct
   public void init() {
 
-    FormLayout registerPatientForm = new FormLayout();
+    Binder<Patient> binder = new Binder<>(Patient.class);
 
-    emailField.setErrorMessage("Bitte eine korrekte E-Mailadresse angeben.");
+    binder.forField(emailField)
+            .asRequired()
+            .withValidator(new EmailValidator(
+            "Bitte eine korrekte E-Mailadresse angeben."));
+
+    FormLayout registerPatientForm = new FormLayout();
 
     TextField birthdate = new TextField("Geburtsdatum", "01.01.1970");
 
@@ -41,9 +48,7 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
 
     registerPatientForm.setResponsiveSteps(
         new FormLayout.ResponsiveStep("25em", 1),
-        new FormLayout.ResponsiveStep("32em", 1),
-        new FormLayout.ResponsiveStep("40em", 2),
-        new FormLayout.ResponsiveStep("40em", 3));
+        new FormLayout.ResponsiveStep("32em", 2));
 
     add(registerPatientForm);
 
