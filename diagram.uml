@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="437.0" y="80.0">com.vaadin.flow.component.polymertemplate</node>
+    <node x="274.5" y="453.0">ch.bfh.bti7081.s2020.orange.Application</node>
+    <node x="504.25" y="0.0">com.vaadin.flow.templatemodel</node>
+    <node x="528.25" y="264.0">ch.bfh.bti7081.s2020.orange.ui.views.home.HomeView.HomeViewModel</node>
+    <node x="486.5" y="160.0">ch.bfh.bti7081.s2020.orange.ui.views.home.HomeView</node>
+    <node x="112.0" y="0.0">com.vaadin.flow.component.applayout</node>
+    <node x="0.0" y="373.0">ch.bfh.bti7081.s2020.orange.ui.utils.AppConst</node>
+    <node x="0.0" y="80.0">ch.bfh.bti7081.s2020.orange.ui.MainView</node>
+    <node x="248.0" y="373.0">org.springframework.boot.autoconfigure</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ch.bfh.bti7081.s2020.orange.ui.views.home.HomeView.HomeViewModel" target="com.vaadin.flow.templatemodel">
+      <point x="38.0" y="-15.0" />
+      <point x="642.25" y="239.0" />
+      <point x="663.5" y="239.0" />
+      <point x="663.5" y="55.0" />
+      <point x="654.25" y="55.0" />
+      <point x="50.0" y="15.0" />
+    </edge>
+    <edge source="ch.bfh.bti7081.s2020.orange.ui.views.home.HomeView.HomeViewModel" target="ch.bfh.bti7081.s2020.orange.ui.views.home.HomeView">
+      <point x="-38.0" y="-15.0" />
+      <point x="566.25" y="239.0" />
+      <point x="545.0" y="239.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="ch.bfh.bti7081.s2020.orange.ui.MainView" target="com.vaadin.flow.component.applayout">
+      <point x="0.0" y="-124.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="ch.bfh.bti7081.s2020.orange.ui.views.home.HomeView" target="com.vaadin.flow.component.polymertemplate">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.vaadin.flow.component.polymertemplate" target="com.vaadin.flow.templatemodel">
+      <point x="0.0" y="-15.0" />
+      <point x="545.0" y="55.0" />
+      <point x="554.25" y="55.0" />
+      <point x="-50.0" y="15.0" />
+    </edge>
+    <edge source="ch.bfh.bti7081.s2020.orange.Application" target="org.springframework.boot.autoconfigure">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.6723270440251572" x="575.3401759530792" y="359.2039289055192" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

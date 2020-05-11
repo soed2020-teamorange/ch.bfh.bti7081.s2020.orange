@@ -10,13 +10,12 @@ import lombok.Data;
 public class MedicalSpecialist extends Person {
 
   private String jobTitle;
+
   @OneToMany
   private List<Patient> patients;
 
   public MedicalSpecialist() {
+    super("Vorname", "Nachname");
   }
 
-  public MedicalSpecialist(long id) {
-    this.setId(id);
-  }
 }
