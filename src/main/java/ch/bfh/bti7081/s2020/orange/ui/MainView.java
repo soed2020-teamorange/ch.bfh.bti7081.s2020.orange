@@ -26,7 +26,7 @@ import java.util.Optional;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.*;
 
 @Viewport(VIEWPORT)
-@PWA(name = "Team Orange - Projekt MHC-PMS", shortName = "MHC-PMS Orange")
+@PWA(name = "Team Orange - Projekt MHC-PMS", shortName = "MHC-PMS Orange", startPath = "login")
 public class MainView extends AppLayout {
 
     private final Tabs menu;

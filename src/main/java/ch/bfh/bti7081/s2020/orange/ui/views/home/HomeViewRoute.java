@@ -23,6 +23,7 @@ public class HomeViewRoute extends VerticalLayout implements BeforeEnterObserver
 
   @PostConstruct
   public void init() {
+    removeAll();
     add(this.getComponent(Component.class));
   }
 

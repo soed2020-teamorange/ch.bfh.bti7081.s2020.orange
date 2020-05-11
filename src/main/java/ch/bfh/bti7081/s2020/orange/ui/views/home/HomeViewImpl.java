@@ -5,10 +5,12 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.spring.annotation.UIScope;
 import javax.annotation.PostConstruct;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+@UIScope
 @Component
 public class HomeViewImpl extends VerticalLayout implements HomeView {
 

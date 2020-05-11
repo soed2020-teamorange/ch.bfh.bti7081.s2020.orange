@@ -1,7 +1,10 @@
 package ch.bfh.bti7081.s2020.orange;
 
+import ch.bfh.bti7081.s2020.orange.backend.data.Role;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.model.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.model.Patient;
+import ch.bfh.bti7081.s2020.orange.backend.repositories.UserRepository;
 import ch.bfh.bti7081.s2020.orange.backend.repository.MedicalSpecialistRepository;
 import ch.bfh.bti7081.s2020.orange.backend.repository.PatientRepository;
 import ch.bfh.bti7081.s2020.orange.backend.service.MedicalSpecialistService;
@@ -14,6 +17,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * The entry point of the Spring Boot application.
@@ -26,6 +30,8 @@ public class Application extends SpringBootServletInitializer {
   private final PatientRepository patientRepository;
   private final MedicalSpecialistService medicalSpecialistService;
   private final MedicalSpecialistRepository medicalSpecialistRepository;
+  private final UserRepository userRepository;
+  private final PasswordEncoder passwordEncoder;
   private static final Logger log = LoggerFactory.getLogger(Application.class);
 
   public static void main(String[] args) {
@@ -35,6 +41,10 @@ public class Application extends SpringBootServletInitializer {
   @Bean
   public CommandLineRunner demo() {
     return (args) -> {
+      User user = new User("test@test.ch", passwordEncoder.encode("1234"), "Test", "Tester",
+          Role.PATIENT);
+      this.userRepository.save(user);
+
       // create a few patients
       this.patientService.createPatient("Hans", "Steiner");
       this.patientService.createPatient("Martha", "Hildegaard");
@@ -48,7 +58,7 @@ public class Application extends SpringBootServletInitializer {
       // link patients with medicalSpecialists
       Patient p = this.patientService.getPatientByLastName("Steiner");
       MedicalSpecialist ms = this.medicalSpecialistService
-              .getMedicalSpecialistByLastName("Holland");
+          .getMedicalSpecialistByLastName("Holland");
       p.setMedicalSpecialist(ms);
 
       // fetch all patients
