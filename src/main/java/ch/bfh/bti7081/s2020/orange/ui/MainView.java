@@ -1,6 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.ui;
 
-import ch.bfh.bti7081.s2020.orange.backend.services.GreetService;
+import ch.bfh.bti7081.s2020.orange.backend.service.GreetService;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
