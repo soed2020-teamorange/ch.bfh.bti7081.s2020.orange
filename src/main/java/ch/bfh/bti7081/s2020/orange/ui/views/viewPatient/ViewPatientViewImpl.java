@@ -1,6 +1,8 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.viewPatient;
 
+import ch.bfh.bti7081.s2020.orange.backend.model.Patient;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import javax.annotation.PostConstruct;
@@ -12,11 +14,12 @@ public class ViewPatientViewImpl extends VerticalLayout implements
     ViewPatientView,
     HasLogger {
 
+  Grid<Patient> grid = new Grid<>(Patient.class);
   Label firstName = new Label();
   Label lastName = new Label();
 
   @Setter
-  private ViewPatientView.Observer observer;
+  private Observer observer;
 
   @PostConstruct
   public void init() {
@@ -25,6 +28,17 @@ public class ViewPatientViewImpl extends VerticalLayout implements
 
     add(firstName);
     add(lastName);
+
+    //ToDo: List patients during init method
+    //grid.setItems(observer.getAllPatients());
+
+    grid.removeColumnByKey("id");
+
+    // The Grid<>(Patient.class) sorts the properties and in order to
+    // reorder the properties we use the 'setColumns' method.
+    grid.setColumns("firstName", "lastName", "medicalSpecialist");
+
+    add(grid);
   }
 
   @Override
