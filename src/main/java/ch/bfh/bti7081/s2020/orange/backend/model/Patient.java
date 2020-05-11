@@ -16,7 +16,6 @@ public class Patient extends Person {
     private MedicalSpecialist medicalSpecialist;
 
     public Patient() {
-        super("Vorname", "Nachname");
     }
 
     public Patient(String firstName, String lastName) {

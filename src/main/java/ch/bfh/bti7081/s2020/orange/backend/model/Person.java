@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Inheritance
@@ -14,33 +16,29 @@ public abstract class Person {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
+  @Getter
   private long id;
+
+  @Getter
+  @Setter
   private String lastName;
+
+  @Getter
+  @Setter
   private String firstName;
+
+  private String street;
+  private String streetNumber;
+  private String city;
+  private int zipCode;
+  private String country;
+  private String phoneNumber;
+
+  public Person() {  }
 
   public Person(String firstName, String lastName) {
     this.firstName = firstName;
     this.lastName = lastName;
   }
 
-  public Long getId() {
-    return id;
-  }
-
-  public String getFirstName() {
-    return firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-
-  /*private Date birthDate;
-  private String street;
-  private String streetNumber;
-  private String city;
-  private int zipCode;
-  private String country;
-  private String phoneNumber;*/
 }

@@ -32,7 +32,7 @@ public class Application extends SpringBootServletInitializer {
     SpringApplication.run(Application.class, args);
   }
 
-/*  @Bean
+  @Bean
   public CommandLineRunner demo() {
     return (args) -> {
       // create a few patients
@@ -48,7 +48,7 @@ public class Application extends SpringBootServletInitializer {
       // link patients with medicalSpecialists
       Patient p = this.patientService.getPatientByLastName("Steiner");
       MedicalSpecialist ms = this.medicalSpecialistService
-          .getMedicalSpecialistByLastName("Holland");
+              .getMedicalSpecialistByLastName("Holland");
       p.setMedicalSpecialist(ms);
 
       // fetch all patients
@@ -59,5 +59,5 @@ public class Application extends SpringBootServletInitializer {
       }
       log.info("");
     };
-  }*/
+  }
 }
