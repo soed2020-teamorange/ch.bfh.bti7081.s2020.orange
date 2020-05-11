@@ -5,8 +5,6 @@ import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.model.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.model.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.UserRepository;
-import ch.bfh.bti7081.s2020.orange.backend.repository.MedicalSpecialistRepository;
-import ch.bfh.bti7081.s2020.orange.backend.repository.PatientRepository;
 import ch.bfh.bti7081.s2020.orange.backend.service.MedicalSpecialistService;
 import ch.bfh.bti7081.s2020.orange.backend.service.PatientService;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class Application extends SpringBootServletInitializer {
 
   private final PatientService patientService;
-  private final PatientRepository patientRepository;
   private final MedicalSpecialistService medicalSpecialistService;
-  private final MedicalSpecialistRepository medicalSpecialistRepository;
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
   private static final Logger log = LoggerFactory.getLogger(Application.class);
@@ -41,9 +37,15 @@ public class Application extends SpringBootServletInitializer {
   @Bean
   public CommandLineRunner demo() {
     return (args) -> {
-      User user = new User("test@test.ch", passwordEncoder.encode("1234"), "Test", "Tester",
+      User dummyPatient = new User("patient@pms.ch", passwordEncoder.encode("1234"), "Patient",
+          "Null",
           Role.PATIENT);
-      this.userRepository.save(user);
+      this.userRepository.save(dummyPatient);
+      User dummyMedicalSpecialist = new User("specialist@pms.ch", passwordEncoder.encode("1234"),
+          "Doktor",
+          "Frankenstein",
+          Role.MEDICAL_SPECIALIST);
+      this.userRepository.save(dummyMedicalSpecialist);
 
       // create a few patients
       this.patientService.createPatient("Hans", "Steiner");
@@ -60,14 +62,6 @@ public class Application extends SpringBootServletInitializer {
       MedicalSpecialist ms = this.medicalSpecialistService
           .getMedicalSpecialistByLastName("Holland");
       p.setMedicalSpecialist(ms);
-
-      // fetch all patients
-      log.info("Patients found with findAll():");
-      log.info("-------------------------------");
-      for (Patient patient : patientRepository.findAll()) {
-        log.info(patient.toString());
-      }
-      log.info("");
     };
   }
 }
