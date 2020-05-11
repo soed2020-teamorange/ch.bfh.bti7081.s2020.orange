@@ -51,7 +51,7 @@ public class Application extends SpringBootServletInitializer {
       MedicalSpecialist specialist = new MedicalSpecialist();
       specialist.setFirstName("Specialist");
       specialist.setLastName("Specialist");
-      specialist.setEmail("specialist@@pms-orange.ch");
+      specialist.setEmail("specialist@pms-orange.ch");
       specialist.setPasswordHash(passwordEncoder.encode("1234"));
       specialist.setRole(Role.MEDICAL_SPECIALIST);
       Long specialistId = medicalSpecialistRepository.save(specialist).getId();
