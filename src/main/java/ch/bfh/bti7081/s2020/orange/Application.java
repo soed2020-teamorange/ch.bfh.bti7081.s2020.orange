@@ -32,7 +32,7 @@ public class Application extends SpringBootServletInitializer {
     SpringApplication.run(Application.class, args);
   }
 
-/*  @Bean
+  @Bean
   public CommandLineRunner demo() {
     return (args) -> {
       // create a few patients
@@ -59,5 +59,5 @@ public class Application extends SpringBootServletInitializer {
       }
       log.info("");
     };
-  }*/
+  }
 }
