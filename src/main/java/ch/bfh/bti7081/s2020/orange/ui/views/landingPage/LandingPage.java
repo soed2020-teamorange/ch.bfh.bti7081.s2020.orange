@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2020.orange.ui;
+package ch.bfh.bti7081.s2020.orange.ui.views.landingPage;
 
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.component.Tag;
@@ -10,13 +10,13 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
 import com.vaadin.flow.component.orderedlayout.BoxSizing;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.component.textfield.TextField;
 
 
-@Tag("landing-page-alt")
-@JsModule("./src/main/java/ch/bfh/bti7081/s2020/orange/ui/landing-page.js")
-public class LandingPage extends PolymerTemplate<LandingPage.LandingPageAltModel> {
+
+public class LandingPage extends VerticalLayout {
 
     /**
      * Creates a new LandingPageAlt.
