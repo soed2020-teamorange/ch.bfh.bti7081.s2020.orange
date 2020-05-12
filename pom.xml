@@ -151,6 +151,17 @@
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-config</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>io.projectreactor</groupId>
+      <artifactId>reactor-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.vaadin.componentfactory</groupId>
+      <artifactId>chat</artifactId>
+      <version>2.0.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -183,6 +194,14 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>9</source>
+          <target>9</target>
+        </configuration>
       </plugin>
     </plugins>
   </build>
