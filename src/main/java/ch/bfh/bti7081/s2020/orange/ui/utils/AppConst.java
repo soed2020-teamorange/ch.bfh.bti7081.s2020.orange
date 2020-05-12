@@ -18,6 +18,7 @@ public class AppConst {
   public static final String TITLE_EDITUSERINFOS = "Angaben bearbeiten";
   public static final String TITLE_SHOWUSERINFOS = "Angaben anzeigen";
   public static final String TITLE_LOGIN = "Login";
+  public static final String TITLE_LOGOUT = "Logout";
   public static final String TITLE_NOT_FOUND = "Page was not found";
   public static final String TITLE_ACCESS_DENIED = "Access denied";
 
