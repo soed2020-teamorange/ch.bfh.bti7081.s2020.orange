@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2020.orange.ui;
 
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_EDITUSERINFOS;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_HOME;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_LOGOUT;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_REGISTERPATIENT;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_SHOWUSERINFOS;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.VIEWPORT;
@@ -14,6 +15,7 @@ import ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos.ShowUserViewRoute;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.page.Viewport;
@@ -23,6 +25,7 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
+import com.vaadin.flow.server.VaadinServlet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -84,6 +87,10 @@ public class MainView extends AppLayout {
     tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_EDITUSERINFOS, EditUserInfosViewRoute.class));
     tabs.add(createTab(VaadinIcon.USER, TITLE_SHOWUSERINFOS, ShowUserViewRoute.class));
 
+    final String contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
+    final Tab logoutTab = createTab(createLogoutLink(contextPath));
+    tabs.add(logoutTab);
+
     return tabs.toArray(new Tab[tabs.size()]);
   }
 
@@ -102,6 +109,12 @@ public class MainView extends AppLayout {
   private static <T extends HasComponents> T populateLink(T a, VaadinIcon icon, String title) {
     a.add(icon.create());
     a.add(title);
+    return a;
+  }
+
+  private static Anchor createLogoutLink(String contextPath) {
+    final Anchor a = populateLink(new Anchor(), VaadinIcon.ARROW_RIGHT, TITLE_LOGOUT);
+    a.setHref(contextPath + "/logout");
     return a;
   }
 }
