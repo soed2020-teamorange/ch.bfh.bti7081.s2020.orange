@@ -1,13 +1,18 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos;
 
 
-import ch.bfh.bti7081.s2020.orange.backend.model.Person;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
+import ch.bfh.bti7081.s2020.orange.ui.utils.HasNotifications;
 import ch.bfh.bti7081.s2020.orange.ui.utils.ViewWithObserver;
 
-public interface EditUserInfosView extends ViewWithObserver<EditUserInfosView.Observer> {
+public interface EditUserInfosView extends ViewWithObserver<EditUserInfosView.Observer>,
+    HasNotifications {
+
+  void setUser(User user);
 
   interface Observer {
-    Person getPersonById(long id);
+
+    void onSaveUser(User user);
 
   }
 }

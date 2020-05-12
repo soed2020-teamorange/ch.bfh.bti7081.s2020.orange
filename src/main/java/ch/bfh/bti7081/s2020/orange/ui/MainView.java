@@ -1,9 +1,16 @@
 package ch.bfh.bti7081.s2020.orange.ui;
 
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_EDITUSERINFOS;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_HOME;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_REGISTERPATIENT;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_SHOWUSERINFOS;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.VIEWPORT;
 
+import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
+import ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos.EditUserInfosViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.registerPatient.RegisterPatientViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos.ShowUserViewRoute;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -68,6 +75,14 @@ public class MainView extends AppLayout {
     final List<Tab> tabs = new ArrayList<>();
 
     tabs.add(createTab(VaadinIcon.HOME, TITLE_HOME, HomeViewRoute.class));
+
+    if (SecurityUtils.isAccessGranted(RegisterPatientViewRoute.class)) {
+      tabs.add(
+          createTab(VaadinIcon.CALENDAR, TITLE_REGISTERPATIENT, RegisterPatientViewRoute.class));
+    }
+
+    tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_EDITUSERINFOS, EditUserInfosViewRoute.class));
+    tabs.add(createTab(VaadinIcon.USER, TITLE_SHOWUSERINFOS, ShowUserViewRoute.class));
 
     return tabs.toArray(new Tab[tabs.size()]);
   }

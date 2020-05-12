@@ -11,7 +11,8 @@ public class UserService {
 
   private final UserRepository userRepository;
 
-  public User getUserById(long id) {
-    return this.userRepository.findById(id).get();
+  public User saveUser(User user) {
+    return userRepository.save(user);
   }
+
 }

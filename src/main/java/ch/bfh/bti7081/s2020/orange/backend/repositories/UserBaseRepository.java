@@ -7,5 +7,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 @NoRepositoryBean
 public interface UserBaseRepository<T extends User> extends JpaRepository<T, Long> {
 
-  User findByLastName(String lastName);
+  T findByEmailIgnoreCase(String email);
+
+  T findByLastName(String lastName);
 }

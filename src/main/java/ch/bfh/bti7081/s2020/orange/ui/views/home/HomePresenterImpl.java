@@ -1,9 +1,9 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.home;
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.service.HomeService;
 import ch.bfh.bti7081.s2020.orange.ui.utils.View;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -21,8 +21,9 @@ public class HomePresenterImpl implements HomePresenter, HomeView.Observer {
   @Override
   public void onBeforeEnter() {
     homeView.setObserver(this);
-    homeView.setResult(currentUser.getUser().getEmail() + " " + ((Patient) currentUser.getUser())
-        .getMedicalSpecialist().getId());
+    homeView.setResult(currentUser.getUser().getEmail());
+
+    getView().getComponent(VerticalLayout.class).add();
   }
 
   @Override

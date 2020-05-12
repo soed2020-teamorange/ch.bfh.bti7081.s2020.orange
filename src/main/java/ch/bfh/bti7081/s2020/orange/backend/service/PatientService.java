@@ -1,10 +1,10 @@
 package ch.bfh.bti7081.s2020.orange.backend.service;
 
+import ch.bfh.bti7081.s2020.orange.backend.data.Role;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.PatientRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,15 +12,18 @@ import org.springframework.stereotype.Service;
 public class PatientService {
 
   private final PatientRepository patientRepository;
-  private final PasswordEncoder passwordEncoder;
 
-  public Patient createPatient(String email, String password, String firstName,
+  public Patient createPatient(String email, String passwordHash, String firstName,
       String lastName) {
-    Patient patient = new Patient(email, passwordEncoder.encode(password), firstName, lastName);
+    Patient patient = new Patient(email, passwordHash, firstName, lastName);
 
-    this.patientRepository.save(patient);
+    return this.patientRepository.save(patient);
+  }
 
-    return patient;
+  public Patient savePatient(Patient p) {
+    p.setRole(Role.PATIENT);
+
+    return this.patientRepository.save(p);
   }
 
   public Patient getPatient(long id) {
@@ -34,7 +37,7 @@ public class PatientService {
   }
 
   public Patient getPatientByLastName(String lastName) {
-    return (Patient) this.patientRepository.findByLastName(lastName);
+    return this.patientRepository.findByLastName(lastName);
   }
 
   public void deletePatient(long id) {

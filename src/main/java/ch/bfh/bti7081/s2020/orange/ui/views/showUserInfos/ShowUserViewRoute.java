@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2020.orange.ui.views.viewPatient;
+package ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos;
 
 import ch.bfh.bti7081.s2020.orange.ui.MainView;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
@@ -12,12 +12,12 @@ import com.vaadin.flow.router.Route;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
-@Route(value = AppConst.PAGE_VIEWPATIENT, layout = MainView.class)
-@PageTitle(AppConst.TITLE_VIEWPATIENT)
+@Route(value = AppConst.PAGE_SHOWUSERINFOS, layout = MainView.class)
+@PageTitle(AppConst.TITLE_SHOWUSERINFOS)
 @RequiredArgsConstructor
-public class ViewPatientViewRoute extends VerticalLayout implements BeforeEnterObserver, View {
+public class ShowUserViewRoute extends VerticalLayout implements BeforeEnterObserver, View {
 
-  private final ViewPatientPresenter viewPatientPresenter;
+  private final ShowUserPresenter showUserPresenter;
 
   @PostConstruct
   public void init() {
@@ -26,11 +26,11 @@ public class ViewPatientViewRoute extends VerticalLayout implements BeforeEnterO
 
   @Override
   public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-    viewPatientPresenter.onBeforeEnter();
+    showUserPresenter.onBeforeEnter();
   }
 
   @Override
   public <C> C getComponent(Class<C> type) {
-    return viewPatientPresenter.getView().getComponent(type);
+    return showUserPresenter.getView().getComponent(type);
   }
 }

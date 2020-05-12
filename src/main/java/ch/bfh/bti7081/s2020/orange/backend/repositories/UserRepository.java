@@ -4,7 +4,4 @@ import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 
 public interface UserRepository extends UserBaseRepository<User> {
 
-  User findByEmailIgnoreCase(String email);
-
-  User findByLastName(String lastName);
 }
