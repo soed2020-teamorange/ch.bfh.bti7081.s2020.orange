@@ -6,16 +6,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -24,6 +22,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class User extends AbstractEntity {
+
+  public User(String email, String passwordHash, String firstName, String lastName, String role) {
+    this.email = email;
+    this.passwordHash = passwordHash;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.role = role;
+  }
+
+  @NotBlank
+  @Size(max = 255)
+  private String role;
 
   @NotEmpty
   @Email
@@ -43,15 +53,31 @@ public class User extends AbstractEntity {
   @Size(max = 255)
   private String lastName;
 
-  @NotBlank
+  @Past
+  private LocalDate birthDate;
+
   @Size(max = 255)
-  private String role;
+  private String street;
+
+  @Size(max = 255)
+  private String streetNumber;
+
+  @Size(max = 255)
+  private String city;
+
+  @Size(max = 255)
+  private String zipCode;
+
+  @Size(max = 255)
+  private String country;
+
+  @Size(max = 255)
+  private String phone;
 
   @PrePersist
   @PreUpdate
   private void prepareData() {
     this.email = email == null ? null : email.toLowerCase();
   }
-
 
 }

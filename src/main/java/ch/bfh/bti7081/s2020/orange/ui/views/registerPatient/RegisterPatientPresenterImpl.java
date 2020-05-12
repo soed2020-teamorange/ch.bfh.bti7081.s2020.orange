@@ -2,7 +2,9 @@ package ch.bfh.bti7081.s2020.orange.ui.views.registerPatient;
 
 
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.service.PatientService;
+import ch.bfh.bti7081.s2020.orange.backend.service.UserService;
 import ch.bfh.bti7081.s2020.orange.ui.utils.View;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class RegisterPatientPresenterImpl implements RegisterPatientPresenter,
   @Override
   public void onBeforeEnter() {
     registerPatientView.setObserver(this);
+    registerPatientView.setPatients(patientService.getAllPatients());
   }
 
   @Override
@@ -30,13 +33,8 @@ public class RegisterPatientPresenterImpl implements RegisterPatientPresenter,
   }
 
   @Override
-  public void saveNewPatient(Patient p) {
+  public void createNewPatient(Patient p) {
     patientService.savePatient(p);
+    registerPatientView.setPatients(patientService.getAllPatients());
   }
-
-  @Override
-  public List<Patient> getAllPatients() {
-    return patientService.getAllPatients();
-  }
-
 }
