@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.ui;
 
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_CHAT;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_EDITUSERINFOS;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_HOME;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_LOGOUT;
@@ -8,6 +9,7 @@ import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_SHOWUSERINFOS;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.VIEWPORT;
 
 import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
+import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos.EditUserInfosViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.registerPatient.RegisterPatientViewRoute;
@@ -18,6 +20,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.page.Viewport;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.TabVariant;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Push
 @Viewport(VIEWPORT)
 @PWA(name = "Team Orange - Projekt MHC-PMS", shortName = "MHC-PMS Orange", startPath = "login")
 public class MainView extends AppLayout {
@@ -78,6 +82,8 @@ public class MainView extends AppLayout {
     final List<Tab> tabs = new ArrayList<>();
 
     tabs.add(createTab(VaadinIcon.HOME, TITLE_HOME, HomeViewRoute.class));
+
+    tabs.add(createTab(VaadinIcon.CHAT, TITLE_CHAT, ChatViewRoute.class));
 
     if (SecurityUtils.isAccessGranted(RegisterPatientViewRoute.class)) {
       tabs.add(
