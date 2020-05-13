@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2020.orange.backend.service;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.Role;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.PatientRepository;
 import java.util.List;
@@ -31,13 +32,13 @@ public class PatientService {
     return this.patientRepository.findById(id).get();
   }
 
+  public List<Patient> getPatientsByMedicalSpecialist(MedicalSpecialist ms) {
+    return this.patientRepository.findByMedicalSpecialist(ms);
+  }
+
   public List<Patient> getAllPatients() {
 
     return this.patientRepository.findAll();
-  }
-
-  public Patient getPatientByLastName(String lastName) {
-    return this.patientRepository.findByLastName(lastName);
   }
 
   public void deletePatient(long id) {

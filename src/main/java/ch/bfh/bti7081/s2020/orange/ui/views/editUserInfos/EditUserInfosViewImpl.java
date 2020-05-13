@@ -10,19 +10,17 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.spring.annotation.UIScope;
+import java.util.Locale;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
-
-import java.util.Locale;
 
 @UIScope
 @Component
@@ -41,7 +39,7 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
     add(new H1(AppConst.TITLE_EDITUSERINFOS),
         buildForm());
 
-    Button submit = new Button("Absenden");
+    Button submit = new Button("Speichern");
     submit.addClickListener(this::onSaveNewDataButtonClick);
 
     add(submit);
@@ -64,7 +62,8 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
     Div errorsLayout = new Div();
 
     // Wrap components in layouts
-    FormLayout formLayout = new FormLayout(firstName, lastName, birthDate, street, streetNumber, city, zipCode, country, phone, email);
+    FormLayout formLayout = new FormLayout(firstName, lastName, birthDate, street, streetNumber,
+        city, zipCode, country, phone, email);
     Div wrapperLayout = new Div(formLayout, errorsLayout);
     wrapperLayout.setWidth("100%");
 
@@ -84,21 +83,21 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
     binder.setBean(currentUser.getUser());
 
     formLayout.setResponsiveSteps(
-            new FormLayout.ResponsiveStep("25em", 1),
-            new FormLayout.ResponsiveStep("32em", 2),
-            new FormLayout.ResponsiveStep("40em", 3));
+        new FormLayout.ResponsiveStep("25em", 1),
+        new FormLayout.ResponsiveStep("32em", 2),
+        new FormLayout.ResponsiveStep("40em", 3));
 
     return wrapperLayout;
   }
 
   private void onSaveNewDataButtonClick(ClickEvent<Button> buttonClickEvent) {
-    getLogger().info("Successfully saved new data for user [" + binder.getBean().toString() + "]");
+    getLogger().info("Successfully saved new data for user [" + binder.getBean().getEmail() + "]");
     observer.onSaveUser(binder.getBean());
   }
 
   @Override
   public void setUser(User user) {
-    getLogger().info("Set user with e-mail ["+user.getEmail()+"]");
+    getLogger().info("Set user with e-mail [" + user.getEmail() + "]");
     binder.setBean(user);
   }
 

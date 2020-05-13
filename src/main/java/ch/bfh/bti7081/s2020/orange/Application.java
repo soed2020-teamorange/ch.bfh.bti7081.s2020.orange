@@ -58,6 +58,10 @@ public class Application extends SpringBootServletInitializer {
     return (args) -> {
       Patient patient = patientService
           .createPatient("patient@pms.ch", passwordEncoder.encode("1234"), "Patient", "Tester");
+      Patient patient2 = patientService
+          .createPatient("patient2@pms.ch", passwordEncoder.encode("1234"), "Patient2", "Tester");
+      Patient patient3 = patientService
+          .createPatient("patient3@pms.ch", passwordEncoder.encode("1234"), "Patient3", "Tester");
 
       MedicalSpecialist specialist = medicalSpecialistService
           .createMedicalSpecialist("specialist@pms.ch", passwordEncoder.encode("1234"),
@@ -66,7 +70,7 @@ public class Application extends SpringBootServletInitializer {
       patient.setMedicalSpecialist(specialist);
       patientService.savePatient(patient);
 
-      specialist.setPatients(Arrays.asList(patient));
+      specialist.setPatients(Arrays.asList(patient, patient3));
       medicalSpecialistService.saveMedicalSpecialist(specialist);
 
       Chat chat = new Chat(Arrays.asList(), patient, specialist);

@@ -3,6 +3,8 @@ package ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -17,11 +19,13 @@ public class ShowUserViewImpl extends VerticalLayout implements
     ShowUserView,
     HasLogger {
 
-  Label firstNameDesc = new Label();
-  Label lastNameDesc = new Label();
+  H1 title = new H1("Angaben anzeigen");
+  Label firstNameDesc = new Label("Vorname:");
   Label firstName = new Label();
+  Label lastNameDesc = new Label("Nachname:");
   Label lastName = new Label();
-  Label relatedPersonDesc = new Label();
+  H2 assignedUsersDesc = new H2();
+
   Label medicalSpecialist = new Label();
   Grid<Patient> patients = new Grid<>(Patient.class);
 
@@ -30,16 +34,13 @@ public class ShowUserViewImpl extends VerticalLayout implements
 
   @PostConstruct
   public void init() {
-    firstNameDesc.setText("Vorname:");
-    lastNameDesc.setText("Nachname:");
-
-    patients.setColumns("firstName", "lastName");
-
-    add(firstNameDesc);
-    add(firstName);
-    add(lastNameDesc);
-    add(lastName);
-    add(relatedPersonDesc);
+    patients
+        .setColumns("firstName", "lastName", "email", "phone", "birthDate", "street",
+            "streetNumber",
+            "zipCode",
+            "city",
+            "country");
+    add(title, firstNameDesc, firstName, lastNameDesc, lastName, assignedUsersDesc);
   }
 
   @Override
@@ -59,14 +60,14 @@ public class ShowUserViewImpl extends VerticalLayout implements
 
   @Override
   public void setMedicalSpecialist(String medicalSpecialist) {
-    this.relatedPersonDesc.setText("zugewiesene medizinische Fachperson:");
+    this.assignedUsersDesc.setText("zugewiesene medizinische Fachperson:");
     this.medicalSpecialist.setText(medicalSpecialist);
-    add(medicalSpecialist);
+    add(this.medicalSpecialist);
   }
 
   @Override
   public void setPatients(List<Patient> patients) {
-    this.relatedPersonDesc.setText("zugewiesene Patienten:");
+    this.assignedUsersDesc.setText("zugewiesene Patienten:");
     this.patients.setItems(patients);
     add(this.patients);
   }
