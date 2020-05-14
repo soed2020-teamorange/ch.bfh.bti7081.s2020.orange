@@ -30,17 +30,14 @@ public class ShowUserPresenterImpl implements ShowUserPresenter, ShowUserView.Ob
     showUserView.setFirstName(currentUser.getUser().getFirstName());
     showUserView.setLastName(currentUser.getUser().getLastName());
     if (currentUser.getUser().getRole().equals(Role.PATIENT)) {
-      showUserView.setMedicalSpecialist("Dummy Therapist");
+      Patient patient = patientService.getPatient(currentUser.getUser().getId());
+      if (patient.getMedicalSpecialist() != null) {
+        showUserView.setMedicalSpecialist(patient.getMedicalSpecialist());
+      }
     } else if (currentUser.getUser().getRole().equals(Role.MEDICAL_SPECIALIST)) {
-      showUserView.setPatients(patientService.getAllPatients());
-      List<Patient> p = patientService
+      List<Patient> patients = patientService
           .getPatientsByMedicalSpecialist((MedicalSpecialist) currentUser.getUser());
-      for (Patient pa : p) {
-        System.out.println("1." + pa.getEmail());
-      }
-      for (Patient ps : patientService.getAllPatients()) {
-        System.out.println("2." + ps.getEmail());
-      }
+      showUserView.setPatients(patients);
     }
   }
 

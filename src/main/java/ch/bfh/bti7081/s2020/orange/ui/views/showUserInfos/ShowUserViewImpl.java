@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos;
 
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.grid.Grid;
@@ -26,7 +27,10 @@ public class ShowUserViewImpl extends VerticalLayout implements
   Label lastName = new Label();
   H2 assignedUsersDesc = new H2();
 
-  Label medicalSpecialist = new Label();
+  Label medicalSpecialistFirstNameDesc = new Label("Vorname:");
+  Label medicalSpecialistFirstName = new Label();
+  Label medicalSpecialistLastNameDesc = new Label("Nachname:");
+  Label medicalSpecialistLastName = new Label();
   Grid<Patient> patients = new Grid<>(Patient.class);
 
   @Setter
@@ -59,10 +63,13 @@ public class ShowUserViewImpl extends VerticalLayout implements
   }
 
   @Override
-  public void setMedicalSpecialist(String medicalSpecialist) {
+  public void setMedicalSpecialist(MedicalSpecialist medicalSpecialist) {
     this.assignedUsersDesc.setText("zugewiesene medizinische Fachperson:");
-    this.medicalSpecialist.setText(medicalSpecialist);
-    add(this.medicalSpecialist);
+    this.medicalSpecialistFirstName.setText(medicalSpecialist.getFirstName());
+    this.medicalSpecialistLastName.setText(medicalSpecialist.getLastName());
+    add(medicalSpecialistFirstNameDesc, this.medicalSpecialistFirstName,
+        medicalSpecialistLastNameDesc,
+        this.medicalSpecialistLastName);
   }
 
   @Override
