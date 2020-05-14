@@ -11,6 +11,7 @@ import ch.bfh.bti7081.s2020.orange.backend.service.MedicalSpecialistService;
 import ch.bfh.bti7081.s2020.orange.backend.service.PatientService;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,18 +66,25 @@ public class Application extends SpringBootServletInitializer {
               "Tester", specialist);
       Patient patient2 = patientService
           .createPatient("patient2@pms.ch", passwordEncoder.encode("1234"), "Patient2",
-              "Tester", specialist);
+              "Tester");
       Patient patient3 = patientService
           .createPatient("patient3@pms.ch", passwordEncoder.encode("1234"), "Patient3",
-              "Tester");
+              "Tester", specialist);
 
-      // THIS DOESN'T WORK:
-      //specialist.setPatients(Arrays.asList(patient, patient2));
-
+      specialist.setPatients(Arrays.asList(patient2));
+      medicalSpecialistService.saveMedicalSpecialist(specialist);
       MedicalSpecialist ms = medicalSpecialistService.getMedicalSpecialist(specialist.getEmail());
-      System.out.println("Patients of specialist " + ms.getEmail() + ":");
+      System.out.println("1.");
       for (Patient p : ms.getPatients()) {
         System.out.println(p.getEmail());
+      }
+
+      System.out.println("2.");
+      List<Patient> ps = patientService.getAllPatients();
+      for (Patient p : ps) {
+        if (p.getMedicalSpecialist() != null) {
+          System.out.println(p.getMedicalSpecialist().getEmail());
+        }
       }
 
       Chat chat = new Chat(Arrays.asList(), patient, specialist);
