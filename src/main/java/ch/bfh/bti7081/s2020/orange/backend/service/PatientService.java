@@ -21,6 +21,14 @@ public class PatientService {
     return this.patientRepository.save(patient);
   }
 
+  public Patient createPatient(String email, String passwordHash, String firstName,
+      String lastName, MedicalSpecialist medicalSpecialist) {
+    Patient patient = new Patient(email, passwordHash, firstName, lastName);
+    patient.setMedicalSpecialist(medicalSpecialist);
+
+    return this.patientRepository.save(patient);
+  }
+
   public Patient savePatient(Patient p) {
     p.setRole(Role.PATIENT);
 

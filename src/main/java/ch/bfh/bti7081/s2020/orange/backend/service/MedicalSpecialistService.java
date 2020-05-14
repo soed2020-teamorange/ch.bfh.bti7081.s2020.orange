@@ -27,8 +27,8 @@ public class MedicalSpecialistService {
     return this.medicalSpecialistRepository.save(medicalSpecialist);
   }
 
-  public MedicalSpecialist getMedicalSpecialist(long id) {
-    return this.medicalSpecialistRepository.findById(id).get();
+  public MedicalSpecialist getMedicalSpecialist(String email) {
+    return this.medicalSpecialistRepository.findByEmailIgnoreCase(email);
   }
 
   public List<MedicalSpecialist> getAllMedicalSpecialist() {

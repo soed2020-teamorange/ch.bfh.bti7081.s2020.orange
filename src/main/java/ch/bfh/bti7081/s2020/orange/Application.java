@@ -56,22 +56,28 @@ public class Application extends SpringBootServletInitializer {
   @Bean
   public CommandLineRunner demo() {
     return (args) -> {
-      Patient patient = patientService
-          .createPatient("patient@pms.ch", passwordEncoder.encode("1234"), "Patient", "Tester");
-      Patient patient2 = patientService
-          .createPatient("patient2@pms.ch", passwordEncoder.encode("1234"), "Patient2", "Tester");
-      Patient patient3 = patientService
-          .createPatient("patient3@pms.ch", passwordEncoder.encode("1234"), "Patient3", "Tester");
-
       MedicalSpecialist specialist = medicalSpecialistService
-          .createMedicalSpecialist("specialist@pms.ch", passwordEncoder.encode("1234"),
+          .createMedicalSpecialist("specialist@pms.ch",
+              passwordEncoder.encode("1234"),
               "Specialist", "Tester");
+      Patient patient = patientService
+          .createPatient("patient@pms.ch", passwordEncoder.encode("1234"), "Patient",
+              "Tester", specialist);
+      Patient patient2 = patientService
+          .createPatient("patient2@pms.ch", passwordEncoder.encode("1234"), "Patient2",
+              "Tester", specialist);
+      Patient patient3 = patientService
+          .createPatient("patient3@pms.ch", passwordEncoder.encode("1234"), "Patient3",
+              "Tester");
 
-      patient.setMedicalSpecialist(specialist);
-      patientService.savePatient(patient);
+      // THIS DOESN'T WORK:
+      //specialist.setPatients(Arrays.asList(patient, patient2));
 
-      specialist.setPatients(Arrays.asList(patient, patient3));
-      medicalSpecialistService.saveMedicalSpecialist(specialist);
+      MedicalSpecialist ms = medicalSpecialistService.getMedicalSpecialist(specialist.getEmail());
+      System.out.println("Patients of specialist " + ms.getEmail() + ":");
+      for (Patient p : ms.getPatients()) {
+        System.out.println(p.getEmail());
+      }
 
       Chat chat = new Chat(Arrays.asList(), patient, specialist);
       this.chatRepository.save(chat);
