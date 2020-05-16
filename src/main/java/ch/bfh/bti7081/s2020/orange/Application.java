@@ -56,18 +56,20 @@ public class Application extends SpringBootServletInitializer {
   @Bean
   public CommandLineRunner demo() {
     return (args) -> {
-      Patient patient = patientService
-          .createPatient("patient@pms.ch", passwordEncoder.encode("1234"), "Patient", "Tester");
-
       MedicalSpecialist specialist = medicalSpecialistService
-          .createMedicalSpecialist("specialist@pms.ch", passwordEncoder.encode("1234"),
+          .createMedicalSpecialist("specialist@pms.ch",
+              passwordEncoder.encode("1234"),
               "Specialist", "Tester");
 
-      patient.setMedicalSpecialist(specialist);
-      patientService.savePatient(patient);
-
-      specialist.setPatients(Arrays.asList(patient));
-      medicalSpecialistService.saveMedicalSpecialist(specialist);
+      Patient patient = patientService
+          .createPatient("patient@pms.ch", passwordEncoder.encode("1234"), "Patient",
+              "Tester", specialist);
+      Patient patient2 = patientService
+          .createPatient("patient2@pms.ch", passwordEncoder.encode("1234"), "Patient2",
+              "Tester", specialist);
+      Patient patient3 = patientService
+          .createPatient("patient3@pms.ch", passwordEncoder.encode("1234"), "Patient3",
+              "Tester");
 
       Chat chat = new Chat(Arrays.asList(), patient, specialist);
       this.chatRepository.save(chat);

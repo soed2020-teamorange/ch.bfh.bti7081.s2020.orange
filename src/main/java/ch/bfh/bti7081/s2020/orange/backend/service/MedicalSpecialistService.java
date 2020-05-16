@@ -36,10 +36,6 @@ public class MedicalSpecialistService {
     return this.medicalSpecialistRepository.findAll();
   }
 
-  public MedicalSpecialist getMedicalSpecialistByLastName(String lastName) {
-    return this.medicalSpecialistRepository.findByLastName(lastName);
-  }
-
   public void deleteMedicalSpecialist(long id) {
     this.medicalSpecialistRepository.deleteById(id);
   }
