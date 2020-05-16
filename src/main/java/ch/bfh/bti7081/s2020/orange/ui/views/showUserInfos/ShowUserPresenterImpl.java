@@ -2,7 +2,6 @@ package ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos;
 
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
-import ch.bfh.bti7081.s2020.orange.backend.data.Role;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.service.MedicalSpecialistService;
@@ -29,12 +28,12 @@ public class ShowUserPresenterImpl implements ShowUserPresenter, ShowUserView.Ob
     showUserView.setObserver(this);
     showUserView.setFirstName(currentUser.getUser().getFirstName());
     showUserView.setLastName(currentUser.getUser().getLastName());
-    if (currentUser.getUser().getRole().equals(Role.PATIENT)) {
-      Patient patient = patientService.getPatient(currentUser.getUser().getId());
+    if (currentUser.getUser() instanceof Patient) {
+      Patient patient = (Patient) currentUser.getUser();
       if (patient.getMedicalSpecialist() != null) {
         showUserView.setMedicalSpecialist(patient.getMedicalSpecialist());
       }
-    } else if (currentUser.getUser().getRole().equals(Role.MEDICAL_SPECIALIST)) {
+    } else if (currentUser.getUser() instanceof MedicalSpecialist) {
       List<Patient> patients = patientService
           .getPatientsByMedicalSpecialist((MedicalSpecialist) currentUser.getUser());
       showUserView.setPatients(patients);
