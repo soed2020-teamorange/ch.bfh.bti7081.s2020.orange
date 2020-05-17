@@ -4,6 +4,8 @@ import ch.bfh.bti7081.s2020.orange.backend.data.Role;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.PatientRepository;
+
+import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,15 +17,15 @@ public class PatientService {
   private final PatientRepository patientRepository;
 
   public Patient createPatient(String email, String passwordHash, String firstName,
-      String lastName) {
-    Patient patient = new Patient(email, passwordHash, firstName, lastName);
+                               String lastName, LocalDate birthDate) {
+    Patient patient = new Patient(email, passwordHash, firstName, lastName, birthDate);
 
     return this.patientRepository.save(patient);
   }
 
   public Patient createPatient(String email, String passwordHash, String firstName,
-      String lastName, MedicalSpecialist medicalSpecialist) {
-    Patient patient = new Patient(email, passwordHash, firstName, lastName);
+      String lastName, LocalDate birthDate, MedicalSpecialist medicalSpecialist) {
+    Patient patient = new Patient(email, passwordHash, firstName, lastName, birthDate);
     patient.setMedicalSpecialist(medicalSpecialist);
 
     return this.patientRepository.save(patient);

@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos;
 
 
+import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.service.UserService;
 import ch.bfh.bti7081.s2020.orange.ui.utils.View;
@@ -17,20 +18,27 @@ public class EditUserInfosPresenterImpl implements EditUserInfosPresenter,
 
   private final EditUserInfosView editUserInfosView;
   private final UserService userService;
+  private final CurrentUser currentUser;
 
   @Override
   public void onBeforeEnter() {
     editUserInfosView.setObserver(this);
-  }
-
-  @Override
-  public View getView() {
-    return editUserInfosView;
+    editUserInfosView.setUser(currentUser.getUser());
   }
 
   @Override
   public void onSaveUser(User user) {
     userService.saveUser(user);
     editUserInfosView.showNotification("Angaben erfolgreich bearbeitet.");
+  }
+
+  @Override
+  public boolean emailIsUnique(String email) {
+    return userService.emailIsUnique(email);
+  }
+
+  @Override
+  public View getView() {
+    return editUserInfosView;
   }
 }

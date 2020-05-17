@@ -14,5 +14,7 @@ public interface EditUserInfosView extends ViewWithObserver<EditUserInfosView.Ob
 
     void onSaveUser(User user);
 
+    boolean emailIsUnique(String email);
+
   }
 }
