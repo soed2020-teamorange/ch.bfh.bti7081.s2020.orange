@@ -38,6 +38,7 @@ import org.springframework.stereotype.Component;
 public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInfosView, HasLogger {
 
   private Binder<User> binder = new BeanValidationBinder<>(User.class);
+  private EmailField emailEF = new EmailField("E-Mail");
   private final PasswordEncoder passwordEncoder;
 
   @Setter
@@ -74,7 +75,6 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
     TextField zipCodeTF = new TextField("Postleitzahl");
     TextField countryTF = new TextField("Land");
     TextField phoneTF = new TextField("Telefonnummer");
-    EmailField emailEF = new EmailField("E-Mail");
     PasswordField passwordPF = new PasswordField("Neues Passwort");
     PasswordField passwordConfirmPF = new PasswordField("Neues Passwort wiederholen");
 
@@ -116,7 +116,6 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
             .asRequired("E-Mail muss angegeben werden.")
             .withValidator(new EmailValidator(
                     "Bitte eine korrekte E-Mail angeben."))
-            .withValidator(email -> observer.emailIsUnique(email), "E-Mail wird bereits verwendet.")
             .bind(User::getEmail, User::setEmail);
 
     binder.forField(passwordPF)
@@ -128,7 +127,7 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
                       p.setPasswordHash(passwordEncoder.encode(password.toString()));
                     });
 
-    binder.forField(passwordConfirmPF)
+    Binder.Binding<User, String> secondPassword = binder.forField(passwordConfirmPF)
             .withValidator(p -> p.length() >= 4,
                     "Passwort muss mindestens 4 Zeichen lang sein.")
             .withValidator(p -> passwordPF.getValue().equals(passwordConfirmPF.getValue()), "Passwörter müssen übereinstimmen.")
@@ -142,6 +141,22 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
             cityTF, zipCodeTF, countryTF, phoneTF, emailEF, passwordPF, passwordConfirmPF, saveButton);
 
     Div wrapperLayout = new Div(formLayout);
+
+    passwordPF.addValueChangeListener(
+            event -> secondPassword.validate());
+
+    emailEF.addValueChangeListener(
+            event -> {
+              if (!emailEF.isInvalid()) {
+                observer.emailIsUnique(event.toString());
+              }
+            });
+
+    // disable saveButton if form has validation errors
+    binder.addStatusChangeListener(status -> {
+              saveButton.setEnabled(!status.hasValidationErrors());
+            }
+    );
 
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
@@ -160,6 +175,12 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
             new FormLayout.ResponsiveStep("40em", 3));
 
     return wrapperLayout;
+  }
+
+  @Override
+  public void setEMailIsUniqueError(boolean b) {
+    emailEF.setInvalid(b);
+    emailEF.setErrorMessage("E-Mail wird bereits verwendet.");
   }
 
   @Override

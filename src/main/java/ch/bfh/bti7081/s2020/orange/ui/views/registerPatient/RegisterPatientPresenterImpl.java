@@ -6,9 +6,12 @@ import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.service.MedicalSpecialistService;
 import ch.bfh.bti7081.s2020.orange.backend.service.PatientService;
 import ch.bfh.bti7081.s2020.orange.backend.service.UserService;
+import ch.bfh.bti7081.s2020.orange.ui.exceptions.UserAlreadyExistsException;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import ch.bfh.bti7081.s2020.orange.ui.utils.View;
 import java.util.List;
+
+import com.vaadin.flow.component.textfield.EmailField;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -38,8 +41,13 @@ public class RegisterPatientPresenterImpl implements RegisterPatientPresenter,
   }
 
   @Override
-  public boolean emailIsUnique(String email) {
-    return userService.emailIsUnique(email);
+  public void emailIsUnique(String email) throws UserAlreadyExistsException {
+    try {
+      userService.emailIsUnique(email);
+      registerPatientView.setEMailIsUniqueError(false);
+    } catch (UserAlreadyExistsException e) {
+      registerPatientView.setEMailIsUniqueError(true);
+    }
   }
 
   @Override
