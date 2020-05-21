@@ -1,17 +1,10 @@
 package ch.bfh.bti7081.s2020.orange.ui;
 
-import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_CHAT;
-import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_EDITUSERINFOS;
-import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_HOME;
-import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_LOGOUT;
-import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_REGISTERPATIENT;
-import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_SHOWUSERINFOS;
-import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.VIEWPORT;
-
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
 import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
+import ch.bfh.bti7081.s2020.orange.ui.views.activityDiary.ActivityDiaryViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos.EditUserInfosViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
@@ -38,6 +31,8 @@ import com.vaadin.flow.server.VaadinServlet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.*;
 
 @Push
 @Viewport(VIEWPORT)
@@ -116,6 +111,11 @@ public class MainView extends AppLayout {
     if (SecurityUtils.isAccessGranted(RegisterPatientViewRoute.class)) {
       tabs.add(
           createTab(VaadinIcon.CALENDAR, TITLE_REGISTERPATIENT, RegisterPatientViewRoute.class));
+    }
+
+    if (SecurityUtils.isAccessGranted(ActivityDiaryViewRoute.class)) {
+      tabs.add(
+              createTab(VaadinIcon.GOLF, TITLE_ACTIVITYDIARY, ActivityDiaryViewRoute.class));
     }
 
     tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_EDITUSERINFOS, EditUserInfosViewRoute.class));

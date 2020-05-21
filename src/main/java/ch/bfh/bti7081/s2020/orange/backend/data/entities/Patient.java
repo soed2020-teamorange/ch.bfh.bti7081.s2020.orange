@@ -1,8 +1,12 @@
 package ch.bfh.bti7081.s2020.orange.backend.data.entities;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.Role;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -18,6 +22,9 @@ public class Patient extends User {
   @ToString.Exclude
   @ManyToOne
   private MedicalSpecialist medicalSpecialist;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  private ActivityDiary activityDiary;
 
   public Patient(String email, String passwordHash, String firstName, String lastName) {
     super(email, passwordHash, firstName, lastName, Role.PATIENT);

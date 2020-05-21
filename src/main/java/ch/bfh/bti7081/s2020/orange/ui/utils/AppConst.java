@@ -11,6 +11,7 @@ public class AppConst {
   public static final String PAGE_REGISTERPATIENT = "registerPatient";
   public static final String PAGE_EDITUSERINFOS = "editInfos";
   public static final String PAGE_SHOWUSERINFOS = "showInfos";
+  public static final String PAGE_ACTIVITYDIARY = "activityDiary";
   public static final String PAGE_CHAT = "chat";
   public static final String PAGE_LOGIN = "login";
 
@@ -18,6 +19,7 @@ public class AppConst {
   public static final String TITLE_REGISTERPATIENT = "Neuen Patienten registrieren";
   public static final String TITLE_EDITUSERINFOS = "Angaben bearbeiten";
   public static final String TITLE_SHOWUSERINFOS = "Angaben anzeigen";
+  public static final String TITLE_ACTIVITYDIARY = "Aktivitätenbuch";
   public static final String TITLE_LOGIN = "Login";
   public static final String TITLE_LOGOUT = "Logout";
   public static final String TITLE_NOT_FOUND = "Page was not found";
