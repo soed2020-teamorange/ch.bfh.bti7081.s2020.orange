@@ -16,6 +16,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.converter.StringToDoubleConverter;
 import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.spring.annotation.UIScope;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +62,7 @@ public class MoodDiaryViewImpl extends VerticalLayout implements MoodDiaryView,
             "September", "Oktober", "November", "Dezember"));
     dateDP.setI18n(dateDPI18n);
 
-    TimePicker timeTP = new TimePicker();
+    TimePicker timeTP = new TimePicker("Uhrzeit");
     timeTP.setValue(LocalTime.now());
 
     ComboBox<String> moodCB = new ComboBox<>("Stimmung");
@@ -71,9 +72,10 @@ public class MoodDiaryViewImpl extends VerticalLayout implements MoodDiaryView,
       moods.add(m.getLabel());
     }
     moodCB.setItems(moods);
+    moodCB.setValue(moods.get(1));
 
-    TextField waterDrunkTF = new TextField("Anzahl Liter Wasser");
-    TextField sleepHoursTF = new TextField("Anzahl Stunden Schlaf");
+    TextField waterDrunkTF = new TextField("Anzahl Liter Wasser", "0");
+    TextField sleepHoursTF = new TextField("Anzahl Stunden Schlaf", "0");
 
     // Bind elements to business object
     Binder<MoodEntry> binder = new Binder<>(MoodEntry.class);
@@ -86,15 +88,22 @@ public class MoodDiaryViewImpl extends VerticalLayout implements MoodDiaryView,
             .asRequired("Zeit muss gesetzt sein.")
             .bind(MoodEntry::getTime, MoodEntry::setTime);
 
-//    binder.forField(moodCB)
-//            .asRequired("Stimmung muss ausgewählt werden.");
+    binder.forField(waterDrunkTF)
+            .asRequired("Bitte eine gültige Zahl eingeben.")
+            .withConverter(new StringToDoubleConverter("Bitte eine gültige Zahl eingeben."))
+            .bind(MoodEntry::getWaterDrunk, MoodEntry::setWaterDrunk);
+
+    binder.forField(sleepHoursTF)
+            .asRequired("Bitte eine gültige Zahl eingeben.")
+            .withConverter(new StringToDoubleConverter("Bitte eine gültige Zahl eingeben."))
+            .bind(MoodEntry::getSleepHours, MoodEntry::setSleepHours);
 
     Button saveButton = new Button("Neuen Stimmungseintrag hinzufügen");
 
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
               saveButton.setEnabled(!status.hasValidationErrors());
-            }
+      }
     );
 
     saveButton.addClickListener(click -> {
@@ -108,6 +117,8 @@ public class MoodDiaryViewImpl extends VerticalLayout implements MoodDiaryView,
 
         // load new empty mood to the form
         binder.readBean(new MoodEntry());
+        timeTP.setValue(LocalTime.now());
+        dateDP.setValue(LocalDate.now());
 
       } catch (ValidationException e) {
         getLogger().warn("There are some validation errors.");

@@ -1,13 +1,8 @@
 package ch.bfh.bti7081.s2020.orange.backend.data.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -17,10 +12,15 @@ import java.util.List;
 @AllArgsConstructor
 public class MoodDiary extends AbstractEntity {
 
-    @ManyToOne
+    public MoodDiary(Patient p) {
+        this.patient = p;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
     private Patient patient;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "diary")
     private List<MoodEntry> moodEntries;
+
 
 }

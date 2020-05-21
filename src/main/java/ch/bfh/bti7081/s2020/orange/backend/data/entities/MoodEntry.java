@@ -1,9 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.backend.data.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -18,7 +15,8 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class MoodEntry extends AbstractEntity {
 
-    @OneToOne
+    @ToString.Exclude
+    @ManyToOne
     private MoodDiary diary;
 
     @NotNull

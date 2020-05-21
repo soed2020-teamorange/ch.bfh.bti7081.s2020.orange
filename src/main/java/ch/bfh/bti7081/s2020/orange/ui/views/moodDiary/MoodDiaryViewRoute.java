@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 @PageTitle(AppConst.TITLE_MOODDIARY)
 @RequiredArgsConstructor
 @PreserveOnRefresh
+@Secured(Role.PATIENT)
 public class MoodDiaryViewRoute extends VerticalLayout implements BeforeEnterObserver, View {
 
   private final MoodDiaryPresenter moodDiaryPresenter;

@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2020.orange.backend.service;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.Role;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodDiary;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.PatientRepository;
 
@@ -19,6 +20,8 @@ public class PatientService {
   public Patient createPatient(String email, String passwordHash, String firstName,
                                String lastName, LocalDate birthDate) {
     Patient patient = new Patient(email, passwordHash, firstName, lastName, birthDate);
+    MoodDiary md = new MoodDiary(patient);
+    patient.setMoodDiary(md);
 
     return this.patientRepository.save(patient);
   }
@@ -27,6 +30,8 @@ public class PatientService {
       String lastName, LocalDate birthDate, MedicalSpecialist medicalSpecialist) {
     Patient patient = new Patient(email, passwordHash, firstName, lastName, birthDate);
     patient.setMedicalSpecialist(medicalSpecialist);
+    MoodDiary md = new MoodDiary(patient);
+    patient.setMoodDiary(md);
 
     return this.patientRepository.save(patient);
   }

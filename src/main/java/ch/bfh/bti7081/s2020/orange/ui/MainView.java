@@ -88,7 +88,10 @@ public class MainView extends AppLayout {
 
     tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_EDITUSERINFOS, EditUserInfosViewRoute.class));
     tabs.add(createTab(VaadinIcon.USER, TITLE_SHOWUSERINFOS, ShowUserViewRoute.class));
-    tabs.add(createTab(VaadinIcon.SCALE, TITLE_MOODDIARY, MoodDiaryViewRoute.class));
+
+    if (SecurityUtils.isAccessGranted(MoodDiaryViewRoute.class)) {
+      tabs.add(createTab(VaadinIcon.SCALE, TITLE_MOODDIARY, MoodDiaryViewRoute.class));
+    }
 
     final String contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
     final Tab logoutTab = createTab(createLogoutLink(contextPath));

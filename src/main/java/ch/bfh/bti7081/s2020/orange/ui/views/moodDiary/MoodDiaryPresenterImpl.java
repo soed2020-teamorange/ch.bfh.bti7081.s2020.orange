@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.moodDiary;
 
 
+import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodEntry;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.service.MoodEntryService;
@@ -20,6 +21,8 @@ public class MoodDiaryPresenterImpl implements MoodDiaryPresenter,
 
   private final MoodDiaryView moodDiaryView;
   private final MoodEntryService moodEntryService;
+  private final CurrentUser currentUser;
+  private final PatientService patientService;
 
   @Override
   public void onBeforeEnter() {
@@ -27,14 +30,14 @@ public class MoodDiaryPresenterImpl implements MoodDiaryPresenter,
   }
 
   @Override
-  public View getView() {
-    return moodDiaryView;
+  public void saveNewMoodEntry(MoodEntry me) {
+    me.setDiary(((Patient) currentUser.getUser()).getMoodDiary());
+    getLogger().info("Save new mood entry [{}]", me.toString());
+    moodEntryService.saveNewMoodEntry(me);
   }
 
   @Override
-  public void saveNewMoodEntry(MoodEntry me) {
-    getLogger().info("Save new mood entry [{}]", me.toString());
-    moodEntryService.saveNewMoodEntry(me);
-
+  public View getView() {
+    return moodDiaryView;
   }
 }

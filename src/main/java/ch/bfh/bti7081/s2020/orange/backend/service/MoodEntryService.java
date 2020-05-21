@@ -16,8 +16,8 @@ public class MoodEntryService {
 
   private final MoodEntryRepository moodEntryRepository;
 
+
   public MoodEntry saveNewMoodEntry(MoodEntry me) {
-   // TODO: entsprechendes Diary für CurrentUser herauslesen
     return this.moodEntryRepository.save(me);
   }
 
