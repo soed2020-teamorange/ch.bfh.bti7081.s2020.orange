@@ -4,6 +4,7 @@ package ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos;
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.service.UserService;
+import ch.bfh.bti7081.s2020.orange.ui.exceptions.UserAlreadyExistsException;
 import ch.bfh.bti7081.s2020.orange.ui.utils.View;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -33,8 +34,13 @@ public class EditUserInfosPresenterImpl implements EditUserInfosPresenter,
   }
 
   @Override
-  public boolean emailIsUnique(String email) {
-    return userService.emailIsUnique(email);
+  public void emailIsUnique(String email) throws UserAlreadyExistsException {
+    try {
+      userService.emailIsUnique(email);
+      editUserInfosView.setEMailIsUniqueError(false);
+    } catch (UserAlreadyExistsException e) {
+      editUserInfosView.setEMailIsUniqueError(true);
+    }
   }
 
   @Override

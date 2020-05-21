@@ -3,9 +3,11 @@ package ch.bfh.bti7081.s2020.orange.ui.views.registerPatient;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
+import ch.bfh.bti7081.s2020.orange.ui.exceptions.UserAlreadyExistsException;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -24,6 +26,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import lombok.RequiredArgsConstructor;
@@ -39,6 +42,8 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
 
   private List<MedicalSpecialist> medicalSpecialists = new ArrayList<MedicalSpecialist>();
   private final PasswordEncoder passwordEncoder;
+
+  private EmailField emailEF = new EmailField("E-Mail");
 
   @Setter
   private Observer observer;
@@ -74,7 +79,7 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
     TextField zipCodeTF = new TextField("Postleitzahl");
     TextField countryTF = new TextField("Land");
     TextField phoneTF = new TextField("Telefonnummer");
-    EmailField emailEF = new EmailField("E-Mail");
+
     PasswordField passwordPF = new PasswordField("Passwort");
     PasswordField passwordConfirmPF = new PasswordField("Passwort wiederholen");
 
@@ -121,7 +126,6 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
             .asRequired("E-Mail muss angegeben werden.")
             .withValidator(new EmailValidator(
                     "Bitte eine korrekte E-Mail angeben."))
-            .withValidator(email -> observer.emailIsUnique(email), "E-Mail wird bereits verwendet.")
             .bind(Patient::getEmail, Patient::setEmail);
 
     binder.forField(medicalSpecialistComboBox)
@@ -137,41 +141,51 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
               p.setPasswordHash(passwordEncoder.encode(password.toString()));
             });
 
-    binder.forField(passwordConfirmPF)
+    Binder.Binding<Patient, String> secondPassword = binder.forField(passwordConfirmPF)
             .asRequired("Passwort muss gesetzt sein.")
             .withValidator(p -> p.length() >= 4,
                     "Passwort muss mindestens 4 Zeichen lang sein.")
             .withValidator(p -> passwordPF.getValue().equals(passwordConfirmPF.getValue()), "Passwörter müssen übereinstimmen.")
             .bind(p -> p.getPasswordHash(),
                     (p, password) -> {
-                      p.setPasswordHash(passwordEncoder.encode(password.toString()));
+                      p.setPasswordHash(passwordEncoder.encode(password));
                     });
 
     binder.readBean(new Patient());
 
     // Wrap components in layouts
+
     FormLayout formLayout = new FormLayout(firstNameTF, lastNameTF, birthDateDP, streetTF, streetNumberTF,
             cityTF, zipCodeTF, countryTF, phoneTF, emailEF, medicalSpecialistComboBox, passwordPF, passwordConfirmPF, saveButton);
 
     Div wrapperLayout = new Div(formLayout);
 
+    passwordPF.addValueChangeListener(
+            event -> secondPassword.validate());
+
+    emailEF.addValueChangeListener(
+            event -> {
+              if (!emailEF.isInvalid()) {
+                observer.emailIsUnique(event.toString());
+              }
+            });
+
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
-          saveButton.setEnabled(!status.hasValidationErrors());
+            saveButton.setEnabled(!status.hasValidationErrors());
         }
     );
 
     saveButton.addClickListener(click -> {
       try {
-        Patient newPatient = new Patient();
-        binder.writeBean(newPatient);
+          Patient newPatient = new Patient();
+          binder.writeBean(newPatient);
 
-        // save new patient
-        observer.createNewPatient(newPatient);
+          // save new patient
+          observer.createNewPatient(newPatient);
 
-        // load new empty patient to the form
-        binder.readBean(new Patient());
-
+          // load new empty patient to the form
+          binder.readBean(new Patient());
       } catch (ValidationException e) {
         getLogger().warn("There are some validation errors.");
       }
@@ -183,6 +197,12 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
             new FormLayout.ResponsiveStep("40em", 3));
 
     return wrapperLayout;
+  }
+
+  @Override
+  public void setEMailIsUniqueError(boolean b) {
+    emailEF.setInvalid(b);
+    emailEF.setErrorMessage("E-Mail wird bereits verwendet.");
   }
 
   @Override
