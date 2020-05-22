@@ -38,7 +38,7 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
 
   @PostConstruct
   public void init() {
-    add(new H1(AppConst.TITLE_EDIT_USER_INFOS),
+    add(new H1(AppConst.TITLE_USER_INFOS_EDIT),
         buildForm());
   }
 
