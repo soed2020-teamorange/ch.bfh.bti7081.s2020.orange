@@ -4,14 +4,12 @@ import ch.bfh.bti7081.s2020.orange.backend.data.Mood;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -19,10 +17,6 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MoodEntry extends DiaryEntry {
-
-  @ToString.Exclude
-  @ManyToOne
-  private MoodDiary diary;
 
   @NotNull
   private Mood mood;
@@ -38,6 +32,18 @@ public class MoodEntry extends DiaryEntry {
 
   @PositiveOrZero
   private double waterDrunk;
+
+  public MoodEntry(String title, String content, Mood mood, LocalDate date, LocalTime time,
+      double sleepHours, double waterDrunk) {
+    super(title, content);
+
+    this.mood = mood;
+    this.date = date;
+    this.time = time;
+    this.sleepHours = sleepHours;
+    this.waterDrunk = waterDrunk;
+
+  }
 
 }
 
