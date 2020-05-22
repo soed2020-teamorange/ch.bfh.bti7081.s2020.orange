@@ -1,18 +1,31 @@
 package ch.bfh.bti7081.s2020.orange.ui;
 
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_CHAT;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_EDITUSERINFOS;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_HOME;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_LOGOUT;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_REGISTERPATIENT;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_SHOWUSERINFOS;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.VIEWPORT;
+
+import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
 import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos.EditUserInfosViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.moodDiary.MoodDiaryView;
 import ch.bfh.bti7081.s2020.orange.ui.views.moodDiary.MoodDiaryViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.registerPatient.RegisterPatientViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos.ShowUserViewRoute;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.contextmenu.ContextMenu;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.component.page.Viewport;
@@ -34,9 +47,11 @@ import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.*;
 @PWA(name = "Team Orange - Projekt MHC-PMS", shortName = "MHC-PMS Orange", startPath = "login")
 public class MainView extends AppLayout {
 
+  private final CurrentUser currentUser;
   private final Tabs menu;
 
-  public MainView() {
+  public MainView(CurrentUser currentUser) {
+    this.currentUser = currentUser;
     this.setDrawerOpened(false);
     Span appName = new Span("Team Orange - Projekt MHC-PMS");
     appName.addClassName("hide-on-mobile");
@@ -45,6 +60,10 @@ public class MainView extends AppLayout {
 
     this.addToNavbar(appName);
     this.addToNavbar(true, menu);
+
+    if (this.currentUser.getUser() instanceof Patient) {
+      createPopup();
+    }
 
     getElement().addEventListener("search-focus", e -> {
       getElement().getClassList().add("hide-navbar");
@@ -55,10 +74,26 @@ public class MainView extends AppLayout {
     });
   }
 
+  private void createPopup() {
+    final Button emergencyButton = new Button(new Icon(VaadinIcon.PHONE));
+    ContextMenu contextMenu = new ContextMenu(emergencyButton);
+    contextMenu.addItem("Notruf: 144");
+    contextMenu.addItem("Dargebotene Hand: 143");
+    Patient patient = (Patient) currentUser.getUser();
+    MedicalSpecialist medicalSpecialist = patient.getMedicalSpecialist();
+    if (medicalSpecialist.getPhone() != null) {
+      contextMenu.addItem(
+          medicalSpecialist.getFirstName() + " " + medicalSpecialist
+              .getLastName() + ": " + medicalSpecialist.getPhone());
+    }
+    contextMenu.setOpenOnClick(true);
+    contextMenu.setEnabled(false);
+    this.addToNavbar(emergencyButton);
+  }
+
   @Override
   protected void afterNavigation() {
     super.afterNavigation();
-
     String target = RouteConfiguration.forSessionScope().getUrl(this.getContent().getClass());
     Optional<Component> tabToSelect = menu.getChildren().filter(tab -> {
       Component child = tab.getChildren().findFirst().get();
