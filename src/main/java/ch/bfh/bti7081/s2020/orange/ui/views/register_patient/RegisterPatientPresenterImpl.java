@@ -33,7 +33,7 @@ public class RegisterPatientPresenterImpl implements RegisterPatientPresenter,
   @Override
   public void createNewPatient(Patient p) {
     getLogger().info("Registered new patient with email {}", p.getEmail());
-    patientService.savePatient(p);
+    patientService.updatePatient(p);
   }
 
   @Override
