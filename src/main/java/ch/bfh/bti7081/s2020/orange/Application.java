@@ -83,8 +83,10 @@ public class Application extends SpringBootServletInitializer implements HasLogg
       Chat chat = new Chat(Arrays.asList(), patient, specialist);
       this.chatRepository.save(chat);
 
-      Message message = new Message("Testnachricht", LocalDateTime.now(), MessageState.UNREAD,
-          patient, chat);
+      Message message = new Message(
+          "Herzlich Willkommen im Chat! Sie können hier jederzeit eine Nachricht hinterlassen.",
+          LocalDateTime.now(), MessageState.UNREAD,
+          specialist, chat);
 
       this.messageRepository.save(message);
 

@@ -13,25 +13,26 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MoodEntry extends AbstractEntity {
+public class MoodEntry extends DiaryEntry {
 
-    @ToString.Exclude
-    @ManyToOne
-    private MoodDiary diary;
+  @ToString.Exclude
+  @ManyToOne
+  private MoodDiary diary;
 
-    @NotNull
-    private Mood mood;
+  @NotNull
+  private Mood mood;
 
-    @NotNull
-    private LocalDate date;
+  @NotNull
+  private LocalDate date;
 
-    @NotNull
-    private LocalTime time;
+  @NotNull
+  private LocalTime time;
 
-    @PositiveOrZero
-    private double sleepHours;
+  @PositiveOrZero
+  private double sleepHours;
 
-    @PositiveOrZero
-    private double waterDrunk;
+  @PositiveOrZero
+  private double waterDrunk;
 
 }
+
