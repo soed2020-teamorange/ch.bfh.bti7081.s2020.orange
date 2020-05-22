@@ -18,9 +18,9 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 @PreserveOnRefresh
 @Secured(Role.PATIENT)
-public class MoodDiaryViewRoute extends VerticalLayout implements BeforeEnterObserver, View {
+public class MoodDiaryCreateEntryViewRoute extends VerticalLayout implements BeforeEnterObserver, View {
 
-  private final MoodDiaryPresenter moodDiaryPresenter;
+  private final MoodDiaryCreateEntryPresenter moodDiaryCreateEntryPresenter;
 
   @PostConstruct
   public void init() {
@@ -29,11 +29,11 @@ public class MoodDiaryViewRoute extends VerticalLayout implements BeforeEnterObs
 
   @Override
   public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-    moodDiaryPresenter.onBeforeEnter();
+    moodDiaryCreateEntryPresenter.onBeforeEnter();
   }
 
   @Override
   public <C> C getComponent(Class<C> type) {
-    return moodDiaryPresenter.getView().getComponent(type);
+    return moodDiaryCreateEntryPresenter.getView().getComponent(type);
   }
 }

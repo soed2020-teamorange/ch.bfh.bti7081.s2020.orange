@@ -15,7 +15,7 @@ import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos.EditUserInfosViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.moodDiary.MoodDiaryViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.moodDiary.MoodDiaryCreateEntryViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.registerPatient.RegisterPatientViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos.ShowUserViewRoute;
 import com.vaadin.flow.component.Component;
@@ -124,8 +124,8 @@ public class MainView extends AppLayout {
     tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_EDITUSERINFOS, EditUserInfosViewRoute.class));
     tabs.add(createTab(VaadinIcon.USER, TITLE_SHOWUSERINFOS, ShowUserViewRoute.class));
 
-    if (SecurityUtils.isAccessGranted(MoodDiaryViewRoute.class)) {
-      tabs.add(createTab(VaadinIcon.SCALE, TITLE_MOODDIARY, MoodDiaryViewRoute.class));
+    if (SecurityUtils.isAccessGranted(MoodDiaryCreateEntryViewRoute.class)) {
+      tabs.add(createTab(VaadinIcon.SCALE, TITLE_MOODDIARY, MoodDiaryCreateEntryViewRoute.class));
     }
 
     final String contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();

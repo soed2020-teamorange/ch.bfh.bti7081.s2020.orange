@@ -16,17 +16,17 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class MoodDiaryPresenterImpl implements MoodDiaryPresenter,
-    MoodDiaryView.Observer, HasLogger {
+public class MoodDiaryCreateEntryPresenterImpl implements MoodDiaryCreateEntryPresenter,
+    MoodDiaryCreateEntryView.Observer, HasLogger {
 
-  private final MoodDiaryView moodDiaryView;
+  private final MoodDiaryCreateEntryView moodDiaryCreateEntryView;
   private final MoodEntryService moodEntryService;
   private final CurrentUser currentUser;
   private final PatientService patientService;
 
   @Override
   public void onBeforeEnter() {
-    moodDiaryView.setObserver(this);
+    moodDiaryCreateEntryView.setObserver(this);
   }
 
   @Override
@@ -38,6 +38,6 @@ public class MoodDiaryPresenterImpl implements MoodDiaryPresenter,
 
   @Override
   public View getView() {
-    return moodDiaryView;
+    return moodDiaryCreateEntryView;
   }
 }

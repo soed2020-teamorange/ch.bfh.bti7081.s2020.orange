@@ -31,7 +31,8 @@ import java.util.List;
 @UIScope
 @Component
 @RequiredArgsConstructor
-public class MoodDiaryViewImpl extends VerticalLayout implements MoodDiaryView,
+public class MoodDiaryCreateEntryViewImpl extends VerticalLayout implements
+    MoodDiaryCreateEntryView,
     HasLogger {
 
   @Setter
