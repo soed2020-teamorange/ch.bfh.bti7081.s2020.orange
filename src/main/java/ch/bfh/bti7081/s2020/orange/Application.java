@@ -3,7 +3,7 @@ package ch.bfh.bti7081.s2020.orange;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.MessageState;
+import ch.bfh.bti7081.s2020.orange.backend.data.MessageState;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.ChatRepository;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.MessageRepository;
@@ -16,8 +16,6 @@ import java.util.Arrays;
 
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -83,8 +81,10 @@ public class Application extends SpringBootServletInitializer implements HasLogg
       Chat chat = new Chat(Arrays.asList(), patient, specialist);
       this.chatRepository.save(chat);
 
-      Message message = new Message("Testnachricht", LocalDateTime.now(), MessageState.UNREAD,
-          patient, chat);
+      Message message = new Message(
+          "Herzlich Willkommen im Chat! Sie können hier jederzeit eine Nachricht hinterlassen.",
+          LocalDateTime.now(), MessageState.UNREAD,
+          specialist, chat);
 
       this.messageRepository.save(message);
 

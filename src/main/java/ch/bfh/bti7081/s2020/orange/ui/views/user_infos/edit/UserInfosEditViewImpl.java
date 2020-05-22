@@ -1,14 +1,9 @@
-package ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos;
+package ch.bfh.bti7081.s2020.orange.ui.views.user_infos.edit;
 
-import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
-import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
@@ -19,13 +14,10 @@ import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.spring.annotation.UIScope;
-
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Locale;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -35,7 +27,7 @@ import org.springframework.stereotype.Component;
 @UIScope
 @Component
 @RequiredArgsConstructor
-public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInfosView, HasLogger {
+public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEditView, HasLogger {
 
   private Binder<User> binder = new BeanValidationBinder<>(User.class);
   private EmailField emailEF = new EmailField("E-Mail");
@@ -46,7 +38,7 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
 
   @PostConstruct
   public void init() {
-    add(new H1(AppConst.TITLE_EDITUSERINFOS),
+    add(new H1(AppConst.TITLE_USER_INFOS_EDIT),
         buildForm());
   }
 
@@ -63,9 +55,11 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
     birthDateDPI18n.setClear("Löschen");
     birthDateDPI18n.setToday("Heute");
     birthDateDPI18n.setCancel("Abbrechen");
-    birthDateDPI18n.setWeekdays(Arrays.asList("Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"));
+    birthDateDPI18n.setWeekdays(Arrays
+        .asList("Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"));
     birthDateDPI18n.setWeekdaysShort(Arrays.asList("So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"));
-    birthDateDPI18n.setMonthNames(Arrays.asList("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
+    birthDateDPI18n.setMonthNames(
+        Arrays.asList("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
             "September", "Oktober", "November", "Dezember"));
     birthDateDP.setI18n(birthDateDPI18n);
 
@@ -82,97 +76,102 @@ public class EditUserInfosViewImpl extends VerticalLayout implements EditUserInf
 
     // Bind elements to business object
     binder.forField(firstNameTF)
-            .asRequired("Vorname muss angegeben werden.")
-            .bind(User::getFirstName, User::setFirstName);
+        .asRequired("Vorname muss angegeben werden.")
+        .bind(User::getFirstName, User::setFirstName);
 
     binder.forField(lastNameTF)
-            .asRequired("Nachname muss angegeben werden.")
-            .bind(User::getLastName, User::setLastName);
+        .asRequired("Nachname muss angegeben werden.")
+        .bind(User::getLastName, User::setLastName);
 
     binder.forField(birthDateDP)
-            .asRequired("Geburtsdatum muss gesetzt sein.")
-            .withValidator(date -> date.isBefore(LocalDate.now()), "Geburtsdatum muss in der Vergangenheit sein.")
-            .bind(User::getBirthDate, User::setBirthDate);
+        .asRequired("Geburtsdatum muss gesetzt sein.")
+        .withValidator(date -> date.isBefore(LocalDate.now()),
+            "Geburtsdatum muss in der Vergangenheit sein.")
+        .bind(User::getBirthDate, User::setBirthDate);
 
     binder.forField(streetTF)
-            .bind(User::getStreet, User::setStreet);
+        .bind(User::getStreet, User::setStreet);
 
     binder.forField(streetNumberTF)
-            .bind(User::getStreetNumber, User::setStreetNumber);
+        .bind(User::getStreetNumber, User::setStreetNumber);
 
     binder.forField(cityTF)
-            .bind(User::getCity, User::setCity);
+        .bind(User::getCity, User::setCity);
 
     binder.forField(zipCodeTF)
-            .bind(User::getZipCode, User::setZipCode);
+        .bind(User::getZipCode, User::setZipCode);
 
     binder.forField(countryTF)
-            .bind(User::getCountry, User::setCountry);
+        .bind(User::getCountry, User::setCountry);
 
     binder.forField(phoneTF)
-            .bind(User::getPhone, User::setPhone);
+        .bind(User::getPhone, User::setPhone);
 
     binder.forField(emailEF)
-            .asRequired("E-Mail muss angegeben werden.")
-            .withValidator(new EmailValidator(
-                    "Bitte eine korrekte E-Mail angeben."))
-            .bind(User::getEmail, User::setEmail);
+        .asRequired("E-Mail muss angegeben werden.")
+        .withValidator(new EmailValidator(
+            "Bitte eine korrekte E-Mail angeben."))
+        .bind(User::getEmail, User::setEmail);
 
     binder.forField(passwordPF)
-            .withValidator(p -> p.length() >= 4,
-                    "Passwort muss mindestens 4 Zeichen lang sein.")
-            .withValidator(p -> passwordPF.getValue().equals(passwordConfirmPF.getValue()), "Passwörter müssen übereinstimmen.")
-            .bind(p -> "",
-                    (p, password) -> {
-                      p.setPasswordHash(passwordEncoder.encode(password.toString()));
-                    });
+        .withValidator(p -> p.length() >= 4,
+            "Passwort muss mindestens 4 Zeichen lang sein.")
+        .withValidator(p -> passwordPF.getValue().equals(passwordConfirmPF.getValue()),
+            "Passwörter müssen übereinstimmen.")
+        .bind(p -> "",
+            (p, password) -> {
+              p.setPasswordHash(passwordEncoder.encode(password.toString()));
+            });
 
     Binder.Binding<User, String> secondPassword = binder.forField(passwordConfirmPF)
-            .withValidator(p -> p.length() >= 4,
-                    "Passwort muss mindestens 4 Zeichen lang sein.")
-            .withValidator(p -> passwordPF.getValue().equals(passwordConfirmPF.getValue()), "Passwörter müssen übereinstimmen.")
-            .bind(p -> "",
-                    (p, password) -> {
-                      p.setPasswordHash(passwordEncoder.encode(password.toString()));
-                    });
+        .withValidator(p -> p.length() >= 4,
+            "Passwort muss mindestens 4 Zeichen lang sein.")
+        .withValidator(p -> passwordPF.getValue().equals(passwordConfirmPF.getValue()),
+            "Passwörter müssen übereinstimmen.")
+        .bind(p -> "",
+            (p, password) -> {
+              p.setPasswordHash(passwordEncoder.encode(password.toString()));
+            });
 
     // Wrap components in layouts
-    FormLayout formLayout = new FormLayout(firstNameTF, lastNameTF, birthDateDP, streetTF, streetNumberTF,
-            cityTF, zipCodeTF, countryTF, phoneTF, emailEF, passwordPF, passwordConfirmPF, saveButton);
+    FormLayout formLayout = new FormLayout(firstNameTF, lastNameTF, birthDateDP, streetTF,
+        streetNumberTF,
+        cityTF, zipCodeTF, countryTF, phoneTF, emailEF, passwordPF, passwordConfirmPF, saveButton);
 
     Div wrapperLayout = new Div(formLayout);
 
     passwordPF.addValueChangeListener(
-            event -> secondPassword.validate());
+        event -> secondPassword.validate());
 
     emailEF.addValueChangeListener(
-            event -> {
-              if (!emailEF.isInvalid()) {
-                observer.emailIsUnique(event.toString());
-              }
-            });
+        event -> {
+          if (!emailEF.isInvalid()) {
+            observer.emailIsUnique(event.toString());
+          }
+        });
 
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
-              saveButton.setEnabled(!status.hasValidationErrors());
-            }
+          saveButton.setEnabled(!status.hasValidationErrors());
+        }
     );
 
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
-              saveButton.setEnabled(!status.hasValidationErrors());
-            }
+          saveButton.setEnabled(!status.hasValidationErrors());
+        }
     );
 
     saveButton.addClickListener(click -> {
-        getLogger().info("Successfully saved new data for user [" + binder.getBean().getEmail() + "]");
-        observer.onSaveUser(binder.getBean());
+      getLogger()
+          .info("Successfully saved new data for user [" + binder.getBean().getEmail() + "]");
+      observer.onSaveUser(binder.getBean());
     });
 
     formLayout.setResponsiveSteps(
-            new FormLayout.ResponsiveStep("25em", 1),
-            new FormLayout.ResponsiveStep("32em", 2),
-            new FormLayout.ResponsiveStep("40em", 3));
+        new FormLayout.ResponsiveStep("25em", 1),
+        new FormLayout.ResponsiveStep("32em", 2),
+        new FormLayout.ResponsiveStep("40em", 3));
 
     return wrapperLayout;
   }

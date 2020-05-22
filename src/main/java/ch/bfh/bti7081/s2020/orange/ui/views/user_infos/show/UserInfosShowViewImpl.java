@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos;
+package ch.bfh.bti7081.s2020.orange.ui.views.user_infos.show;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 
 @UIScope
 @Component
-public class ShowUserViewImpl extends VerticalLayout implements
-    ShowUserView,
+public class UserInfosShowViewImpl extends VerticalLayout implements
+    UserInfosShowView,
     HasLogger {
 
   H1 title = new H1("Angaben anzeigen");

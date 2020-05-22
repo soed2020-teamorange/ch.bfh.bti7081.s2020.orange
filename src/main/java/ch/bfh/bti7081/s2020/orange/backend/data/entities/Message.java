@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.backend.data.entities;
 
+import ch.bfh.bti7081.s2020.orange.backend.data.MessageState;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

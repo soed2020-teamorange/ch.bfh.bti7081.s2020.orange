@@ -1,17 +1,13 @@
-package ch.bfh.bti7081.s2020.orange.ui.views.registerPatient;
+package ch.bfh.bti7081.s2020.orange.ui.views.register_patient;
 
 
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.service.MedicalSpecialistService;
 import ch.bfh.bti7081.s2020.orange.backend.service.PatientService;
 import ch.bfh.bti7081.s2020.orange.backend.service.UserService;
 import ch.bfh.bti7081.s2020.orange.ui.exceptions.UserAlreadyExistsException;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import ch.bfh.bti7081.s2020.orange.ui.utils.View;
-import java.util.List;
-
-import com.vaadin.flow.component.textfield.EmailField;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -37,7 +33,7 @@ public class RegisterPatientPresenterImpl implements RegisterPatientPresenter,
   @Override
   public void createNewPatient(Patient p) {
     getLogger().info("Registered new patient with email {}", p.getEmail());
-    patientService.savePatient(p);
+    patientService.updatePatient(p);
   }
 
   @Override
