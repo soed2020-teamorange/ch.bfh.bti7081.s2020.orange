@@ -13,15 +13,13 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class UserInfosShowPresenterImpl implements UserInfosShowPresenter,
-    UserInfosShowView.Observer {
+public class UserInfosShowPresenterImpl implements UserInfosShowPresenter {
 
   private final UserInfosShowView userInfosShowView;
   private final CurrentUser currentUser;
 
   @Override
   public void onBeforeEnter() {
-    userInfosShowView.setObserver(this);
     userInfosShowView.setFirstName(currentUser.getUser().getFirstName());
     userInfosShowView.setLastName(currentUser.getUser().getLastName());
     if (currentUser.getUser() instanceof Patient) {

@@ -11,14 +11,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.spring.annotation.UIScope;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @UIScope
 @Component
-public class UserInfosShowViewImpl extends VerticalLayout implements
-    UserInfosShowView,
-    HasLogger {
+public class UserInfosShowViewImpl extends VerticalLayout implements UserInfosShowView, HasLogger {
 
   H1 title = new H1("Angaben anzeigen");
   Label firstNameDesc = new Label("Vorname:");
@@ -32,9 +29,6 @@ public class UserInfosShowViewImpl extends VerticalLayout implements
   Label medicalSpecialistLastNameDesc = new Label("Nachname:");
   Label medicalSpecialistLastName = new Label();
   Grid<Patient> patients = new Grid<>(Patient.class);
-
-  @Setter
-  private Observer observer;
 
   @PostConstruct
   public void init() {

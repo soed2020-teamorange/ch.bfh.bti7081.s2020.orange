@@ -5,7 +5,7 @@ import ch.bfh.bti7081.s2020.orange.ui.MainView;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.View;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
@@ -20,7 +20,8 @@ import org.springframework.security.access.annotation.Secured;
 @RequiredArgsConstructor
 @PreserveOnRefresh
 @Secured(Role.PATIENT)
-public class MoodDiaryOverviewViewRoute extends Div implements BeforeEnterObserver, View {
+public class MoodDiaryOverviewViewRoute extends VerticalLayout implements BeforeEnterObserver,
+    View {
 
   private final MoodDiaryOverviewPresenter presenter;
 

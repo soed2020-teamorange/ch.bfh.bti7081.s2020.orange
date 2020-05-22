@@ -5,6 +5,7 @@ import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
 import com.vaadin.componentfactory.Chat;
 import com.vaadin.componentfactory.Chat.ChatNewMessageEvent;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.spring.annotation.UIScope;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Component;
 @UIScope
 @Component
 @RequiredArgsConstructor
-public class ChatViewImpl extends Div implements ChatView {
+public class ChatViewImpl extends VerticalLayout implements ChatView {
 
   @Setter
   private ChatView.Observer observer;

@@ -3,7 +3,6 @@ package ch.bfh.bti7081.s2020.orange.backend.data.entities;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,11 +17,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public abstract class DiaryEntry extends AbstractEntity {
 
-  @NotBlank
+  //  @NotBlank
   @Size(max = 255)
   private String title;
 
-  @NotBlank
+  //  @NotBlank
   @Size(max = 255)
   private String content;
 }
