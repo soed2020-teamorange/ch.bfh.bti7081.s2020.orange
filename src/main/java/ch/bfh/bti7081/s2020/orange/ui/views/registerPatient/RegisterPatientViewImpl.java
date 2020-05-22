@@ -1,16 +1,19 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.registerPatient;
 
-import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
+import ch.bfh.bti7081.s2020.orange.ui.exceptions.UserAlreadyExistsException;
+import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
+import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.Html;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -20,8 +23,10 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.spring.annotation.UIScope;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 
 import lombok.RequiredArgsConstructor;
@@ -35,81 +40,154 @@ import org.springframework.stereotype.Component;
 public class RegisterPatientViewImpl extends VerticalLayout implements RegisterPatientView,
     HasLogger {
 
-  private Grid<Patient> registeredPatientGrid = new Grid<>(Patient.class, false);
-  private List<Patient> patients = new ArrayList<Patient>();
-  private Binder<User> binder = new BeanValidationBinder<>(User.class);
+  private List<MedicalSpecialist> medicalSpecialists = new ArrayList<MedicalSpecialist>();
   private final PasswordEncoder passwordEncoder;
+
+  private EmailField emailEF = new EmailField("E-Mail");
 
   @Setter
   private Observer observer;
 
   @PostConstruct
   public void init() {
-
-    registeredPatientGrid.addColumn(Patient::getFirstName).setHeader("Vorname").setSortable(true);
-    registeredPatientGrid.addColumn(Patient::getLastName).setHeader("Nachname").setSortable(true);
-    registeredPatientGrid.addColumn(Patient::getEmail).setHeader("E-Mail");
-
-    add(new H1("Neuen Patienten registrieren"),
-        buildForm(),
-            new H2("Alle vorhandenen Patienten"),
-            registeredPatientGrid);
+    add(new H1(AppConst.TITLE_REGISTERPATIENT),
+        buildForm());
   }
 
   private Div buildForm() {
+    // Create form components
+    TextField firstNameTF = new TextField("Vorname");
+    TextField lastNameTF = new TextField("Nachname");
 
-    // Create UI components
-    TextField firstName = new TextField("Vorname");
-    TextField lastName = new TextField("Nachname");
-    EmailField email = new EmailField("E-Mail");
+    DatePicker birthDateDP = new DatePicker("Geburtsdatum");
+    birthDateDP.setValue(LocalDate.now());
+    DatePicker.DatePickerI18n birthDateDPI18n = new DatePicker.DatePickerI18n();
+    birthDateDPI18n.setWeek("Woche");
+    birthDateDPI18n.setCalendar("Kalender");
+    birthDateDPI18n.setClear("Löschen");
+    birthDateDPI18n.setToday("Heute");
+    birthDateDPI18n.setCancel("Abbrechen");
+    birthDateDPI18n.setWeekdays(Arrays.asList("Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"));
+    birthDateDPI18n.setWeekdaysShort(Arrays.asList("So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"));
+    birthDateDPI18n.setMonthNames(Arrays.asList("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August",
+            "September", "Oktober", "November", "Dezember"));
+    birthDateDP.setI18n(birthDateDPI18n);
 
-    Button saveButton = new Button("Speichern");
-    Div errorsLayout = new Div();
+    TextField streetTF = new TextField("Strasse");
+    TextField streetNumberTF = new TextField("Hausnummer");
+    TextField cityTF = new TextField("Stadt");
+    TextField zipCodeTF = new TextField("Postleitzahl");
+    TextField countryTF = new TextField("Land");
+    TextField phoneTF = new TextField("Telefonnummer");
 
-    // Configure UI components
-    saveButton.setThemeName("primary");
+    PasswordField passwordPF = new PasswordField("Passwort");
+    PasswordField passwordConfirmPF = new PasswordField("Passwort wiederholen");
 
-    // Wrap components in layouts
-    FormLayout formLayout = new FormLayout(firstName, lastName, email, saveButton);
-    Div wrapperLayout = new Div(formLayout, errorsLayout);
+    ComboBox<MedicalSpecialist> medicalSpecialistComboBox = new ComboBox<>("Therapeut");
+    medicalSpecialistComboBox.setItemLabelGenerator(MedicalSpecialist::toStringForFormatCombobox);
+    medicalSpecialistComboBox.setItems(medicalSpecialists);
 
+    Button saveButton = new Button("Neuen Patienten hinzufügen");
+
+    // Bind elements to business object
     Binder<Patient> binder = new Binder<>(Patient.class);
-    binder.forField(firstName)
+    binder.forField(firstNameTF)
         .asRequired("Vorname muss angegeben werden.")
         .bind(Patient::getFirstName, Patient::setFirstName);
 
-    binder.forField(lastName)
+    binder.forField(lastNameTF)
         .asRequired("Nachname muss angegeben werden.")
         .bind(Patient::getLastName, Patient::setLastName);
 
-    binder.forField(email)
+    binder.forField(birthDateDP)
+            .asRequired("Geburtsdatum muss gesetzt sein.")
+            .withValidator(date -> date.isBefore(LocalDate.now()), "Geburtsdatum muss in der Vergangenheit sein.")
+            .bind(Patient::getBirthDate, Patient::setBirthDate);
+
+    binder.forField(streetTF)
+            .bind(Patient::getStreet, Patient::setStreet);
+
+    binder.forField(streetNumberTF)
+            .bind(Patient::getStreetNumber, Patient::setStreetNumber);
+
+    binder.forField(cityTF)
+            .bind(Patient::getCity, Patient::setCity);
+
+    binder.forField(zipCodeTF)
+            .bind(Patient::getZipCode, Patient::setZipCode);
+
+    binder.forField(countryTF)
+            .bind(Patient::getCountry, Patient::setCountry);
+
+    binder.forField(phoneTF)
+            .bind(Patient::getPhone, Patient::setPhone);
+
+    binder.forField(emailEF)
             .asRequired("E-Mail muss angegeben werden.")
             .withValidator(new EmailValidator(
-            "Bitte eine korrekte E-Mail angeben."))
+                    "Bitte eine korrekte E-Mail angeben."))
             .bind(Patient::getEmail, Patient::setEmail);
+
+    binder.forField(medicalSpecialistComboBox)
+            .asRequired("Bitte einen Therapeuten auswählen.")
+            .bind(Patient::getMedicalSpecialist, Patient::setMedicalSpecialist);
+
+    binder.forField(passwordPF)
+            .asRequired("Passwort muss gesetzt sein.")
+            .withValidator(p -> p.length() >= 4,
+                    "Passwort muss mindestens 4 Zeichen lang sein.")
+            .bind(p -> p.getPasswordHash(),
+            (p, password) -> {
+              p.setPasswordHash(passwordEncoder.encode(password.toString()));
+            });
+
+    Binder.Binding<Patient, String> secondPassword = binder.forField(passwordConfirmPF)
+            .asRequired("Passwort muss gesetzt sein.")
+            .withValidator(p -> p.length() >= 4,
+                    "Passwort muss mindestens 4 Zeichen lang sein.")
+            .withValidator(p -> passwordPF.getValue().equals(passwordConfirmPF.getValue()), "Passwörter müssen übereinstimmen.")
+            .bind(p -> p.getPasswordHash(),
+                    (p, password) -> {
+                      p.setPasswordHash(passwordEncoder.encode(password));
+                    });
 
     binder.readBean(new Patient());
 
+    // Wrap components in layouts
+
+    FormLayout formLayout = new FormLayout(firstNameTF, lastNameTF, birthDateDP, streetTF, streetNumberTF,
+            cityTF, zipCodeTF, countryTF, phoneTF, emailEF, medicalSpecialistComboBox, passwordPF, passwordConfirmPF, saveButton);
+
+    Div wrapperLayout = new Div(formLayout);
+
+    passwordPF.addValueChangeListener(
+            event -> secondPassword.validate());
+
+    emailEF.addValueChangeListener(
+            event -> {
+              if (!emailEF.isInvalid()) {
+                observer.emailIsUnique(event.toString());
+              }
+            });
+
+    // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
-          saveButton.setEnabled(!status.hasValidationErrors());
+            saveButton.setEnabled(!status.hasValidationErrors());
         }
     );
 
     saveButton.addClickListener(click -> {
       try {
-        errorsLayout.setText("");
+          Patient newPatient = new Patient();
+          binder.writeBean(newPatient);
 
-        Patient newPatient = new Patient();
-        binder.writeBean(newPatient);
-        // TODO: ein Passwort generieren?
-        newPatient.setPasswordHash(passwordEncoder.encode("1234"));
+          // save new patient
+          observer.createNewPatient(newPatient);
 
-        observer.createNewPatient(newPatient);
-
-        binder.readBean(new Patient());
-
+          // load new empty patient to the form
+          binder.readBean(new Patient());
       } catch (ValidationException e) {
-        // TODO: wie mit Exception umgehen
+        getLogger().warn("There are some validation errors.");
       }
     });
 
@@ -122,16 +200,15 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
   }
 
   @Override
-  public void setUser(User user) {
-    getLogger().info("Set user with e-mail ["+user.getEmail()+"]");
-    binder.setBean(user);
+  public void setEMailIsUniqueError(boolean b) {
+    emailEF.setInvalid(b);
+    emailEF.setErrorMessage("E-Mail wird bereits verwendet.");
   }
 
   @Override
-  public void setPatients(List<Patient> patients) {
-    getLogger().info("Set patients into grid");
-    registeredPatientGrid.setItems(patients);
-    registeredPatientGrid.getDataProvider().refreshAll();
+  public void setMedicalSpecialists(List<MedicalSpecialist> medicalSpecialists) {
+    getLogger().info("Create list with medicalSpecialists");
+    this.medicalSpecialists.addAll(medicalSpecialists);
   }
 
   @Override

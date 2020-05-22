@@ -8,6 +8,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -19,13 +21,15 @@ public class Patient extends User {
   @ManyToOne
   private MedicalSpecialist medicalSpecialist;
 
-  public Patient(String email, String passwordHash, String firstName, String lastName) {
-    super(email, passwordHash, firstName, lastName, Role.PATIENT);
+  public Patient(String email, String passwordHash, String firstName, String lastName, LocalDate birthDate) {
+    super(email, passwordHash, firstName, lastName, birthDate, Role.PATIENT);
   }
 
   public Patient(String email, String passwordHash, String firstName, String lastName,
-      MedicalSpecialist medicalSpecialist) {
-    super(email, passwordHash, firstName, lastName, Role.PATIENT);
+                 LocalDate birthDate, MedicalSpecialist medicalSpecialist) {
+    super(email, passwordHash, firstName, lastName, birthDate, Role.PATIENT);
     this.medicalSpecialist = medicalSpecialist;
   }
+
+
 }

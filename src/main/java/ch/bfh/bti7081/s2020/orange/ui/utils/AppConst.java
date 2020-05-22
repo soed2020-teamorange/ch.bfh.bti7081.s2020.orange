@@ -15,7 +15,7 @@ public class AppConst {
   public static final String PAGE_LOGIN = "login";
 
   public static final String TITLE_HOME = "Home";
-  public static final String TITLE_REGISTERPATIENT = "Neuen Patienten registrieren";
+  public static final String TITLE_REGISTERPATIENT = "Patienten registrieren";
   public static final String TITLE_EDITUSERINFOS = "Angaben bearbeiten";
   public static final String TITLE_SHOWUSERINFOS = "Angaben anzeigen";
   public static final String TITLE_LOGIN = "Login";

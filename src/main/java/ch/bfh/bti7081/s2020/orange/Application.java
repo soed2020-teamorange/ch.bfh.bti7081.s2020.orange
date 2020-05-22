@@ -9,8 +9,12 @@ import ch.bfh.bti7081.s2020.orange.backend.repositories.ChatRepository;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.MessageRepository;
 import ch.bfh.bti7081.s2020.orange.backend.service.MedicalSpecialistService;
 import ch.bfh.bti7081.s2020.orange.backend.service.PatientService;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+
+import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +32,11 @@ import reactor.core.publisher.UnicastProcessor;
  */
 @SpringBootApplication
 @RequiredArgsConstructor
-public class Application extends SpringBootServletInitializer {
+public class Application extends SpringBootServletInitializer implements HasLogger {
 
   private final PatientService patientService;
   private final MedicalSpecialistService medicalSpecialistService;
   private final PasswordEncoder passwordEncoder;
-  private static final Logger log = LoggerFactory.getLogger(Application.class);
   private final ChatRepository chatRepository;
   private final MessageRepository messageRepository;
 
@@ -59,17 +62,23 @@ public class Application extends SpringBootServletInitializer {
       MedicalSpecialist specialist = medicalSpecialistService
           .createMedicalSpecialist("specialist@pms.ch",
               passwordEncoder.encode("1234"),
-              "Specialist", "Tester");
+              "Specialist", "Tester", LocalDate.now().minusDays(120));
+
+      MedicalSpecialist specialist2 = medicalSpecialistService
+              .createMedicalSpecialist("specialist2@pms.ch",
+                      passwordEncoder.encode("1234"),
+                      "Specialist2", "Tester2", LocalDate.now().minusDays(150));
 
       Patient patient = patientService
           .createPatient("patient@pms.ch", passwordEncoder.encode("1234"), "Patient",
-              "Tester", specialist);
+              "Tester", LocalDate.now().minusDays(1500), specialist);
+
       Patient patient2 = patientService
           .createPatient("patient2@pms.ch", passwordEncoder.encode("1234"), "Patient2",
-              "Tester", specialist);
+              "Tester", LocalDate.now().minusDays(2000), specialist);
       Patient patient3 = patientService
           .createPatient("patient3@pms.ch", passwordEncoder.encode("1234"), "Patient3",
-              "Tester");
+              "Tester", LocalDate.now().minusDays(3550));
 
       Chat chat = new Chat(Arrays.asList(), patient, specialist);
       this.chatRepository.save(chat);

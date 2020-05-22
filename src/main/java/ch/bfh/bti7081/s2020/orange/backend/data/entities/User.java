@@ -13,10 +13,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
+import org.hibernate.validator.internal.util.privilegedactions.LoadClass;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -26,11 +25,12 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class User extends AbstractEntity {
 
-  public User(String email, String passwordHash, String firstName, String lastName, String role) {
+  public User(String email, String passwordHash, String firstName, String lastName, LocalDate birthDate, String role) {
     this.email = email;
     this.passwordHash = passwordHash;
     this.firstName = firstName;
     this.lastName = lastName;
+    this.birthDate = birthDate;
     this.role = role;
   }
 

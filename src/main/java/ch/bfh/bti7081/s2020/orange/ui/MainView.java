@@ -115,7 +115,7 @@ public class MainView extends AppLayout {
 
     if (SecurityUtils.isAccessGranted(RegisterPatientViewRoute.class)) {
       tabs.add(
-          createTab(VaadinIcon.CALENDAR, TITLE_REGISTERPATIENT, RegisterPatientViewRoute.class));
+          createTab(VaadinIcon.CLIPBOARD_CROSS, TITLE_REGISTERPATIENT, RegisterPatientViewRoute.class));
     }
 
     tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_EDITUSERINFOS, EditUserInfosViewRoute.class));
