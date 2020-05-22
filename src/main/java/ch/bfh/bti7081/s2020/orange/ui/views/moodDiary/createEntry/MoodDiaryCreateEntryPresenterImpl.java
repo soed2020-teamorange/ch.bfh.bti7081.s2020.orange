@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2020.orange.ui.views.moodDiary;
+package ch.bfh.bti7081.s2020.orange.ui.views.moodDiary.createEntry;
 
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;

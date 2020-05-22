@@ -15,7 +15,7 @@ import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos.EditUserInfosViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.moodDiary.MoodDiaryCreateEntryViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.moodDiary.createEntry.MoodDiaryCreateEntryViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.registerPatient.RegisterPatientViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos.ShowUserViewRoute;
 import com.vaadin.flow.component.Component;
