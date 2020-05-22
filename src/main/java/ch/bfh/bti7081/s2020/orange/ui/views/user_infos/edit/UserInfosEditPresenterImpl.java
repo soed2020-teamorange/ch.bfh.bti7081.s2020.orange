@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos;
+package ch.bfh.bti7081.s2020.orange.ui.views.user_infos.edit;
 
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
@@ -14,37 +14,37 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class EditUserInfosPresenterImpl implements EditUserInfosPresenter,
-    EditUserInfosView.Observer {
+public class UserInfosEditPresenterImpl implements UserInfosEditPresenter,
+    UserInfosEditView.Observer {
 
-  private final EditUserInfosView editUserInfosView;
+  private final UserInfosEditView userInfosEditView;
   private final UserService userService;
   private final CurrentUser currentUser;
 
   @Override
   public void onBeforeEnter() {
-    editUserInfosView.setObserver(this);
-    editUserInfosView.setUser(currentUser.getUser());
+    userInfosEditView.setObserver(this);
+    userInfosEditView.setUser(currentUser.getUser());
   }
 
   @Override
   public void onSaveUser(User user) {
     userService.saveUser(user);
-    editUserInfosView.showNotification("Angaben erfolgreich bearbeitet.");
+    userInfosEditView.showNotification("Angaben erfolgreich bearbeitet.");
   }
 
   @Override
   public void emailIsUnique(String email) throws UserAlreadyExistsException {
     try {
       userService.emailIsUnique(email);
-      editUserInfosView.setEMailIsUniqueError(false);
+      userInfosEditView.setEMailIsUniqueError(false);
     } catch (UserAlreadyExistsException e) {
-      editUserInfosView.setEMailIsUniqueError(true);
+      userInfosEditView.setEMailIsUniqueError(true);
     }
   }
 
   @Override
   public View getView() {
-    return editUserInfosView;
+    return userInfosEditView;
   }
 }

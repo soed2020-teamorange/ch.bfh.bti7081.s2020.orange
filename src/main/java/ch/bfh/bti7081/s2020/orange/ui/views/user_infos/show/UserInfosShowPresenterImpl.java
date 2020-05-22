@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos;
+package ch.bfh.bti7081.s2020.orange.ui.views.user_infos.show;
 
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
@@ -13,32 +13,33 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-public class ShowUserPresenterImpl implements ShowUserPresenter, ShowUserView.Observer {
+public class UserInfosShowPresenterImpl implements UserInfosShowPresenter,
+    UserInfosShowView.Observer {
 
-  private final ShowUserView showUserView;
+  private final UserInfosShowView userInfosShowView;
   private final CurrentUser currentUser;
 
   @Override
   public void onBeforeEnter() {
-    showUserView.setObserver(this);
-    showUserView.setFirstName(currentUser.getUser().getFirstName());
-    showUserView.setLastName(currentUser.getUser().getLastName());
+    userInfosShowView.setObserver(this);
+    userInfosShowView.setFirstName(currentUser.getUser().getFirstName());
+    userInfosShowView.setLastName(currentUser.getUser().getLastName());
     if (currentUser.getUser() instanceof Patient) {
       Patient patient = (Patient) currentUser.getUser();
       if (patient.getMedicalSpecialist() != null) {
-        showUserView.setMedicalSpecialist(patient.getMedicalSpecialist());
+        userInfosShowView.setMedicalSpecialist(patient.getMedicalSpecialist());
       }
     } else if (currentUser.getUser() instanceof MedicalSpecialist) {
       MedicalSpecialist medicalSpecialist = (MedicalSpecialist) currentUser.getUser();
       if (medicalSpecialist.getPatients() != null) {
-        showUserView.setPatients(medicalSpecialist.getPatients());
+        userInfosShowView.setPatients(medicalSpecialist.getPatients());
       }
     }
   }
 
   @Override
   public View getView() {
-    return showUserView;
+    return userInfosShowView;
   }
 
 }
