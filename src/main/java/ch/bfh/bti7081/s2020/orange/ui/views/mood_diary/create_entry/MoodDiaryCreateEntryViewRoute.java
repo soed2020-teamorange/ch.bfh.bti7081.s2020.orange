@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2020.orange.ui.views.registerPatient;
+package ch.bfh.bti7081.s2020.orange.ui.views.mood_diary.create_entry;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.Role;
 import ch.bfh.bti7081.s2020.orange.ui.MainView;
@@ -11,20 +11,19 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.PreserveOnRefresh;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouteAlias;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 
-@Route(value = AppConst.PAGE_REGISTERPATIENT, layout = MainView.class)
-@RouteAlias(value = AppConst.PAGE_REGISTERPATIENT, layout = MainView.class)
-@PageTitle(AppConst.TITLE_REGISTERPATIENT)
+@Route(value = AppConst.PAGE_MOOD_DIARY, layout = MainView.class)
+@PageTitle(AppConst.TITLE_MOOD_DIARY)
 @RequiredArgsConstructor
 @PreserveOnRefresh
-@Secured(Role.MEDICAL_SPECIALIST)
-public class RegisterPatientViewRoute extends VerticalLayout implements BeforeEnterObserver, View {
+@Secured(Role.PATIENT)
+public class MoodDiaryCreateEntryViewRoute extends VerticalLayout implements BeforeEnterObserver,
+    View {
 
-  private final RegisterPatientPresenter registerPatientPresenter;
+  private final MoodDiaryCreateEntryPresenter moodDiaryCreateEntryPresenter;
 
   @PostConstruct
   public void init() {
@@ -33,11 +32,11 @@ public class RegisterPatientViewRoute extends VerticalLayout implements BeforeEn
 
   @Override
   public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-    registerPatientPresenter.onBeforeEnter();
+    moodDiaryCreateEntryPresenter.onBeforeEnter();
   }
 
   @Override
   public <C> C getComponent(Class<C> type) {
-    return registerPatientPresenter.getView().getComponent(type);
+    return moodDiaryCreateEntryPresenter.getView().getComponent(type);
   }
 }
