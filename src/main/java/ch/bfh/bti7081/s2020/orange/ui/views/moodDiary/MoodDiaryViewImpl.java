@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.moodDiary;
 
+import ch.bfh.bti7081.s2020.orange.backend.data.Mood;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.*;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
@@ -10,18 +11,14 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.EmailField;
-import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.converter.StringToDoubleConverter;
-import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.spring.annotation.UIScope;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
