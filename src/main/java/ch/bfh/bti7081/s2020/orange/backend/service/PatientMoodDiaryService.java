@@ -4,6 +4,7 @@ import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodDiary;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodEntry;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.MoodDiaryRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -16,6 +17,10 @@ public class PatientMoodDiaryService {
 
   private final CurrentUser currentUser;
   private final MoodDiaryRepository moodDiaryRepository;
+
+  public List<MoodEntry> getEntries() {
+    return moodDiaryRepository.getByPatientId(currentUser.getUser().getId()).getEntries();
+  }
 
   public MoodDiary addEntry(MoodEntry entry) {
     MoodDiary diary = moodDiaryRepository.getByPatientId(currentUser.getUser().getId());
