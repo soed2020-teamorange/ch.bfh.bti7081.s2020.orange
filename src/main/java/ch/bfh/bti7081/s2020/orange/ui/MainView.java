@@ -8,7 +8,6 @@ import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_REGISTER_PATIE
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_USER_INFOS_EDIT;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_USER_INFOS_SHOW;
 
-import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
 import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
 import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
@@ -37,11 +36,9 @@ import java.util.Optional;
 @ParentLayout(value = AppView.class)
 public class MainView extends AppLayout implements RouterLayout {
 
-  private final CurrentUser currentUser;
   private final Tabs menu;
 
-  public MainView(CurrentUser currentUser) {
-    this.currentUser = currentUser;
+  public MainView() {
     this.setDrawerOpened(false);
     Span appName = new Span("Team Orange - Projekt MHC-PMS");
     appName.addClassName("hide-on-mobile");
