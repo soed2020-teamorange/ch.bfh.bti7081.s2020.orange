@@ -23,6 +23,6 @@ public abstract class DiaryEntry extends AbstractEntity {
   private String title;
 
   @NotBlank
-  @Size(max = 255)
+  @Size(max = 800)
   private String content;
 }
