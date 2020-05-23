@@ -49,7 +49,7 @@ public class MoodDiaryOverviewViewImpl extends VerticalLayout implements MoodDia
 
   private Button createButton() {
     Button button = new Button("Neuen Eintrag erstellen");
-    
+
     button.addClickListener(
         e -> button.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_MOOD_DIARY_CREATE_ENTRY)));
 
@@ -103,7 +103,6 @@ public class MoodDiaryOverviewViewImpl extends VerticalLayout implements MoodDia
 
     for (MoodEntry entry : entries) {
       long timestamp = entry.getDate().atTime(entry.getTime()).toEpochSecond(ZoneOffset.UTC);
-      System.out.println(timestamp);
       moodSeries.add(new DataSeriesItem(timestamp * 1000, mapMood(entry.getMood())));
       sleepHoursSeries.add(new DataSeriesItem(timestamp * 1000, entry.getSleepHours()));
       waterDrunkSeries.add(new DataSeriesItem(timestamp * 1000, entry.getWaterDrunk()));
@@ -238,8 +237,6 @@ public class MoodDiaryOverviewViewImpl extends VerticalLayout implements MoodDia
 
   @Override
   public void setEntries(List<MoodEntry> entries) {
-    entries.forEach(e -> System.out.println(e.getId()));
-
     addContent(entries);
   }
 }
