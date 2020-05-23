@@ -1,9 +1,11 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.mood_diary.create_entry;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.Mood;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.DiaryEntry;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodEntry;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
+import ch.bfh.bti7081.s2020.orange.ui.views.mood_diary.overview.MoodDiaryOverviewPresenter;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -11,6 +13,7 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.Binder;
@@ -73,6 +76,8 @@ public class MoodDiaryCreateEntryViewImpl extends VerticalLayout implements
     moodCB.setItems(moods);
     moodCB.setValue(moods.get(1));
 
+    TextField titleTF = new TextField("Titel");
+    TextArea contentTA = new TextArea("Beschreibung");
     TextField waterDrunkTF = new TextField("Anzahl Liter Wasser", "0");
     TextField sleepHoursTF = new TextField("Anzahl Stunden Schlaf", "0");
 
@@ -87,6 +92,16 @@ public class MoodDiaryCreateEntryViewImpl extends VerticalLayout implements
     binder.forField(timeTP)
         .asRequired("Zeit muss gesetzt sein.")
         .bind(MoodEntry::getTime, MoodEntry::setTime);
+
+    binder.forField(titleTF)
+            .asRequired("Bitte einen Titel eingeben.")
+             .withValidator(l -> l.length() <= 100, "Bitte maximal 100 Zeichen verwenden.")
+            .bind(MoodEntry::getTitle, MoodEntry::setTitle);
+
+    binder.forField(contentTA)
+            .asRequired("Bitte eine Beschreibung eingeben.")
+            .withValidator(l -> l.length() <= 800, "Bitte maximal 800 Zeichen verwenden.")
+            .bind(MoodEntry::getContent, MoodEntry::setContent);
 
     binder.forField(waterDrunkTF)
         .asRequired("Bitte eine gültige Zahl eingeben.")
@@ -126,7 +141,7 @@ public class MoodDiaryCreateEntryViewImpl extends VerticalLayout implements
     });
 
     // Wrap components in layouts
-    FormLayout formLayout = new FormLayout(dateDP, timeTP, moodCB, waterDrunkTF, sleepHoursTF,
+    FormLayout formLayout = new FormLayout(dateDP, timeTP, moodCB, titleTF, contentTA, waterDrunkTF, sleepHoursTF,
         saveButton);
 
     Div wrapperLayout = new Div(formLayout);
