@@ -24,5 +24,6 @@
 	* [Scrum Setup](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/blob/master/doc/tasks/task_06/documentation.md)
 	
 * Task 08
-	* [Klassendiagram & Code](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/blob/master/doc/tasks/task_08/task08.md)
+	* [Klassendiagramm](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/blob/master/doc/tasks/task_08/task08.md)
+	* [Code](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/tree/master/src/main/java/ch/bfh/bti7081/s2020/orange)
 	

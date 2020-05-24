@@ -32,7 +32,7 @@ Umgesetzt mit JPA, daher entsprechende Typen/Annotations
 ![Klassendiagramm](01_classDiagramm/activity_diary_create_entry.svg)
 
 #### Stimmungstagebuch
-Da fast genau gleich (bis auf UI Visualisierung) wie Aktivitätstagebuch, wird darauf verzichtet dies noch seperat zu visualisieren.
+Da fast genau gleich (bis auf UI Visualisierung) wie Aktivitätstagebuch, wird darauf verzichtet dies noch separat zu visualisieren.
 
 ## Code
-Der Code zum Klassendiagramm befindet sich unter https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/tree/master/src/main/java/ch/bfh/bti7081/s2020/orange/backend
+Der Code zum Klassendiagramm befindet sich hier: [Code](https://github.com/soed2020-teamorange/ch.bfh.bti7081.s2020.orange/tree/master/src/main/java/ch/bfh/bti7081/s2020/orange) 
