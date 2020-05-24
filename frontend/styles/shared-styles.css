@@ -6,4 +6,17 @@
   height: 60px;
   background-color: red;
   color: white;
+  z-index: 999;
+}
+
+.app-title {
+  margin-left: 16px;
+}
+
+.timeline-container {
+  overflow: hidden;
+}
+
+.timeline-container pure-timeline {
+  width: 100%;
 }

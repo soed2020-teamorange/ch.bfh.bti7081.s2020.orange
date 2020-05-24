@@ -13,6 +13,7 @@ public class AppConst {
   public static final String PAGE_USER_INFOS_SHOW = "infos";
   public static final String PAGE_MOOD_DIARY_OVERVIEW = "mood-diary";
   public static final String PAGE_MOOD_DIARY_CREATE_ENTRY = "mood-diary/create-entry";
+  public static final String PAGE_ACTIVITY_DIARY_OVERVIEW = "activity-diary";
   public static final String PAGE_ACTIVITY_DIARY_CREATE_ENTRY = "activity-diary/create-entry";
   public static final String PAGE_CHAT = "chat";
   public static final String PAGE_LOGIN = "login";
