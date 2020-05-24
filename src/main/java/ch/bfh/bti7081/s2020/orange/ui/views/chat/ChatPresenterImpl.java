@@ -26,9 +26,6 @@ public class ChatPresenterImpl implements ChatPresenter, ChatView.Observer {
   }
 
   private void addMessageToView(Message message) {
-    System.out.println(
-        "ChatPresenter adding to view message " + message.getContent() + " User " + user.getUser()
-            .getEmail());
     view.addMessage(message);
   }
 

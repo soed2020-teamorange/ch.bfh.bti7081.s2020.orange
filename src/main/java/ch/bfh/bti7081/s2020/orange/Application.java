@@ -103,9 +103,6 @@ public class Application extends SpringBootServletInitializer implements HasLogg
           specialist, chat);
 
       this.messageRepository.save(message);
-
-      System.out.println(this.messageRepository.findAllByChatId(chat.getId()).size());
-      System.out.println("ChatId: " + chat.getId());
     };
   }
 }
