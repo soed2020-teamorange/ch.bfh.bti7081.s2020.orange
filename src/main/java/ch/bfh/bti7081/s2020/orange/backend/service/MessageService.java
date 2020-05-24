@@ -2,7 +2,7 @@ package ch.bfh.bti7081.s2020.orange.backend.service;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.MessageState;
+import ch.bfh.bti7081.s2020.orange.backend.data.MessageState;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.MessageRepository;
 import java.time.LocalDateTime;

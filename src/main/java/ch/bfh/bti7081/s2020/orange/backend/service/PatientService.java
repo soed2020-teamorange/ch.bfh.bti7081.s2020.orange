@@ -1,9 +1,14 @@
 package ch.bfh.bti7081.s2020.orange.backend.service;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.Role;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.ActivityDiary;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodDiary;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
+import ch.bfh.bti7081.s2020.orange.backend.repositories.ActivityDiaryRepository;
+import ch.bfh.bti7081.s2020.orange.backend.repositories.MoodDiaryRepository;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.PatientRepository;
+import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,23 +18,39 @@ import org.springframework.stereotype.Service;
 public class PatientService {
 
   private final PatientRepository patientRepository;
+  private final MoodDiaryRepository moodDiaryRepository;
+  private final ActivityDiaryRepository activityDiaryRepository;
 
   public Patient createPatient(String email, String passwordHash, String firstName,
-      String lastName) {
-    Patient patient = new Patient(email, passwordHash, firstName, lastName);
+      String lastName, LocalDate birthDate) {
+    Patient patient = new Patient(email, passwordHash, firstName, lastName, birthDate);
 
-    return this.patientRepository.save(patient);
+    return createPatient(patient);
   }
 
   public Patient createPatient(String email, String passwordHash, String firstName,
-      String lastName, MedicalSpecialist medicalSpecialist) {
-    Patient patient = new Patient(email, passwordHash, firstName, lastName);
+      String lastName, LocalDate birthDate, MedicalSpecialist medicalSpecialist) {
+    Patient patient = new Patient(email, passwordHash, firstName, lastName, birthDate);
     patient.setMedicalSpecialist(medicalSpecialist);
 
-    return this.patientRepository.save(patient);
+    return createPatient(patient);
   }
 
-  public Patient savePatient(Patient p) {
+  private Patient createPatient(Patient patient) {
+    Patient savedPatient = this.patientRepository.save(patient);
+
+    MoodDiary moodDiary = new MoodDiary();
+    moodDiary.setPatient(savedPatient);
+    moodDiaryRepository.save(moodDiary);
+
+    ActivityDiary activityDiary = new ActivityDiary();
+    activityDiary.setPatient(savedPatient);
+    activityDiaryRepository.save(activityDiary);
+
+    return savedPatient;
+  }
+
+  public Patient updatePatient(Patient p) {
     p.setRole(Role.PATIENT);
 
     return this.patientRepository.save(p);

@@ -24,7 +24,6 @@ public class ChatViewRoute extends VerticalLayout implements View, HasUrlParamet
   public void init() {
     removeAll();
     add(this.getComponent(Component.class));
-    System.out.println("Added chatview");
   }
 
   @Override

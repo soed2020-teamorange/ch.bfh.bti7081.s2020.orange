@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class ActivityDiary extends Diary<ActivityEntry> {
+public class MoodDiary extends Diary<MoodEntry> {
 
 }

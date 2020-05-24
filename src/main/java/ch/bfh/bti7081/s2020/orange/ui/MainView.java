@@ -1,15 +1,26 @@
 package ch.bfh.bti7081.s2020.orange.ui;
 
+
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_ACTIVITY_DIARY;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_CHAT;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_HOME;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_LOGOUT;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_MOOD_DIARY;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_REGISTER_PATIENT;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_USER_INFOS_EDIT;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_USER_INFOS_SHOW;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.VIEWPORT;
+
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
 import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
-import ch.bfh.bti7081.s2020.orange.ui.views.activityDiary.ActivityDiaryViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.create_entry.ActivityDiaryCreateEntryViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.editUserInfos.EditUserInfosViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.registerPatient.RegisterPatientViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.showUserInfos.ShowUserViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.mood_diary.overview.MoodDiaryOverviewViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.register_patient.RegisterPatientViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.user_infos.edit.UserInfosEditViewRoute;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -31,8 +42,6 @@ import com.vaadin.flow.server.VaadinServlet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.*;
 
 @Push
 @Viewport(VIEWPORT)
@@ -110,16 +119,23 @@ public class MainView extends AppLayout {
 
     if (SecurityUtils.isAccessGranted(RegisterPatientViewRoute.class)) {
       tabs.add(
-          createTab(VaadinIcon.CALENDAR, TITLE_REGISTERPATIENT, RegisterPatientViewRoute.class));
+          createTab(VaadinIcon.CLIPBOARD_CROSS, TITLE_REGISTER_PATIENT,
+              RegisterPatientViewRoute.class));
     }
 
-    if (SecurityUtils.isAccessGranted(ActivityDiaryViewRoute.class)) {
+    if (SecurityUtils.isAccessGranted(ActivityDiaryCreateEntryViewRoute.class)) {
       tabs.add(
-              createTab(VaadinIcon.GOLF, TITLE_ACTIVITYDIARY, ActivityDiaryViewRoute.class));
+          createTab(VaadinIcon.GOLF, TITLE_ACTIVITY_DIARY,
+              ActivityDiaryCreateEntryViewRoute.class));
     }
 
-    tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_EDITUSERINFOS, EditUserInfosViewRoute.class));
-    tabs.add(createTab(VaadinIcon.USER, TITLE_SHOWUSERINFOS, ShowUserViewRoute.class));
+    if (SecurityUtils.isAccessGranted(MoodDiaryOverviewViewRoute.class)) {
+      tabs.add(createTab(VaadinIcon.SCALE, TITLE_MOOD_DIARY, MoodDiaryOverviewViewRoute.class));
+    }
+
+    tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_USER_INFOS_EDIT, UserInfosEditViewRoute.class));
+    tabs.add(createTab(VaadinIcon.USER, TITLE_USER_INFOS_SHOW,
+        ch.bfh.bti7081.s2020.orange.ui.views.user_infos.show.UserInfosShowViewRoute.class));
 
     final String contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
     final Tab logoutTab = createTab(createLogoutLink(contextPath));
