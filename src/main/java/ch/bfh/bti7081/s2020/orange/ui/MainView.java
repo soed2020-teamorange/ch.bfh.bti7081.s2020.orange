@@ -16,6 +16,7 @@ import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.create_entry.ActivityDiaryCreateEntryViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.overview.ActivityDiaryOverviewViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.mood_diary.overview.MoodDiaryOverviewViewRoute;
@@ -125,8 +126,7 @@ public class MainView extends AppLayout {
 
     if (SecurityUtils.isAccessGranted(ActivityDiaryCreateEntryViewRoute.class)) {
       tabs.add(
-          createTab(VaadinIcon.GOLF, TITLE_ACTIVITY_DIARY,
-              ActivityDiaryCreateEntryViewRoute.class));
+          createTab(VaadinIcon.GOLF, TITLE_ACTIVITY_DIARY, ActivityDiaryOverviewViewRoute.class));
     }
 
     if (SecurityUtils.isAccessGranted(MoodDiaryOverviewViewRoute.class)) {

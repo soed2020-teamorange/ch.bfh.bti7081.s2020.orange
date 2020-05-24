@@ -18,7 +18,8 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public abstract class DiaryEntry extends AbstractEntity {
 
-  @NotBlank
+  // TODO uncomment
+//  @NotBlank
   @Size(max = 255)
   private String title;
 

@@ -167,6 +167,12 @@
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-charts-flow</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>de.nils_bauer</groupId>
+      <artifactId>pure-timeline-flow</artifactId>
+      <version>1.0.0</version>
+    </dependency>
   </dependencies>
 
   <build>
