@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2020.orange.ui;
 
+
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_ACTIVITY_DIARY;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_CHAT;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_HOME;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_LOGOUT;
@@ -9,6 +11,7 @@ import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_USER_INFOS_EDI
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_USER_INFOS_SHOW;
 
 import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
+import ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.create_entry.ActivityDiaryCreateEntryViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
 import ch.bfh.bti7081.s2020.orange.ui.views.mood_diary.overview.MoodDiaryOverviewViewRoute;
@@ -102,13 +105,19 @@ public class MainView extends AppLayout implements RouterLayout {
               RegisterPatientViewRoute.class));
     }
 
-    tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_USER_INFOS_EDIT, UserInfosEditViewRoute.class));
-    tabs.add(createTab(VaadinIcon.USER, TITLE_USER_INFOS_SHOW,
-        ch.bfh.bti7081.s2020.orange.ui.views.user_infos.show.UserInfosShowViewRoute.class));
+    if (SecurityUtils.isAccessGranted(ActivityDiaryCreateEntryViewRoute.class)) {
+      tabs.add(
+          createTab(VaadinIcon.GOLF, TITLE_ACTIVITY_DIARY,
+              ActivityDiaryCreateEntryViewRoute.class));
+    }
 
     if (SecurityUtils.isAccessGranted(MoodDiaryOverviewViewRoute.class)) {
       tabs.add(createTab(VaadinIcon.SCALE, TITLE_MOOD_DIARY, MoodDiaryOverviewViewRoute.class));
     }
+
+    tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_USER_INFOS_EDIT, UserInfosEditViewRoute.class));
+    tabs.add(createTab(VaadinIcon.USER, TITLE_USER_INFOS_SHOW,
+        ch.bfh.bti7081.s2020.orange.ui.views.user_infos.show.UserInfosShowViewRoute.class));
 
     final String contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
     final Tab logoutTab = createTab(createLogoutLink(contextPath));
