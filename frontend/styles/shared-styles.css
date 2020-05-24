@@ -6,4 +6,13 @@
   height: 60px;
   background-color: red;
   color: white;
+  z-index: 999;
+}
+
+.timeline-container {
+  overflow: hidden;
+}
+
+.timeline-container pure-timeline {
+  width: 100%;
 }

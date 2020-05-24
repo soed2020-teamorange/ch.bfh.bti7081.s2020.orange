@@ -81,8 +81,6 @@ public class ActivityDiaryOverviewViewImpl extends VerticalLayout implements
 
   @Override
   public void setEntries(List<ActivityEntry> entries) {
-    entries.forEach(e -> System.out.println(e.getId()));
-
     addContent(entries);
   }
 
