@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.create_entry;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Activity;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.ActivityEntry;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodEntry;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.button.Button;
@@ -12,6 +13,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
@@ -75,6 +77,7 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
     activityCB.setItems(activites);
     activityCB.setValue(activites.get(0));
 
+    TextField titleTF = new TextField("Titel");
     TextArea contentTA = new TextArea("Beschreibung");
 
     // Bind elements to business object
@@ -94,9 +97,15 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
         .withValidator(e -> timeStartTP.getValue().isBefore(e), "Startzeit muss vor Endzeit sein.")
         .bind(ActivityEntry::getEndTime, ActivityEntry::setEndTime);
 
+    binder.forField(titleTF)
+            .asRequired("Bitte einen Titel eingeben.")
+            .withValidator(l -> l.length() <= 100, "Bitte maximal 100 Zeichen verwenden.")
+            .bind(ActivityEntry::getTitle, ActivityEntry::setTitle);
+
     binder.forField(contentTA)
-        .asRequired("Bitte eine Beschreibung eingeben.")
-        .bind(ActivityEntry::getContent, ActivityEntry::setContent);
+            .asRequired("Bitte eine Beschreibung eingeben.")
+            .withValidator(l -> l.length() <= 800, "Bitte maximal 800 Zeichen verwenden.")
+            .bind(ActivityEntry::getContent, ActivityEntry::setContent);
 
     Button saveButton = new Button("Neuen Aktivität hinzufügen");
 
@@ -132,7 +141,7 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
     });
 
     // Wrap components in layouts
-    FormLayout formLayout = new FormLayout(dateDP, timeStartTP, timeEndTP, activityCB, contentTA,
+    FormLayout formLayout = new FormLayout(dateDP, timeStartTP, timeEndTP, activityCB, titleTF, contentTA,
         saveButton);
 
     Div wrapperLayout = new Div(formLayout);
