@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2020.orange.application.security;
 
+import ch.bfh.bti7081.s2020.orange.ui.views.errors.AccessDeniedView;
+import ch.bfh.bti7081.s2020.orange.ui.views.errors.CustomRouteNotFoundError;
 import ch.bfh.bti7081.s2020.orange.ui.views.login.LoginView;
 import com.vaadin.flow.server.ServletHelper.RequestType;
 import com.vaadin.flow.shared.ApplicationConstants;
@@ -34,9 +36,6 @@ public final class SecurityUtils extends WebSecurityConfigurerAdapter {
    */
   public static String getUsername() {
     SecurityContext context = SecurityContextHolder.getContext();
-    System.out.println(context);
-    System.out.println(context.getAuthentication());
-    System.out.println(context.getAuthentication().getPrincipal());
     Object principal = context.getAuthentication().getPrincipal();
     if (principal instanceof UserDetails) {
       UserDetails userDetails = (UserDetails) context.getAuthentication().getPrincipal();
@@ -55,7 +54,10 @@ public final class SecurityUtils extends WebSecurityConfigurerAdapter {
    * @return true if access is granted, false otherwise.
    */
   public static boolean isAccessGranted(Class<?> securedClass) {
-    final boolean publicView = LoginView.class.equals(securedClass);
+    final boolean publicView = LoginView.class.equals(securedClass)
+        || AccessDeniedView.class.equals(securedClass)
+        || CustomRouteNotFoundError.class.equals(securedClass);
+
     // Always allow access to public views
     if (publicView) {
       return true;
