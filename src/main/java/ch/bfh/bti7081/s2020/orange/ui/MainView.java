@@ -45,6 +45,7 @@ public class MainView extends AppLayout implements RouterLayout {
     this.setDrawerOpened(false);
     Span appName = new Span("Team Orange - Projekt MHC-PMS");
     appName.addClassName("hide-on-mobile");
+    appName.addClassName("app-title");
 
     menu = createMenuTabs();
 

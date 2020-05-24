@@ -9,6 +9,10 @@
   z-index: 999;
 }
 
+.app-title {
+  margin-left: 16px;
+}
+
 .timeline-container {
   overflow: hidden;
 }
