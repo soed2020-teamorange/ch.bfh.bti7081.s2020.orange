@@ -65,6 +65,8 @@ public class Application extends SpringBootServletInitializer implements HasLogg
           .createMedicalSpecialist("specialist@pms.ch",
               passwordEncoder.encode("1234"),
               "Specialist", "Tester", LocalDate.now().minusDays(120));
+      specialist.setPhone("+41791234567");
+      medicalSpecialistService.saveMedicalSpecialist(specialist);
 
       MedicalSpecialist specialist2 = medicalSpecialistService
           .createMedicalSpecialist("specialist2@pms.ch",
