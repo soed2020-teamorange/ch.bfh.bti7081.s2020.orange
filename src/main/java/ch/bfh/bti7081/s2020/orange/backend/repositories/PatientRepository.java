@@ -7,4 +7,6 @@ import java.util.List;
 public interface PatientRepository extends UserBaseRepository<Patient> {
 
   List<Patient> findByMedicalSpecialist(MedicalSpecialist ms);
+
+  List<Patient> findByMedicalSpecialistNull();
 }

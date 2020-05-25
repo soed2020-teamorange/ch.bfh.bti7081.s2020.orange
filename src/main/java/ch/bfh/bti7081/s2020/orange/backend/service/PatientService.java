@@ -65,6 +65,10 @@ public class PatientService {
     return this.patientRepository.findByMedicalSpecialist(ms);
   }
 
+  public List<Patient> getPatientsWithoutMedicalSpecialist() {
+    return this.patientRepository.findByMedicalSpecialistNull();
+  }
+
   public List<Patient> getAllPatients() {
 
     return this.patientRepository.findAll();

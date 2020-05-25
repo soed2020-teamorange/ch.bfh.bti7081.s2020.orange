@@ -15,8 +15,12 @@ public interface ChatView extends ViewWithObserver<Observer> {
 
   public void showPatients(List<Patient> patients);
 
+  public void listNewChatPartners(List<Patient> patients);
+
   interface Observer {
 
     public void onAddMessage(String messageContent);
+
+    public void onStartNewConversation();
   }
 }
