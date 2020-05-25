@@ -1,12 +1,17 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.chat;
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import com.vaadin.componentfactory.Chat;
 import com.vaadin.componentfactory.Chat.ChatNewMessageEvent;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.listbox.ListBox;
+import com.vaadin.flow.component.splitlayout.SplitLayout;
 import com.vaadin.flow.spring.annotation.UIScope;
+import java.util.Arrays;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -15,7 +20,7 @@ import org.springframework.stereotype.Component;
 @UIScope
 @Component
 @RequiredArgsConstructor
-public class ChatViewImpl extends VerticalLayout implements ChatView {
+public class ChatViewImpl extends SplitLayout implements ChatView {
 
   @Setter
   private ChatView.Observer observer;
@@ -23,14 +28,21 @@ public class ChatViewImpl extends VerticalLayout implements ChatView {
   private final CurrentUser currentUser;
 
   Chat chat = new Chat();
+  ListBox listBox = new ListBox<>();
 
   @PostConstruct
   public void init() {
     this.setWidth("100%");
+    this.setSplitterPosition(10);
+    this.setPrimaryStyle("minWidth", "10%");
+    this.setPrimaryStyle("maxWidth", "20%");
+
     // somehow loading indicator is shown, even if we setLoading(false)
     chat.setLoadingIndicator(new Div());
     chat.addChatNewMessageListener(this::onAddNewMessage);
-    add(chat);
+
+    addToPrimary(listBox);
+    addToSecondary(chat);
   }
 
   private void onAddNewMessage(ChatNewMessageEvent chatNewMessageEvent) {
@@ -48,6 +60,16 @@ public class ChatViewImpl extends VerticalLayout implements ChatView {
         () -> chat.addNewMessage(toChatMessage(message))
     );
 
+  }
+
+  @Override
+  public void showMedicalSpecialists(MedicalSpecialist medicalSpecialist) {
+    listBox.setItems(Arrays.asList(medicalSpecialist));
+  }
+
+  @Override
+  public void showPatients(List<Patient> patients) {
+    listBox.setItems(patients);
   }
 
   private com.vaadin.componentfactory.model.Message toChatMessage(Message message) {

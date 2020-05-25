@@ -1,7 +1,9 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.chat;
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.service.MessageService;
 import ch.bfh.bti7081.s2020.orange.ui.utils.View;
 import javax.annotation.PostConstruct;
@@ -45,5 +47,17 @@ public class ChatPresenterImpl implements ChatPresenter, ChatView.Observer {
 
     view.setObserver(this);
     messageService.loadInitialMessagesForChat(chatId).forEach(view::addMessage);
+
+    if (user.getUser() instanceof Patient) {
+      Patient patient = (Patient) user.getUser();
+      if (patient.getMedicalSpecialist() != null) {
+        view.showMedicalSpecialists(patient.getMedicalSpecialist());
+      }
+    } else if (user.getUser() instanceof MedicalSpecialist) {
+      MedicalSpecialist medicalSpecialist = (MedicalSpecialist) user.getUser();
+      if (medicalSpecialist.getPatients() != null) {
+        view.showPatients(medicalSpecialist.getPatients());
+      }
+    }
   }
 }
