@@ -9,6 +9,7 @@ import com.vaadin.componentfactory.Chat.ChatNewMessageEvent;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.listbox.ListBox;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.spring.annotation.UIScope;
 import java.util.Arrays;
 import java.util.List;
@@ -70,6 +71,13 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
   @Override
   public void showPatients(List<Patient> patients) {
     listBox.setItems(patients);
+    listBox.setRenderer(new ComponentRenderer<>(employee -> {
+      Div text = new Div();
+      //TODO: Should display the patient names
+      text.setText("Patient name text holder");
+      //text.setText(employee.getTitle());
+      return text;
+    }));
   }
 
   private com.vaadin.componentfactory.model.Message toChatMessage(Message message) {
