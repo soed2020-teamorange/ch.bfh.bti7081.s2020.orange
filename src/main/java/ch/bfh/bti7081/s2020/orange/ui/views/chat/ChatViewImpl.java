@@ -4,14 +4,12 @@ import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import com.vaadin.componentfactory.Chat;
 import com.vaadin.componentfactory.Chat.ChatNewMessageEvent;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.listbox.ListBox;
-import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
+import com.vaadin.flow.data.renderer.TextRenderer;
 import com.vaadin.flow.spring.annotation.UIScope;
 import java.util.Arrays;
 import java.util.List;
@@ -68,26 +66,16 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
   @Override
   public void showMedicalSpecialists(MedicalSpecialist medicalSpecialist) {
     listBox.setItems(Arrays.asList(medicalSpecialist));
-    listBox.setRenderer(new ComponentRenderer<>(m -> {
-      Div text = new Div();
-      text.setText(((MedicalSpecialist) m).getFirstName() + " " + ((MedicalSpecialist) m).getLastName());
-
-      FlexLayout wrapper = new FlexLayout();
-      wrapper.add(text);
-      return wrapper;
+    listBox.setRenderer(new TextRenderer(m -> {
+      return ((MedicalSpecialist) m).getFirstName() + " " + ((MedicalSpecialist) m).getLastName();
     }));
   }
 
   @Override
   public void showPatients(List<Patient> patients) {
     listBox.setItems(patients);
-    listBox.setRenderer(new ComponentRenderer<>(p -> {
-      Div text = new Div();
-      text.setText(((Patient) p).getFirstName() + " " + ((Patient) p).getLastName());
-
-      FlexLayout wrapper = new FlexLayout();
-      wrapper.add(text);
-      return wrapper;
+    listBox.setRenderer(new TextRenderer<>(p -> {
+      return ((Patient) p).getFirstName() + " " + ((Patient) p).getLastName();
     }));
   }
 
