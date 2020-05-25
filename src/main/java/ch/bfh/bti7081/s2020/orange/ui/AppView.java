@@ -37,20 +37,19 @@ public class AppView extends Div implements RouterLayout {
     if (currentUser.getUser().getRole().equals(Role.PATIENT)) {
       final Button emergencyButton = new Button(new Icon(VaadinIcon.PHONE));
       emergencyButton.addClassName("emergency-button");
-      ContextMenu contextMenu = new ContextMenu(emergencyButton);
-      contextMenu.addItem(new Anchor("tel://144", "Notruf: 144"));
-      contextMenu.addItem(new Anchor("tel://143", "Dargebotene Hand: 143"));
+
+      final ContextMenu emergencyContextMenu = new ContextMenu(emergencyButton);
+      emergencyContextMenu.addItem(new Anchor("tel:144", "Notruf: 144"));
+      emergencyContextMenu.addItem(new Anchor("tel:143", "Dargebotene Hand: 143"));
 
       Patient patient = (Patient) currentUser.getUser();
       MedicalSpecialist medicalSpecialist = patient.getMedicalSpecialist();
       if (medicalSpecialist.getPhone() != null) {
-        contextMenu.addItem(
+        emergencyContextMenu.addItem(new Anchor("tel:" + medicalSpecialist.getPhone(),
             medicalSpecialist.getFirstName() + " " + medicalSpecialist
-                .getLastName() + ": " + medicalSpecialist.getPhone());
+                .getLastName() + ": " + medicalSpecialist.getPhone()));
       }
-      contextMenu.setOpenOnClick(true);
-      contextMenu.setEnabled(false);
-
+      emergencyContextMenu.setOpenOnClick(true);
       add(emergencyButton);
     }
   }

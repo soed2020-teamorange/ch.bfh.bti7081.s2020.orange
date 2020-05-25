@@ -6,6 +6,10 @@
   height: 60px;
   background-color: red;
   color: white;
+  z-index: 998;
+}
+
+vaadin-context-menu-overlay {
   z-index: 999;
 }
 
