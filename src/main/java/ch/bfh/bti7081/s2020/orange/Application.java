@@ -1,8 +1,6 @@
 package ch.bfh.bti7081.s2020.orange;
 
-import ch.bfh.bti7081.s2020.orange.backend.data.MessageState;
 import ch.bfh.bti7081.s2020.orange.backend.data.Mood;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodDiary;
@@ -15,9 +13,7 @@ import ch.bfh.bti7081.s2020.orange.backend.service.MedicalSpecialistService;
 import ch.bfh.bti7081.s2020.orange.backend.service.PatientService;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -95,16 +91,6 @@ public class Application extends SpringBootServletInitializer implements HasLogg
       Patient patient3 = patientService
           .createPatient("patient3@pms.ch", passwordEncoder.encode("1234"), "Patient3",
               "Tester", LocalDate.now().minusDays(3550));
-
-      Chat chat = new Chat(Arrays.asList(), patient, specialist);
-      this.chatRepository.save(chat);
-
-      Message message = new Message(
-          "Herzlich Willkommen im Chat! Sie können hier jederzeit eine Nachricht hinterlassen.",
-          LocalDateTime.now(), MessageState.UNREAD,
-          specialist, chat);
-
-      this.messageRepository.save(message);
     };
   }
 }
