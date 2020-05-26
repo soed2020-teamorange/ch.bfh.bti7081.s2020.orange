@@ -9,4 +9,6 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
 
   List<Chat> findByMedicalSpecialist(MedicalSpecialist ms);
 
+  List<Chat> findByMedicalSpecialistIdOrPatientId(long medicalSpecialistId, long patientId);
+
 }

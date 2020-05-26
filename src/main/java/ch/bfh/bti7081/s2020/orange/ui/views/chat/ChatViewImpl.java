@@ -1,23 +1,15 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.chat;
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
-import ch.bfh.bti7081.s2020.orange.backend.service.PatientService;
-import com.vaadin.componentfactory.Chat;
 import com.vaadin.componentfactory.Chat.ChatNewMessageEvent;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.icon.Icon;
-import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.listbox.ListBox;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
 import com.vaadin.flow.data.renderer.TextRenderer;
 import com.vaadin.flow.spring.annotation.UIScope;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -34,13 +26,10 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
 
   private final CurrentUser currentUser;
 
-  PatientService patientService;
-
-  Chat chat = new Chat();
+  Div div = new Div();
+  com.vaadin.componentfactory.Chat chat = new com.vaadin.componentfactory.Chat();
   VerticalLayout verticalLayout = new VerticalLayout();
-  ListBox listBox = new ListBox<>();
-  Button newChatButton = new Button(new Icon(VaadinIcon.PLUS_CIRCLE));
-  Select newChatSelect = new Select<>();
+  ListBox<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat> listBox = new ListBox<>();
 
   @PostConstruct
   public void init() {
@@ -56,20 +45,13 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
     listBox.addValueChangeListener(item -> {
       //TODO: Switch chat
       System.out.println("Changed chat to: " + item.getValue());
+      chat.setMessages(new ArrayList<>());
+      observer.onLoadChat(item.getValue().getId());
     });
-
-    newChatButton.addClickListener(click -> {
-      //TODO: Add new chat
-      System.out.println("Added " + newChatSelect.getValue() + " to chat");
-      //TODO: Remove observer?
-      //observer.onStartNewConversation();
-    });
-
-    newChatSelect.setPlaceholder("Neuer Chat");
 
     addToPrimary(verticalLayout);
-    addToSecondary(chat);
-    verticalLayout.add(listBox, newChatButton, newChatSelect);
+    addToSecondary(div);
+    verticalLayout.add(listBox);
   }
 
   private void onAddNewMessage(ChatNewMessageEvent chatNewMessageEvent) {
@@ -90,27 +72,18 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
   }
 
   @Override
-  public void showMedicalSpecialists(MedicalSpecialist medicalSpecialist) {
-    listBox.setItems(Arrays.asList(medicalSpecialist));
-    listBox.setRenderer(new TextRenderer(m -> {
-      return ((MedicalSpecialist) m).getFirstName() + " " + ((MedicalSpecialist) m).getLastName();
-    }));
+  public void setChats(List<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat> chats) {
+    listBox.setItems(chats);
+    //TODO: inject current User (Patient or MedicalSpecialist) in ChatViewImpl
+    listBox.setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
+        c -> c.getId().toString()));
   }
 
   @Override
-  public void showPatients(List<Patient> patients) {
-    listBox.setItems(patients);
-    listBox.setRenderer(new TextRenderer<>(p -> {
-      return ((Patient) p).getFirstName() + " " + ((Patient) p).getLastName();
-    }));
-  }
-
-  @Override
-  public void listNewChatPartners(List<Patient> patients) {
-    newChatSelect.setItems(patients);
-    newChatSelect.setRenderer(new TextRenderer<>(p -> {
-      return ((Patient) p).getFirstName() + " " + ((Patient) p).getLastName();
-    }));
+  public void setChat(ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat newChat) {
+    //this.chat.setMessages(newChat.getMessages().stream().map(this::toChatMessage).collect(Collectors.toList()));
+    div.removeAll();
+    div.add(this.chat);
   }
 
   private com.vaadin.componentfactory.model.Message toChatMessage(Message message) {

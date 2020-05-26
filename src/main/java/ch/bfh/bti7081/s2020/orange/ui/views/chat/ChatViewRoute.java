@@ -5,9 +5,8 @@ import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.View;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.BeforeEvent;
-import com.vaadin.flow.router.HasUrlParameter;
-import com.vaadin.flow.router.OptionalParameter;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import javax.annotation.PostConstruct;
@@ -16,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Route(value = AppConst.PAGE_CHAT, layout = MainView.class)
 @PageTitle(AppConst.TITLE_CHAT)
 @RequiredArgsConstructor
-public class ChatViewRoute extends VerticalLayout implements View, HasUrlParameter<Long> {
+public class ChatViewRoute extends VerticalLayout implements View, BeforeEnterObserver {
 
   private final ChatPresenter presenter;
 
@@ -32,7 +31,7 @@ public class ChatViewRoute extends VerticalLayout implements View, HasUrlParamet
   }
 
   @Override
-  public void setParameter(BeforeEvent beforeEvent, @OptionalParameter Long chatId) {
-    presenter.onBeforeEnter(chatId);
+  public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
+    presenter.onBeforeEnter();
   }
 }
