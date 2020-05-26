@@ -107,7 +107,6 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
 
   @Override
   public void listNewChatPartners(List<Patient> patients) {
-    //TODO: Populate select with assigned(!) patients who don't have chat yet
     newChatSelect.setItems(patients);
     newChatSelect.setRenderer(new TextRenderer<>(p -> {
       return ((Patient) p).getFirstName() + " " + ((Patient) p).getLastName();
