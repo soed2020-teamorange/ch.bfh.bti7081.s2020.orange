@@ -50,7 +50,7 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
     });
 
     addToPrimary(verticalLayout);
-    addToSecondary(div);
+    addToSecondary(chat);
     verticalLayout.add(listBox);
   }
 
@@ -77,13 +77,6 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
     //TODO: inject current User (Patient or MedicalSpecialist) in ChatViewImpl
     listBox.setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
         c -> c.getId().toString()));
-  }
-
-  @Override
-  public void setChat(ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat newChat) {
-    //this.chat.setMessages(newChat.getMessages().stream().map(this::toChatMessage).collect(Collectors.toList()));
-    div.removeAll();
-    div.add(this.chat);
   }
 
   private com.vaadin.componentfactory.model.Message toChatMessage(Message message) {

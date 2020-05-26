@@ -47,12 +47,11 @@ public class ChatPresenterImpl implements ChatPresenter, ChatView.Observer {
   public void onBeforeEnter() {
     view.setObserver(this);
     view.setChats(chatService.getChatsByUserId(user.getUser().getId()));
-    //TODO: remove if not needed?
-    //messageService.loadInitialMessagesForChat(chatId).forEach(view::addMessage);
   }
 
   @Override
   public void onLoadChat(long chatId) {
+    this.chatId = chatId;
     for (Message message : messageRepository.findAllByChatId(chatId)) {
       view.addMessage(message);
     }

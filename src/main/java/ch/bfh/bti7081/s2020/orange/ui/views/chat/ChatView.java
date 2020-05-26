@@ -12,8 +12,6 @@ public interface ChatView extends ViewWithObserver<Observer> {
 
   public void setChats(List<Chat> chats);
 
-  public void setChat(Chat newChat);
-
   interface Observer {
 
     public void onAddMessage(String messageContent);
