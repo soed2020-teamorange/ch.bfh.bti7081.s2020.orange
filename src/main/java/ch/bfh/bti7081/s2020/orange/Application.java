@@ -42,13 +42,11 @@ public class Application extends SpringBootServletInitializer implements HasLogg
     SpringApplication.run(Application.class, args);
   }
 
-  // TODO move
   @Bean
   UnicastProcessor<Message> publisher() {
     return UnicastProcessor.create();
   }
 
-  // TODO move
   @Bean
   Flux<Message> messages(UnicastProcessor<Message> publisher) {
     return publisher.replay(0).autoConnect();

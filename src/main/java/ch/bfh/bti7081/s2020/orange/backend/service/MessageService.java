@@ -35,8 +35,7 @@ public class MessageService {
     return messageRepository.findAllByChatId(chatId);
   }
 
-  // TODO filter by chatid
-  public Flux<Message> getMessagesForChatId(Long chatId) {
+  public Flux<Message> getMessages() {
     return messages;
   }
 }

@@ -19,7 +19,6 @@ import lombok.experimental.SuperBuilder;
 public class Message extends AbstractEntity {
 
   private String content;
-  // TODO by auditing
   private LocalDateTime creationDate;
   private MessageState state;
 

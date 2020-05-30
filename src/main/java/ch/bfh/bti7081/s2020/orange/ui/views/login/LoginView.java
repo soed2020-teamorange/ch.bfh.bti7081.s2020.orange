@@ -22,7 +22,6 @@ public class LoginView extends LoginOverlay
   public LoginView() {
     LoginI18n i18n = LoginI18n.createDefault();
     i18n.setHeader(new LoginI18n.Header());
-    // TODO constants
     i18n.getHeader().setTitle("Projekt MHC-PMS");
     i18n.getHeader().setDescription("Team Orange");
     i18n.setAdditionalInformation(null);

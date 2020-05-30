@@ -37,9 +37,7 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
     this.setPrimaryStyle("minWidth", "150px");
     this.setPrimaryStyle("width", "150px");
 
-    System.out.println("Added valueChangeListener");
     listBox.addValueChangeListener(item -> {
-      System.out.println("Called valueChangeListener");
       chatContent.removeAll();
       chat = createChat();
       chatContent.add(chat);
@@ -72,7 +70,6 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
 
   @Override
   public void addMessage(Message message) {
-    System.out.println("Adding message " + message.getContent());
     getUI().ifPresentOrElse(ui ->
             ui.access(() -> chat.addNewMessage(toChatMessage(message))),
         // if ui isn't yet present
@@ -98,12 +95,7 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
       );
     }
 
-    //Select first chat on enter
-    //TODO: doesn't work when navigating back from another tab
-    //observer.onLoadChat(chats.get(0).getId());
-    System.out.println("Set value");
     listBox.setValue(chats.get(0));
-//    listbox
   }
 
   private com.vaadin.componentfactory.model.Message toChatMessage(Message message) {
