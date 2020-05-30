@@ -28,17 +28,9 @@ public class MedicalSpecialistService {
     return this.medicalSpecialistRepository.save(medicalSpecialist);
   }
 
-  public MedicalSpecialist getMedicalSpecialist(long id) {
-    return this.medicalSpecialistRepository.findById(id).get();
-  }
-
   public List<MedicalSpecialist> getAllMedicalSpecialist() {
 
     return this.medicalSpecialistRepository.findAll();
-  }
-
-  public void deleteMedicalSpecialist(long id) {
-    this.medicalSpecialistRepository.deleteById(id);
   }
 
 }

@@ -26,7 +26,7 @@ public class ChatPresenterImpl implements ChatPresenter, ChatView.Observer {
 
   @PostConstruct
   public void init() {
-    messageService.getMessagesForChatId(chatId).subscribe(this::addMessageToView);
+    messageService.getMessages().subscribe(this::addMessageToView);
   }
 
   private void addMessageToView(Message message) {

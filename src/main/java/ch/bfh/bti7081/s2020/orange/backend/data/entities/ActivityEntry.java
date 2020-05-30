@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.backend.data.entities;
 
+import ch.bfh.bti7081.s2020.orange.backend.data.Activity;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.persistence.Entity;

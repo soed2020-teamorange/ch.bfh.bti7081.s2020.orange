@@ -33,13 +33,6 @@ public class MedicalSpecialist extends User {
     super(email, passwordHash, firstName, lastName, birthDate, Role.MEDICAL_SPECIALIST);
   }
 
-  public MedicalSpecialist(String email, String passwordHash, String firstName, String lastName,
-      LocalDate birthDate, String jobTitle, List<Patient> patients) {
-    super(email, passwordHash, firstName, lastName, birthDate, Role.MEDICAL_SPECIALIST);
-    this.jobTitle = jobTitle;
-    this.patients = patients;
-  }
-
   public String toStringForFormatCombobox() {
     return getFirstName() + " " + getLastName() + ", " + getEmail();
   }

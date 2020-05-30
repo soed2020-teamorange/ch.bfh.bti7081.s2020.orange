@@ -8,14 +8,14 @@ import java.util.List;
 
 public interface ChatView extends ViewWithObserver<Observer> {
 
-  public void addMessage(Message message);
+  void addMessage(Message message);
 
-  public void setChats(List<Chat> chats);
+  void setChats(List<Chat> chats);
 
   interface Observer {
 
-    public void onAddMessage(String messageContent);
+    void onAddMessage(String messageContent);
 
-    public void onLoadChat(long chatId);
+    void onLoadChat(long chatId);
   }
 }

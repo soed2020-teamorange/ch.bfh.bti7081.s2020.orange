@@ -34,10 +34,10 @@ import org.springframework.stereotype.Component;
 public class RegisterPatientViewImpl extends VerticalLayout implements RegisterPatientView,
     HasLogger {
 
-  private List<MedicalSpecialist> medicalSpecialists = new ArrayList<MedicalSpecialist>();
+  private final List<MedicalSpecialist> medicalSpecialists = new ArrayList<MedicalSpecialist>();
   private final PasswordEncoder passwordEncoder;
 
-  private EmailField emailEF = new EmailField("E-Mail");
+  private final EmailField emailEF = new EmailField("E-Mail");
 
   @Setter
   private Observer observer;
@@ -135,7 +135,7 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
             "Passwort muss mindestens 4 Zeichen lang sein.")
         .bind(p -> p.getPasswordHash(),
             (p, password) -> {
-              p.setPasswordHash(passwordEncoder.encode(password.toString()));
+              p.setPasswordHash(passwordEncoder.encode(password));
             });
 
     Binder.Binding<Patient, String> secondPassword = binder.forField(passwordConfirmPF)

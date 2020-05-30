@@ -1,6 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.create_entry;
 
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.Activity;
+import ch.bfh.bti7081.s2020.orange.backend.data.Activity;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.ActivityEntry;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
