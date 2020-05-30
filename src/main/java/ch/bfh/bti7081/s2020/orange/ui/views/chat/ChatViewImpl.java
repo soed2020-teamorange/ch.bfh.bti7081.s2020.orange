@@ -1,11 +1,12 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.chat;
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import com.vaadin.componentfactory.Chat.ChatNewMessageEvent;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.listbox.ListBox;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
 import com.vaadin.flow.data.renderer.TextRenderer;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -26,9 +27,7 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
 
   private final CurrentUser currentUser;
 
-  Div div = new Div();
   com.vaadin.componentfactory.Chat chat = new com.vaadin.componentfactory.Chat();
-  VerticalLayout verticalLayout = new VerticalLayout();
   ListBox<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat> listBox = new ListBox<>();
 
   @PostConstruct
@@ -43,15 +42,13 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
     chat.addChatNewMessageListener(this::onAddNewMessage);
 
     listBox.addValueChangeListener(item -> {
-      //TODO: Switch chat
-      System.out.println("Changed chat to: " + item.getValue());
+      //TODO: Switch chat (when new chat is empty, clear old messages)
       chat.setMessages(new ArrayList<>());
       observer.onLoadChat(item.getValue().getId());
     });
 
-    addToPrimary(verticalLayout);
+    addToPrimary(listBox);
     addToSecondary(chat);
-    verticalLayout.add(listBox);
   }
 
   private void onAddNewMessage(ChatNewMessageEvent chatNewMessageEvent) {
@@ -74,9 +71,24 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
   @Override
   public void setChats(List<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat> chats) {
     listBox.setItems(chats);
-    //TODO: inject current User (Patient or MedicalSpecialist) in ChatViewImpl
-    listBox.setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
-        c -> c.getId().toString()));
+
+    if (currentUser.getUser() instanceof MedicalSpecialist) {
+      listBox.setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
+              c -> c.getPatient().getFirstName() + " " + c.getPatient().getLastName()
+          )
+      );
+    } else if (currentUser.getUser() instanceof Patient) {
+      listBox.setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
+              c -> c.getMedicalSpecialist().getFirstName() + " " + c.getMedicalSpecialist()
+                  .getLastName()
+          )
+      );
+    }
+
+    //Select first chat on enter
+    //TODO: doesn't work when navigating back from another tab
+    //observer.onLoadChat(chats.get(0).getId());
+    //listBox.setValue(chats.get(0));
   }
 
   private com.vaadin.componentfactory.model.Message toChatMessage(Message message) {

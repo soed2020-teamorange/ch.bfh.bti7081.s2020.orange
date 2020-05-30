@@ -13,6 +13,31 @@ vaadin-context-menu-overlay {
   z-index: 999;
 }
 
+vaadin-list-box {
+  padding-right: 16px;
+}
+
+vaadin-item {
+  padding-right: 8px;
+  margin-bottom: 2px;
+  border-style: solid;
+  border-width: thin;
+  border-color: hsla(214, 90%, 52%, 0.2);
+  text-align: center;
+}
+
+vaadin-item:hover {
+  border-color: hsla(214, 90%, 52%, 0.5);
+}
+
+vaadin-item[selected] {
+  border-color: hsl(214, 90%, 52%);
+}
+
+vaadin-item::before {
+  content: none;
+}
+
 .app-title {
   margin-left: 16px;
 }
