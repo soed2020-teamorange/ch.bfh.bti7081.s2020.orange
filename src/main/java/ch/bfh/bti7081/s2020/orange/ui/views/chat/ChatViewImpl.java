@@ -10,7 +10,6 @@ import com.vaadin.flow.component.listbox.ListBox;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
 import com.vaadin.flow.data.renderer.TextRenderer;
 import com.vaadin.flow.spring.annotation.UIScope;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -27,28 +26,41 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
 
   private final CurrentUser currentUser;
 
-  com.vaadin.componentfactory.Chat chat = new com.vaadin.componentfactory.Chat();
+  com.vaadin.componentfactory.Chat chat = createChat();
   ListBox<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat> listBox = new ListBox<>();
+  Div chatContent = new Div();
 
   @PostConstruct
   public void init() {
     this.setWidth("100%");
     this.setSplitterPosition(10);
-    this.setPrimaryStyle("minWidth", "10%");
-    this.setPrimaryStyle("maxWidth", "20%");
+    this.setPrimaryStyle("minWidth", "150px");
+    this.setPrimaryStyle("width", "150px");
+
+    System.out.println("Added valueChangeListener");
+    listBox.addValueChangeListener(item -> {
+      System.out.println("Called valueChangeListener");
+      chatContent.removeAll();
+      chat = createChat();
+      chatContent.add(chat);
+
+      observer.onLoadChat(item.getValue().getId());
+    });
+
+    chatContent.add(this.chat);
+
+    addToPrimary(listBox);
+    addToSecondary(chatContent);
+  }
+
+  private com.vaadin.componentfactory.Chat createChat() {
+    com.vaadin.componentfactory.Chat chat = new com.vaadin.componentfactory.Chat();
 
     // somehow loading indicator is shown, even if we setLoading(false)
     chat.setLoadingIndicator(new Div());
     chat.addChatNewMessageListener(this::onAddNewMessage);
 
-    listBox.addValueChangeListener(item -> {
-      //TODO: Switch chat (when new chat is empty, clear old messages)
-      chat.setMessages(new ArrayList<>());
-      observer.onLoadChat(item.getValue().getId());
-    });
-
-    addToPrimary(listBox);
-    addToSecondary(chat);
+    return chat;
   }
 
   private void onAddNewMessage(ChatNewMessageEvent chatNewMessageEvent) {
@@ -60,6 +72,7 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
 
   @Override
   public void addMessage(Message message) {
+    System.out.println("Adding message " + message.getContent());
     getUI().ifPresentOrElse(ui ->
             ui.access(() -> chat.addNewMessage(toChatMessage(message))),
         // if ui isn't yet present
@@ -88,7 +101,9 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
     //Select first chat on enter
     //TODO: doesn't work when navigating back from another tab
     //observer.onLoadChat(chats.get(0).getId());
-    //listBox.setValue(chats.get(0));
+    System.out.println("Set value");
+    listBox.setValue(chats.get(0));
+//    listbox
   }
 
   private com.vaadin.componentfactory.model.Message toChatMessage(Message message) {

@@ -23,6 +23,7 @@ public class ChatViewRoute extends VerticalLayout implements View, BeforeEnterOb
   public void init() {
     removeAll();
     add(this.getComponent(Component.class));
+    addClassName("chat-view-container");
   }
 
   @Override

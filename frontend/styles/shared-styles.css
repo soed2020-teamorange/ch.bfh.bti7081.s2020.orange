@@ -13,28 +13,25 @@ vaadin-context-menu-overlay {
   z-index: 999;
 }
 
-vaadin-list-box {
-  padding-right: 16px;
+.chat-view-container {
+  padding: 0;
 }
 
-vaadin-item {
-  padding-right: 8px;
-  margin-bottom: 2px;
-  border-style: solid;
-  border-width: thin;
-  border-color: hsla(214, 90%, 52%, 0.2);
+.chat-view-container vaadin-item {
+  height: 80px;
+  border-radius: 0;
   text-align: center;
 }
 
-vaadin-item:hover {
-  border-color: hsla(214, 90%, 52%, 0.5);
+.chat-view-container vaadin-item:hover {
+  background-color: rgba(228, 233, 237, 0.5);
 }
 
-vaadin-item[selected] {
-  border-color: hsl(214, 90%, 52%);
+.chat-view-container vaadin-item[selected] {
+  background-color: rgba(228, 233, 237, 1);
 }
 
-vaadin-item::before {
+.chat-view-container vaadin-item::before {
   content: none;
 }
 

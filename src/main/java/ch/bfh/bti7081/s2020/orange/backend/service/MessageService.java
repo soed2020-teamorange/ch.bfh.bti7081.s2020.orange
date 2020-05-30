@@ -23,7 +23,6 @@ public class MessageService {
   private final MessageRepository messageRepository;
   private final ChatService chatService;
 
-  // TODO save to repo
   public void addMessage(Long chatId, String content, User user) {
     Chat chat = chatService.getById(chatId);
 
