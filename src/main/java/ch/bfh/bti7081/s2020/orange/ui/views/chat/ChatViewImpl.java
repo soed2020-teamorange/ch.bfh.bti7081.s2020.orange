@@ -42,7 +42,9 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
       chat = createChat();
       chatContent.add(chat);
 
-      observer.onLoadChat(item.getValue().getId());
+      if (null != item.getValue()) {
+        observer.onLoadChat(item.getValue().getId());
+      }
     });
 
     chatContent.add(this.chat);
