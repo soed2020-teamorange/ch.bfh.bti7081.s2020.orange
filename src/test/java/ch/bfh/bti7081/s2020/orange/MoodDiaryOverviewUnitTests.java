@@ -18,7 +18,7 @@ import org.junit.Test;
 public class MoodDiaryOverviewUnitTests {
 
   @Test
-  public void shouldCreateChartOnSetData() {
+  public void shouldCreateChartOnSetEntries() {
     MoodDiaryOverviewViewImpl view = new MoodDiaryOverviewViewImpl();
     MoodEntry entry = new MoodEntry(Mood.NEUTRAL, LocalDate.now(), LocalTime.now(), 8, 2);
 
