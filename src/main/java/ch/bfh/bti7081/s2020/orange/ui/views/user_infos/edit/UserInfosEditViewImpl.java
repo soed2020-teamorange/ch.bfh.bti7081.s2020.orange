@@ -40,6 +40,7 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
   private final Grid<Patient> patients = new Grid<>(Patient.class);
   private final Grid<MedicalSpecialist> medicalSpecialists = new Grid<>(MedicalSpecialist.class);
   private final H2 assignedUsersDesc = new H2();
+  private final Button editInfosButton = new Button("Bearbeiten");
 
   @Setter
   private Observer observer;
@@ -55,14 +56,15 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
     medicalSpecialists
         .setColumns("firstName", "lastName", "email", "phone");
 
-    add(new H1(AppConst.TITLE_USER_INFOS_EDIT),
-        buildForm(), assignedUsersDesc);
+    add(new H1(AppConst.TITLE_USER_INFOS_EDIT), editInfosButton, buildForm(), assignedUsersDesc);
   }
 
   private Div buildForm() {
     // Create form components
     TextField firstNameTF = new TextField("Vorname");
     TextField lastNameTF = new TextField("Nachname");
+    firstNameTF.setEnabled(false);
+    lastNameTF.setEnabled(false);
 
     DatePicker birthDateDP = new DatePicker("Geburtsdatum");
     birthDateDP.setValue(LocalDate.now());
@@ -89,7 +91,19 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
     PasswordField passwordPF = new PasswordField("Neues Passwort");
     PasswordField passwordConfirmPF = new PasswordField("Neues Passwort wiederholen");
 
+    birthDateDP.setEnabled(false);
+    emailEF.setEnabled(false);
+    streetTF.setEnabled(false);
+    streetNumberTF.setEnabled(false);
+    cityTF.setEnabled(false);
+    zipCodeTF.setEnabled(false);
+    countryTF.setEnabled(false);
+    phoneTF.setEnabled(false);
+    passwordPF.setEnabled(false);
+    passwordConfirmPF.setEnabled(false);
+
     Button saveButton = new Button("Speichern");
+    saveButton.setEnabled(false);
 
     // Bind elements to business object
     binder.forField(firstNameTF)
@@ -169,20 +183,55 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
 
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
-          saveButton.setEnabled(!status.hasValidationErrors());
+          if (!editInfosButton.isEnabled()) {
+            saveButton.setEnabled(!status.hasValidationErrors());
+          }
         }
     );
 
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
-          saveButton.setEnabled(!status.hasValidationErrors());
+          if (!editInfosButton.isEnabled()) {
+            saveButton.setEnabled(!status.hasValidationErrors());
+          }
         }
     );
+
+    editInfosButton.addClickListener(click -> {
+      firstNameTF.setEnabled(true);
+      lastNameTF.setEnabled(true);
+      birthDateDP.setEnabled(true);
+      emailEF.setEnabled(true);
+      streetTF.setEnabled(true);
+      streetNumberTF.setEnabled(true);
+      cityTF.setEnabled(true);
+      zipCodeTF.setEnabled(true);
+      countryTF.setEnabled(true);
+      phoneTF.setEnabled(true);
+      passwordPF.setEnabled(true);
+      passwordConfirmPF.setEnabled(true);
+      saveButton.setEnabled(true);
+      editInfosButton.setEnabled(false);
+    });
 
     saveButton.addClickListener(click -> {
       getLogger()
           .info("Successfully saved new data for user [" + binder.getBean().getEmail() + "]");
       observer.onSaveUser(binder.getBean());
+      firstNameTF.setEnabled(false);
+      lastNameTF.setEnabled(false);
+      birthDateDP.setEnabled(false);
+      emailEF.setEnabled(false);
+      streetTF.setEnabled(false);
+      streetNumberTF.setEnabled(false);
+      cityTF.setEnabled(false);
+      zipCodeTF.setEnabled(false);
+      countryTF.setEnabled(false);
+      phoneTF.setEnabled(false);
+      passwordPF.setEnabled(false);
+      passwordConfirmPF.setEnabled(false);
+      saveButton.setEnabled(false);
+      editInfosButton.setEnabled(true);
     });
 
     formLayout.setResponsiveSteps(
