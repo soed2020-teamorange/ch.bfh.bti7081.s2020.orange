@@ -33,9 +33,7 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
   @PostConstruct
   public void init() {
     this.setWidth("100%");
-    this.setSplitterPosition(10);
-    this.setPrimaryStyle("minWidth", "150px");
-    this.setPrimaryStyle("width", "150px");
+    this.setSplitterPosition(50);
 
     listBox.addValueChangeListener(item -> {
       chatContent.removeAll();

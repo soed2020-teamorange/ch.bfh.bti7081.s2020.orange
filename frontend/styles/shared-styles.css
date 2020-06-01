@@ -17,6 +17,12 @@ vaadin-context-menu-overlay {
   padding: 0;
 }
 
+.chat-view-container vaadin-list-box {
+  width: 450px;
+  min-width: 150px;
+  max-width: 450px;
+}
+
 .chat-view-container vaadin-item {
   height: 80px;
   border-radius: 0;
