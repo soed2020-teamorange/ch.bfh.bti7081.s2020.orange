@@ -1,13 +1,17 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.user_infos.edit;
 
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -18,6 +22,7 @@ import com.vaadin.flow.data.validator.EmailValidator;
 import com.vaadin.flow.spring.annotation.UIScope;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -32,14 +37,26 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
   private final Binder<User> binder = new BeanValidationBinder<>(User.class);
   private final EmailField emailEF = new EmailField("E-Mail");
   private final PasswordEncoder passwordEncoder;
+  private final Grid<Patient> patients = new Grid<>(Patient.class);
+  private final Grid<MedicalSpecialist> medicalSpecialists = new Grid<>(MedicalSpecialist.class);
+  private final H2 assignedUsersDesc = new H2();
 
   @Setter
   private Observer observer;
 
   @PostConstruct
   public void init() {
+    patients
+        .setColumns("firstName", "lastName", "email", "phone", "birthDate", "street",
+            "streetNumber",
+            "zipCode",
+            "city",
+            "country");
+    medicalSpecialists
+        .setColumns("firstName", "lastName", "email", "phone");
+
     add(new H1(AppConst.TITLE_USER_INFOS_EDIT),
-        buildForm());
+        buildForm(), assignedUsersDesc);
   }
 
   private Div buildForm() {
@@ -180,6 +197,20 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
   public void setEMailIsUniqueError(boolean b) {
     emailEF.setInvalid(b);
     emailEF.setErrorMessage("E-Mail wird bereits verwendet.");
+  }
+
+  @Override
+  public void setMedicalSpecialist(MedicalSpecialist medicalSpecialist) {
+    this.assignedUsersDesc.setText("zugewiesene medizinische Fachperson:");
+    this.medicalSpecialists.setItems(medicalSpecialist);
+    add(this.medicalSpecialists);
+  }
+
+  @Override
+  public void setPatients(List<Patient> patients) {
+    this.assignedUsersDesc.setText("zugewiesene Patienten:");
+    this.patients.setItems(patients);
+    add(this.patients);
   }
 
   @Override

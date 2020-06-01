@@ -2,6 +2,8 @@ package ch.bfh.bti7081.s2020.orange.ui.views.user_infos.edit;
 
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.service.UserService;
 import ch.bfh.bti7081.s2020.orange.ui.exceptions.UserAlreadyExistsException;
@@ -25,6 +27,19 @@ public class UserInfosEditPresenterImpl implements UserInfosEditPresenter,
   public void onBeforeEnter() {
     userInfosEditView.setObserver(this);
     userInfosEditView.setUser(currentUser.getUser());
+    if (currentUser.getUser() instanceof Patient) {
+      Patient patient = (Patient) currentUser.getUser();
+      if (patient.getMedicalSpecialist() != null) {
+        //List<MedicalSpecialist> medicalSpecialistList = new ArrayList<>();
+        //medicalSpecialistList.add(patient.getMedicalSpecialist());
+        userInfosEditView.setMedicalSpecialist(patient.getMedicalSpecialist());
+      }
+    } else if (currentUser.getUser() instanceof MedicalSpecialist) {
+      MedicalSpecialist medicalSpecialist = (MedicalSpecialist) currentUser.getUser();
+      if (medicalSpecialist.getPatients() != null) {
+        userInfosEditView.setPatients(medicalSpecialist.getPatients());
+      }
+    }
   }
 
   @Override
