@@ -6,7 +6,6 @@ import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.MessageRepository;
 import java.time.LocalDateTime;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
@@ -19,11 +18,10 @@ import reactor.core.publisher.UnicastProcessor;
 public class MessageService {
 
   private final UnicastProcessor<Message> publisher;
-  private final Flux<Message> messages;
   private final MessageRepository messageRepository;
+  private final Flux<Message> messages;
   private final ChatService chatService;
 
-  // TODO save to repo
   public void addMessage(Long chatId, String content, User user) {
     Chat chat = chatService.getById(chatId);
 
@@ -32,12 +30,7 @@ public class MessageService {
     publisher.onNext(messageRepository.save(message));
   }
 
-  public List<Message> loadInitialMessagesForChat(Long chatId) {
-    return messageRepository.findAllByChatId(chatId);
-  }
-
-  // TODO filter by chatid
-  public Flux<Message> getMessagesForChatId(Long chatId) {
+  public Flux<Message> getMessages() {
     return messages;
   }
 }

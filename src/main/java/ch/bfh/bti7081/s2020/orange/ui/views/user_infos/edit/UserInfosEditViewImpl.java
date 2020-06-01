@@ -29,8 +29,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEditView, HasLogger {
 
-  private Binder<User> binder = new BeanValidationBinder<>(User.class);
-  private EmailField emailEF = new EmailField("E-Mail");
+  private final Binder<User> binder = new BeanValidationBinder<>(User.class);
+  private final EmailField emailEF = new EmailField("E-Mail");
   private final PasswordEncoder passwordEncoder;
 
   @Setter
@@ -120,7 +120,7 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
             "Passwörter müssen übereinstimmen.")
         .bind(p -> "",
             (p, password) -> {
-              p.setPasswordHash(passwordEncoder.encode(password.toString()));
+              p.setPasswordHash(passwordEncoder.encode(password));
             });
 
     Binder.Binding<User, String> secondPassword = binder.forField(passwordConfirmPF)
@@ -130,7 +130,7 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
             "Passwörter müssen übereinstimmen.")
         .bind(p -> "",
             (p, password) -> {
-              p.setPasswordHash(passwordEncoder.encode(password.toString()));
+              p.setPasswordHash(passwordEncoder.encode(password));
             });
 
     // Wrap components in layouts

@@ -6,8 +6,6 @@ import ch.bfh.bti7081.s2020.orange.ui.exceptions.UserAlreadyExistsException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -15,10 +13,10 @@ public class UserService {
   private final UserRepository userRepository;
 
   public boolean emailIsUnique(String email) throws UserAlreadyExistsException {
-      if (userRepository.existsByEmail(email)) {
-        throw new UserAlreadyExistsException(email);
-      }
-      return true;
+    if (userRepository.existsByEmail(email)) {
+      throw new UserAlreadyExistsException(email);
+    }
+    return true;
   }
 
   public User saveUser(User user) {

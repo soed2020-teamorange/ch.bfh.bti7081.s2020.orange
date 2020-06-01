@@ -1,13 +1,9 @@
 package ch.bfh.bti7081.s2020.orange.backend.data.entities;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.Role;
-
-import javax.persistence.CascadeType;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;

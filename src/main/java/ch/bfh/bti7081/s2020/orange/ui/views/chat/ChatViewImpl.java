@@ -1,12 +1,16 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.chat;
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
-import com.vaadin.componentfactory.Chat;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import com.vaadin.componentfactory.Chat.ChatNewMessageEvent;
 import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.listbox.ListBox;
+import com.vaadin.flow.component.splitlayout.SplitLayout;
+import com.vaadin.flow.data.renderer.TextRenderer;
 import com.vaadin.flow.spring.annotation.UIScope;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -15,22 +19,46 @@ import org.springframework.stereotype.Component;
 @UIScope
 @Component
 @RequiredArgsConstructor
-public class ChatViewImpl extends VerticalLayout implements ChatView {
+public class ChatViewImpl extends SplitLayout implements ChatView {
 
   @Setter
   private ChatView.Observer observer;
 
   private final CurrentUser currentUser;
 
-  Chat chat = new Chat();
+  com.vaadin.componentfactory.Chat chat = createChat();
+  ListBox<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat> listBox = new ListBox<>();
+  Div chatContent = new Div();
 
   @PostConstruct
   public void init() {
     this.setWidth("100%");
+    this.setSplitterPosition(50);
+
+    listBox.addValueChangeListener(item -> {
+      chatContent.removeAll();
+      chat = createChat();
+      chatContent.add(chat);
+
+      if (null != item.getValue()) {
+        observer.onLoadChat(item.getValue().getId());
+      }
+    });
+
+    chatContent.add(this.chat);
+
+    addToPrimary(listBox);
+    addToSecondary(chatContent);
+  }
+
+  private com.vaadin.componentfactory.Chat createChat() {
+    com.vaadin.componentfactory.Chat chat = new com.vaadin.componentfactory.Chat();
+
     // somehow loading indicator is shown, even if we setLoading(false)
     chat.setLoadingIndicator(new Div());
     chat.addChatNewMessageListener(this::onAddNewMessage);
-    add(chat);
+
+    return chat;
   }
 
   private void onAddNewMessage(ChatNewMessageEvent chatNewMessageEvent) {
@@ -48,6 +76,26 @@ public class ChatViewImpl extends VerticalLayout implements ChatView {
         () -> chat.addNewMessage(toChatMessage(message))
     );
 
+  }
+
+  @Override
+  public void setChats(List<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat> chats) {
+    listBox.setItems(chats);
+
+    if (currentUser.getUser() instanceof MedicalSpecialist) {
+      listBox.setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
+              c -> c.getPatient().getFirstName() + " " + c.getPatient().getLastName()
+          )
+      );
+    } else if (currentUser.getUser() instanceof Patient) {
+      listBox.setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
+              c -> c.getMedicalSpecialist().getFirstName() + " " + c.getMedicalSpecialist()
+                  .getLastName()
+          )
+      );
+    }
+
+    listBox.setValue(chats.get(0));
   }
 
   private com.vaadin.componentfactory.model.Message toChatMessage(Message message) {

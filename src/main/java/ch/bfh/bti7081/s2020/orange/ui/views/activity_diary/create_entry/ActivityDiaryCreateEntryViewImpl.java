@@ -1,8 +1,7 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.create_entry;
 
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.Activity;
+import ch.bfh.bti7081.s2020.orange.backend.data.Activity;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.ActivityEntry;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodEntry;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.button.Button;
@@ -98,14 +97,14 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
         .bind(ActivityEntry::getEndTime, ActivityEntry::setEndTime);
 
     binder.forField(titleTF)
-            .asRequired("Bitte einen Titel eingeben.")
-            .withValidator(l -> l.length() <= 100, "Bitte maximal 100 Zeichen verwenden.")
-            .bind(ActivityEntry::getTitle, ActivityEntry::setTitle);
+        .asRequired("Bitte einen Titel eingeben.")
+        .withValidator(l -> l.length() <= 100, "Bitte maximal 100 Zeichen verwenden.")
+        .bind(ActivityEntry::getTitle, ActivityEntry::setTitle);
 
     binder.forField(contentTA)
-            .asRequired("Bitte eine Beschreibung eingeben.")
-            .withValidator(l -> l.length() <= 800, "Bitte maximal 800 Zeichen verwenden.")
-            .bind(ActivityEntry::getContent, ActivityEntry::setContent);
+        .asRequired("Bitte eine Beschreibung eingeben.")
+        .withValidator(l -> l.length() <= 800, "Bitte maximal 800 Zeichen verwenden.")
+        .bind(ActivityEntry::getContent, ActivityEntry::setContent);
 
     Button saveButton = new Button("Neuen Aktivität hinzufügen");
 
@@ -141,7 +140,8 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
     });
 
     // Wrap components in layouts
-    FormLayout formLayout = new FormLayout(dateDP, timeStartTP, timeEndTP, activityCB, titleTF, contentTA,
+    FormLayout formLayout = new FormLayout(dateDP, timeStartTP, timeEndTP, activityCB, titleTF,
+        contentTA,
         saveButton);
 
     Div wrapperLayout = new Div(formLayout);

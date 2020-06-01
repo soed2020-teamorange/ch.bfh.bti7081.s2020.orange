@@ -1,10 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.ui.utils;
 
-import java.util.Locale;
-
 public class AppConst {
-
-  public static final Locale APP_LOCALE = Locale.GERMAN;
 
   public static final String PAGE_ROOT = "";
   public static final String PAGE_HOME = "home";

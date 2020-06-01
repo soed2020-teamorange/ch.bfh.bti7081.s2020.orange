@@ -3,7 +3,6 @@ package ch.bfh.bti7081.s2020.orange.backend.service;
 import ch.bfh.bti7081.s2020.orange.backend.data.Role;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.MedicalSpecialistRepository;
-
 import java.time.LocalDate;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -29,17 +28,9 @@ public class MedicalSpecialistService {
     return this.medicalSpecialistRepository.save(medicalSpecialist);
   }
 
-  public MedicalSpecialist getMedicalSpecialist(long id) {
-    return this.medicalSpecialistRepository.findById(id).get();
-  }
-
   public List<MedicalSpecialist> getAllMedicalSpecialist() {
 
     return this.medicalSpecialistRepository.findAll();
-  }
-
-  public void deleteMedicalSpecialist(long id) {
-    this.medicalSpecialistRepository.deleteById(id);
   }
 
 }
