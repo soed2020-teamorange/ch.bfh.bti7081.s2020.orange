@@ -8,7 +8,6 @@ import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_LOGOUT;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_MOOD_DIARY;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_REGISTER_PATIENT;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_USER_INFOS_EDIT;
-import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_USER_INFOS_SHOW;
 
 import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
 import ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.overview.ActivityDiaryOverviewViewRoute;
@@ -115,9 +114,7 @@ public class MainView extends AppLayout implements RouterLayout {
       tabs.add(createTab(VaadinIcon.SCALE, TITLE_MOOD_DIARY, MoodDiaryOverviewViewRoute.class));
     }
 
-    tabs.add(createTab(VaadinIcon.WORKPLACE, TITLE_USER_INFOS_EDIT, UserInfosEditViewRoute.class));
-    tabs.add(createTab(VaadinIcon.USER, TITLE_USER_INFOS_SHOW,
-        ch.bfh.bti7081.s2020.orange.ui.views.user_infos.show.UserInfosShowViewRoute.class));
+    tabs.add(createTab(VaadinIcon.USER, TITLE_USER_INFOS_EDIT, UserInfosEditViewRoute.class));
 
     final String contextPath = VaadinServlet.getCurrent().getServletContext().getContextPath();
     final Tab logoutTab = createTab(createLogoutLink(contextPath));
