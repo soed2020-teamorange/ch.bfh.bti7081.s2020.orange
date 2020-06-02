@@ -1,9 +1,15 @@
 package ch.bfh.bti7081.s2020.orange.backend.data.entities;
 
-import ch.bfh.bti7081.s2020.orange.backend.data.Role;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import ch.bfh.bti7081.s2020.orange.backend.data.Role;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -19,16 +25,21 @@ public class Patient extends User {
   @ToString.Exclude
   @ManyToOne
   private MedicalSpecialist medicalSpecialist;
+  
+  @OneToMany(cascade = CascadeType.ALL)
+  private List<Prescription> prescriptions;
 
   public Patient(String email, String passwordHash, String firstName, String lastName,
       LocalDate birthDate) {
     super(email, passwordHash, firstName, lastName, birthDate, Role.PATIENT);
+    prescriptions = new ArrayList<>();
   }
 
   public Patient(String email, String passwordHash, String firstName, String lastName,
       LocalDate birthDate, MedicalSpecialist medicalSpecialist) {
     super(email, passwordHash, firstName, lastName, birthDate, Role.PATIENT);
     this.medicalSpecialist = medicalSpecialist;
+    prescriptions = new ArrayList<>();
   }
 
 
