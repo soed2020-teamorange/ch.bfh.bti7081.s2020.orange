@@ -1,20 +1,29 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.landingPage;
 
+import javax.annotation.PostConstruct;
+import org.springframework.stereotype.Component;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.spring.annotation.UIScope;
+import ch.bfh.bti7081.s2020.orange.ui.views.landingPage.LandingPageView.Observer;
+import lombok.Setter;
 
+@UIScope
+@Component
 public class LandingPageViewImpl extends VerticalLayout implements LandingPageView {
 
-	@Override
-	public void setObserver(ch.bfh.bti7081.s2020.orange.ui.views.home.HomeView.Observer observer) {
-		// TODO Auto-generated method stub
-		
-	}
+	TextField titleTextField = new TextField("Landing Page");
+	
+	@Setter
+	private Observer observer;
 
-	@Override
-	public <C> C getComponent(Class<C> type) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	  @PostConstruct
+	  public void init() {
+	    add(titleTextField);
+
+	  }
+
 
 	@Override
 	public void setResult(String result) {
@@ -22,4 +31,9 @@ public class LandingPageViewImpl extends VerticalLayout implements LandingPageVi
 		
 	}
 
+	
+	@Override
+	public <C> C getComponent(Class<C> type) {
+		return type.cast(this);
+	}
 }
