@@ -153,4 +153,10 @@ public class MoodDiaryCreateEntryViewImpl extends VerticalLayout implements
   public <C> C getComponent(Class<C> type) {
     return type.cast(this);
   }
+
+@Override
+public void setObserver(Observer observer) {
+	// TODO Auto-generated method stub
+	
+}
 }
