@@ -1,7 +1,7 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.landingPage;
 
 import ch.bfh.bti7081.s2020.orange.ui.utils.ViewWithObserver;
-import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeView.Observer;
+import ch.bfh.bti7081.s2020.orange.ui.views.landingPage.LandingPageView.Observer;
 
 public interface LandingPageView extends ViewWithObserver<Observer> {
 
