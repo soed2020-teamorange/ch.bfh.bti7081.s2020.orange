@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.validator.EmailValidator;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.spring.annotation.UIScope;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
   private final PasswordEncoder passwordEncoder;
 
   private final EmailField emailEF = new EmailField("E-Mail");
+  private final Button saveButton = new Button("Neuen Patienten hinzufügen");
 
   @Setter
   private Observer observer;
@@ -83,7 +85,7 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
     medicalSpecialistComboBox.setItemLabelGenerator(MedicalSpecialist::toStringForFormatCombobox);
     medicalSpecialistComboBox.setItems(medicalSpecialists);
 
-    Button saveButton = new Button("Neuen Patienten hinzufügen");
+    emailEF.setValueChangeMode(ValueChangeMode.EAGER);
 
     // Bind elements to business object
     Binder<Patient> binder = new Binder<>(Patient.class);
@@ -163,10 +165,11 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
     passwordPF.addValueChangeListener(
         event -> secondPassword.validate());
 
+
     emailEF.addValueChangeListener(
         event -> {
           if (!emailEF.isInvalid()) {
-            observer.emailIsUnique(event.toString());
+            observer.emailIsUnique(event.getValue());
           }
         });
 
@@ -202,6 +205,7 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
   @Override
   public void setEMailIsUniqueError(boolean b) {
     emailEF.setInvalid(b);
+    saveButton.setEnabled(!b);
     emailEF.setErrorMessage("E-Mail wird bereits verwendet.");
   }
 

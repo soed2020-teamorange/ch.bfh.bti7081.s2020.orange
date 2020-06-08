@@ -19,6 +19,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.validator.EmailValidator;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.spring.annotation.UIScope;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -41,6 +42,7 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
   private final Grid<MedicalSpecialist> medicalSpecialists = new Grid<>(MedicalSpecialist.class);
   private final H2 assignedUsersDesc = new H2();
   private final Button editInfosButton = new Button("Bearbeiten");
+  private final Button saveButton = new Button("Speichern");
 
   @Setter
   private Observer observer;
@@ -102,7 +104,7 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
     passwordPF.setEnabled(false);
     passwordConfirmPF.setEnabled(false);
 
-    Button saveButton = new Button("Speichern");
+    emailEF.setValueChangeMode(ValueChangeMode.EAGER);
     saveButton.setEnabled(false);
 
     // Bind elements to business object
@@ -177,17 +179,9 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
     emailEF.addValueChangeListener(
         event -> {
           if (!emailEF.isInvalid()) {
-            observer.emailIsUnique(event.toString());
+            observer.emailIsUnique(event.getValue());
           }
         });
-
-    // disable saveButton if form has validation errors
-    binder.addStatusChangeListener(status -> {
-          if (!editInfosButton.isEnabled()) {
-            saveButton.setEnabled(!status.hasValidationErrors());
-          }
-        }
-    );
 
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
@@ -245,6 +239,7 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
   @Override
   public void setEMailIsUniqueError(boolean b) {
     emailEF.setInvalid(b);
+    saveButton.setEnabled(!b);
     emailEF.setErrorMessage("E-Mail wird bereits verwendet.");
   }
 
