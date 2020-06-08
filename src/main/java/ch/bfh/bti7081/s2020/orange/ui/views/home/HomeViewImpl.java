@@ -4,7 +4,9 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.spring.annotation.UIScope;
 
@@ -21,11 +23,11 @@ public class HomeViewImpl extends VerticalLayout implements HomeView {
 
   Label userLabel = new Label("Angemeldet als:");
   Label userNameLabel = new Label();
-  Label accessLabel = new Label("Schnellzugriff:");
+  H2 accessLabel = new H2("Schnellzugriff:");
 
   @Setter
   private Observer observer;
-  private CurrentUser currentUser;
+  //private CurrentUser currentUser;
 
   @PostConstruct
   public void init() {
@@ -33,21 +35,21 @@ public class HomeViewImpl extends VerticalLayout implements HomeView {
 	add(createTitle());
     add(userLabel);
     add(userNameLabel);
+    add(accessLabel);
     add(quickAccess());    
   }
   
   private Div quickAccess() {
-	  Label accessLabel = new Label("Schnellzugriff:");
-	  if (currentUser.getUser() instanceof Patient)  {
-		  FormLayout formLayout = new FormLayout(accessLabel, chatButton(),activityButton(),moodButton());
+	  //if (currentUser.getUser() instanceof Patient)  {
+		  VerticalLayout formLayout = new VerticalLayout(accessLabel, chatButton(),activityButton(),moodButton());
 		  Div wrapperLayout = new Div(formLayout);
 		  return wrapperLayout;
-	  }
-	  else {
-		  FormLayout formLayout = new FormLayout(accessLabel, chatButton(),patientButton());
-		  Div wrapperLayout = new Div(formLayout);
-		  return wrapperLayout;
-	  }
+	  //}
+	  //else {
+		  //FormLayout formLayout = new FormLayout(accessLabel, chatButton(),patientButton());
+		  //Div wrapperLayout = new Div(formLayout);
+		//  return wrapperLayout;
+	  //}
   }
   
   private Button chatButton() {
@@ -86,9 +88,9 @@ public class HomeViewImpl extends VerticalLayout implements HomeView {
 	  userNameLabel.setText(result);
   }
   
-  public void setUser(CurrentUser user) {
+  /*public void setUser(CurrentUser user) {
 	  currentUser = user;
-  }
+  }*/
 
   @Override
   public <C> C getComponent(Class<C> type) {
