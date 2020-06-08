@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class HomeViewImpl extends VerticalLayout implements HomeView {
 
+  H1 titleLabel = new H1("Willkommen im PMS");
   Label userLabel = new Label("Angemeldet als:");
   Label userNameLabel = new Label();
   H2 accessLabel = new H2("Schnellzugriff:");
@@ -32,7 +33,7 @@ public class HomeViewImpl extends VerticalLayout implements HomeView {
   @PostConstruct
   public void init() {
 	  
-	add(createTitle());
+	add(titleLabel);
     add(userLabel);
     add(userNameLabel);
     add(accessLabel);
@@ -95,10 +96,5 @@ public class HomeViewImpl extends VerticalLayout implements HomeView {
   @Override
   public <C> C getComponent(Class<C> type) {
     return type.cast(this);
-  }
-  
-  private H1 createTitle() {
-	    return new H1("Willkommen im PMS");
-  }
-  
+  }  
 }
