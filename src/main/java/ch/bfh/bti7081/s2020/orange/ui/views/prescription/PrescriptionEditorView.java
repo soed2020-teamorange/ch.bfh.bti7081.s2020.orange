@@ -16,7 +16,5 @@ public interface PrescriptionEditorView extends ViewWithObserver<PrescriptionEdi
 		
 		void savePrescription(Prescription p);
 		
-		void removeExistingPrescription(Prescription p);
-		
 	}
 }

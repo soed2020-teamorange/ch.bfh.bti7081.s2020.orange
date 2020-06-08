@@ -183,10 +183,12 @@ public class PrescriptionEditorViewImpl extends VerticalLayout implements Prescr
 	public void setPrescription(Prescription prescription) {
 		getLogger().info("Display Prescription with id [" + prescription.getId() + "]");
 		binder.setBean(prescription);
+		setDosages(prescription.getDosages());
 	}
 
 	@Override
 	public void setMedicaments(List<Medicament> medicaments) {
 		medicamentCB.setItems(medicaments);
 	}
+	
 }

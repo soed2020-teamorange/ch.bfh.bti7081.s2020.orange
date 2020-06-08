@@ -6,4 +6,8 @@ public interface PrescriptionEditorPresenter extends Presenter {
 
 	void onBeforeEnter();
 	
+	void setPatient(Long id);
+	
+	void setPrescription(Long id);
+	
 }

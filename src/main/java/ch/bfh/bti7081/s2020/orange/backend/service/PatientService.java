@@ -1,5 +1,10 @@
 package ch.bfh.bti7081.s2020.orange.backend.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.springframework.stereotype.Service;
+
 import ch.bfh.bti7081.s2020.orange.backend.data.MessageState;
 import ch.bfh.bti7081.s2020.orange.backend.data.Role;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.ActivityDiary;
@@ -13,10 +18,7 @@ import ch.bfh.bti7081.s2020.orange.backend.repositories.ChatRepository;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.MessageRepository;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.MoodDiaryRepository;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.PatientRepository;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -74,6 +76,10 @@ public class PatientService {
     p.setRole(Role.PATIENT);
 
     return this.patientRepository.save(p);
+  }
+  
+  public Patient getPatientById(Long id) {
+	  return patientRepository.findById(id).get();
   }
 
 }

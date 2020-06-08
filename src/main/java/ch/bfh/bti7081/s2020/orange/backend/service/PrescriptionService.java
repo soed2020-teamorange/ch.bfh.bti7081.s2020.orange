@@ -1,7 +1,10 @@
 package ch.bfh.bti7081.s2020.orange.backend.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Prescription;
 import ch.bfh.bti7081.s2020.orange.backend.repositories.PrescriptionRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +17,10 @@ public class PrescriptionService {
 	
 	public Prescription getById(Long prescriptionId) {
 		return prescriptionRepository.findById(prescriptionId).get();
+	}
+	
+	public List<Prescription> getByPatient(Patient patient) {
+		return prescriptionRepository.findAllByPatientId(patient.getId());
 	}
 	
 	public Prescription savePrescription(Prescription p) {

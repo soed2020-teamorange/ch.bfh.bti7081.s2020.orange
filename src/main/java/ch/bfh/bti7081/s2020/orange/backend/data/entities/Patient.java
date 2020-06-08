@@ -26,7 +26,7 @@ public class Patient extends User {
   @ManyToOne
   private MedicalSpecialist medicalSpecialist;
   
-  @OneToMany(cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
   private List<Prescription> prescriptions;
 
   public Patient(String email, String passwordHash, String firstName, String lastName,
@@ -40,6 +40,7 @@ public class Patient extends User {
     super(email, passwordHash, firstName, lastName, birthDate, Role.PATIENT);
     this.medicalSpecialist = medicalSpecialist;
     prescriptions = new ArrayList<>();
+    
   }
 
 
