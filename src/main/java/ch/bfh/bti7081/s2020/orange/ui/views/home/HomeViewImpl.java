@@ -1,11 +1,16 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.home;
 
-import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.spring.annotation.UIScope;
+
+import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
+import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import javax.annotation.PostConstruct;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -14,38 +19,84 @@ import org.springframework.stereotype.Component;
 @Component
 public class HomeViewImpl extends VerticalLayout implements HomeView {
 
-  private final Label resultTextField = new Label("Resultat: ");
-
-  TextField baseTextField = new TextField("Base");
-  TextField powerTextField = new TextField("Power");
+  Label userLabel = new Label("Angemeldet als:");
+  Label userNameLabel = new Label();
+  Label accessLabel = new Label("Schnellzugriff:");
 
   @Setter
   private Observer observer;
+  private CurrentUser currentUser;
 
   @PostConstruct
   public void init() {
-    add(baseTextField);
-    add(powerTextField);
-
-    Button button = new Button("Absenden");
-    button.addClickListener(this::onClick);
-    add(button);
-
-    add(resultTextField);
+	  
+	add(createTitle());
+    add(userLabel);
+    add(userNameLabel);
+    add(quickAccess());    
   }
+  
+  private Div quickAccess() {
+	  Label accessLabel = new Label("Schnellzugriff:");
+	  if (currentUser.getUser() instanceof Patient)  {
+		  FormLayout formLayout = new FormLayout(accessLabel, chatButton(),activityButton(),moodButton());
+		  Div wrapperLayout = new Div(formLayout);
+		  return wrapperLayout;
+	  }
+	  else {
+		  FormLayout formLayout = new FormLayout(accessLabel, chatButton(),patientButton());
+		  Div wrapperLayout = new Div(formLayout);
+		  return wrapperLayout;
+	  }
+  }
+  
+  private Button chatButton() {
+	  Button button = new Button("zum Chat");
+	  button.addClickListener(
+	  e -> button.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_CHAT)));
 
-  private void onClick(ClickEvent<Button> buttonClickEvent) {
-    observer.onCalculate(Long.parseLong(baseTextField.getValue()),
-        Long.parseLong(powerTextField.getValue()));
+	  return button;
+  }
+  private Button patientButton() {
+	  Button button = new Button("zum Chat");
+	  button.addClickListener(
+	  e -> button.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_REGISTER_PATIENT)));
+
+	  return button;
+  }
+  
+  private Button activityButton() {
+	  Button button = new Button("zum Aktivitätentagebuch");
+	  button.addClickListener(
+	  e -> button.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_ACTIVITY_DIARY_OVERVIEW)));
+
+	  return button;
+  }
+  
+  private Button moodButton() {
+	  Button button = new Button("zum Stimmungstagebuch");
+	  button.addClickListener(
+	  e -> button.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_MOOD_DIARY_OVERVIEW)));
+
+	  return button;
   }
 
   @Override
   public void setResult(String result) {
-    resultTextField.setText(result);
+	  userNameLabel.setText(result);
+  }
+  
+  public void setUser(CurrentUser user) {
+	  currentUser = user;
   }
 
   @Override
   public <C> C getComponent(Class<C> type) {
     return type.cast(this);
   }
+  
+  private H1 createTitle() {
+	    return new H1("Willkommen im PMS");
+  }
+  
 }

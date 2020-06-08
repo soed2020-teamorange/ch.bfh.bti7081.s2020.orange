@@ -21,7 +21,8 @@ public class HomePresenterImpl implements HomePresenter, HomeView.Observer {
   @Override
   public void onBeforeEnter() {
     homeView.setObserver(this);
-    homeView.setResult(currentUser.getUser().getEmail());
+    homeView.setResult(currentUser.getUser().getFirstName() + " " + currentUser.getUser().getLastName());
+    homeView.setUser(currentUser);
 
     getView().getComponent(VerticalLayout.class).add();
   }
