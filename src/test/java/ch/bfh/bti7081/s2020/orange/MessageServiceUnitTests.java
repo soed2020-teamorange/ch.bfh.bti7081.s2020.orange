@@ -13,7 +13,7 @@ import ch.bfh.bti7081.s2020.orange.backend.service.ChatService;
 import ch.bfh.bti7081.s2020.orange.backend.service.MessageService;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.mockito.ArgumentMatchers;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.UnicastProcessor;
 import reactor.test.StepVerifier;
@@ -29,27 +29,27 @@ public class MessageServiceUnitTests {
 
   @Before
   public void before() {
-    messageRepository = mock(MessageRepository.class);
-    chatService = mock(ChatService.class);
-    publisher = UnicastProcessor.create();
-    messages = publisher.replay(0).autoConnect();
+    this.messageRepository = mock(MessageRepository.class);
+    this.chatService = mock(ChatService.class);
+    this.publisher = UnicastProcessor.create();
+    this.messages = this.publisher.replay(0).autoConnect();
 
-    messageService = new MessageService(publisher, messages, messageRepository,
-        chatService);
+    this.messageService = new MessageService(this.publisher, this.messageRepository, this.messages,
+        this.chatService);
   }
 
 
   @Test
   public void messageServiceShouldPublishAddedMessage() {
-    when(chatService.getById(1L)).thenReturn(new Chat());
-    when(messageRepository.save(Mockito.any(Message.class))).then(returnsFirstArg());
+    when(this.chatService.getById(1L)).thenReturn(new Chat());
+    when(this.messageRepository.save(ArgumentMatchers.any(Message.class))).then(returnsFirstArg());
 
-    String expectedMessageContent = "Test Message";
+    final String expectedMessageContent = "Test Message";
 
-    Flux<Message> messageFlux = messageService.getMessagesForChatId(1L);
-    messageService.addMessage(1L, expectedMessageContent, new User());
+    final Flux<Message> messageFlux = this.messageService.getMessages();
+    this.messageService.addMessage(1L, expectedMessageContent, new User());
 
-    publisher.onComplete();
+    this.publisher.onComplete();
 
     StepVerifier.create(messageFlux)
         .consumeNextWith(message -> assertEquals(expectedMessageContent, message.getContent()))

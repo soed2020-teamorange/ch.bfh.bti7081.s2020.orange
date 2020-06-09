@@ -9,16 +9,16 @@ public enum Mood {
 
   private final String label;
 
-  Mood(String label) {
+  Mood(final String label) {
     this.label = label;
   }
 
   public String getLabel() {
-    return label;
+    return this.label;
   }
 
-  public static Mood valueOfLabel(String label) {
-    for (Mood e : values()) {
+  public static Mood valueOfLabel(final String label) {
+    for (final Mood e : Mood.values()) {
       if (e.getLabel().equals(label)) {
         return e;
       }

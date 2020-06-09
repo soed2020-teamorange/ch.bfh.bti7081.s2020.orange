@@ -48,9 +48,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Bean
   @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-  public CurrentUser currentUser(UserRepository userRepository) {
-    final String username = SecurityUtils.getUsername();
-    User user =
+  public CurrentUser currentUser(final UserRepository userRepository) {
+    String username = SecurityUtils.getUsername();
+    final User user =
         username != null ? userRepository.findByEmailIgnoreCase(username) :
             null;
     return () -> user;
@@ -60,16 +60,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
    * Registers our UserDetailsService and the password encoder to be used on login attempts.
    */
   @Override
-  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+  protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
     super.configure(auth);
-    auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    auth.userDetailsService(this.userDetailsService).passwordEncoder(this.passwordEncoder());
   }
 
   /**
    * Require login to access internal pages and configure login form.
    */
   @Override
-  protected void configure(HttpSecurity http) throws Exception {
+  protected void configure(final HttpSecurity http) throws Exception {
     // Not using Spring CSRF here to be able to use plain HTML for the login page
     http.csrf().disable()
 
@@ -87,22 +87,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         .anyRequest().hasAnyAuthority(Role.getAllRoles())
 
         // Configure the login page.
-        .and().formLogin().loginPage(LOGIN_URL).permitAll().loginProcessingUrl(LOGIN_PROCESSING_URL)
-        .failureUrl(LOGIN_FAILURE_URL)
+        .and().formLogin().loginPage(SecurityConfiguration.LOGIN_URL).permitAll()
+        .loginProcessingUrl(
+            SecurityConfiguration.LOGIN_PROCESSING_URL)
+        .failureUrl(SecurityConfiguration.LOGIN_FAILURE_URL)
 
         // Register the success handler that redirects users to the page they last tried
         // to access
         .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
 
         // Configure logout
-        .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
+        .and().logout().logoutSuccessUrl(SecurityConfiguration.LOGOUT_SUCCESS_URL);
   }
 
   /**
    * Allows access to static resources, bypassing Spring security.
    */
   @Override
-  public void configure(WebSecurity web) {
+  public void configure(final WebSecurity web) {
     web.ignoring().antMatchers(
         // Vaadin Flow static resources
         "/VAADIN/**",

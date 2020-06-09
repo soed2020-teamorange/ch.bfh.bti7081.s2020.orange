@@ -12,11 +12,11 @@ public class ChatService {
 
   private final ChatRepository chatRepository;
 
-  public Chat getById(Long chatId) {
-    return chatRepository.findById(chatId).get();
+  public Chat getById(final Long chatId) {
+    return this.chatRepository.findById(chatId).get();
   }
 
-  public List<Chat> getChatsByUserId(long userId) {
-    return chatRepository.findByMedicalSpecialistIdOrPatientId(userId, userId);
+  public List<Chat> getChatsByUserId(final long userId) {
+    return this.chatRepository.findByMedicalSpecialistIdOrPatientId(userId, userId);
   }
 }

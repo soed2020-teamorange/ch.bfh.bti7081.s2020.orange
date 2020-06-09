@@ -15,9 +15,9 @@ import com.vaadin.flow.spring.annotation.SpringComponent;
 public class ConfigureUIServiceInitListener implements VaadinServiceInitListener {
 
   @Override
-  public void serviceInit(ServiceInitEvent event) {
+  public void serviceInit(final ServiceInitEvent event) {
     event.getSource().addUIInitListener(uiEvent -> {
-      final UI ui = uiEvent.getUI();
+      UI ui = uiEvent.getUI();
       ui.addBeforeEnterListener(this::beforeEnter);
     });
   }
@@ -27,8 +27,8 @@ public class ConfigureUIServiceInitListener implements VaadinServiceInitListener
    *
    * @param event before navigation event with event details
    */
-  private void beforeEnter(BeforeEnterEvent event) {
-    final boolean accessGranted = SecurityUtils.isAccessGranted(event.getNavigationTarget());
+  private void beforeEnter(final BeforeEnterEvent event) {
+    boolean accessGranted = SecurityUtils.isAccessGranted(event.getNavigationTarget());
     if (!accessGranted) {
       if (SecurityUtils.isUserLoggedIn()) {
         event.rerouteToError(AccessDeniedException.class);

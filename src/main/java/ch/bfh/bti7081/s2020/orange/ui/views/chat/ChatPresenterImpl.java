@@ -26,34 +26,34 @@ public class ChatPresenterImpl implements ChatPresenter, ChatView.Observer {
 
   @PostConstruct
   public void init() {
-    messageService.getMessages().subscribe(this::addMessageToView);
+    this.messageService.getMessages().subscribe(this::addMessageToView);
   }
 
-  private void addMessageToView(Message message) {
-    view.addMessage(message);
+  private void addMessageToView(final Message message) {
+    this.view.addMessage(message);
   }
 
   @Override
   public View getView() {
-    return view;
+    return this.view;
   }
 
   @Override
-  public void onAddMessage(String content) {
-    messageService.addMessage(this.chatId, content, user.getUser());
+  public void onAddMessage(final String content) {
+    this.messageService.addMessage(chatId, content, this.user.getUser());
   }
 
   @Override
   public void onBeforeEnter() {
-    view.setObserver(this);
-    view.setChats(chatService.getChatsByUserId(user.getUser().getId()));
+    this.view.setObserver(this);
+    this.view.setChats(this.chatService.getChatsByUserId(this.user.getUser().getId()));
   }
 
   @Override
-  public void onLoadChat(long chatId) {
+  public void onLoadChat(final long chatId) {
     this.chatId = chatId;
-    for (Message message : messageRepository.findAllByChatId(chatId)) {
-      view.addMessage(message);
+    for (final Message message : this.messageRepository.findAllByChatId(chatId)) {
+      this.view.addMessage(message);
     }
   }
 }

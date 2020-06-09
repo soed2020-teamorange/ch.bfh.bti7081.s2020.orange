@@ -17,11 +17,11 @@ public class ActivityDiaryOverviewPresenterImpl implements ActivityDiaryOverview
 
   @Override
   public void onBeforeEnter() {
-    view.setEntries(activityDiaryService.getEntries());
+    this.view.setEntries(this.activityDiaryService.getEntries());
   }
 
   @Override
   public View getView() {
-    return view;
+    return this.view;
   }
 }

@@ -21,17 +21,17 @@ public class MoodDiaryCreateEntryPresenterImpl implements MoodDiaryCreateEntryPr
 
   @Override
   public void onBeforeEnter() {
-    moodDiaryCreateEntryView.setObserver(this);
+    this.moodDiaryCreateEntryView.setObserver(this);
   }
 
   @Override
-  public void saveNewMoodEntry(MoodEntry me) {
-    getLogger().info("Save new mood entry [{}]", me.toString());
-    patientMoodDiaryService.addEntry(me);
+  public void saveNewMoodEntry(final MoodEntry me) {
+    this.getLogger().info("Save new mood entry [{}]", me);
+    this.patientMoodDiaryService.addEntry(me);
   }
 
   @Override
   public View getView() {
-    return moodDiaryCreateEntryView;
+    return this.moodDiaryCreateEntryView;
   }
 }

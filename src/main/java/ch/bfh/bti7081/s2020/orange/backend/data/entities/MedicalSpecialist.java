@@ -28,12 +28,13 @@ public class MedicalSpecialist extends User {
   @JoinColumn(name = "medical_specialist_id")
   private List<Patient> patients;
 
-  public MedicalSpecialist(String email, String passwordHash, String firstName, String lastName,
-      LocalDate birthDate) {
+  public MedicalSpecialist(final String email, final String passwordHash, final String firstName,
+      final String lastName,
+      final LocalDate birthDate) {
     super(email, passwordHash, firstName, lastName, birthDate, Role.MEDICAL_SPECIALIST);
   }
 
   public String toStringForFormatCombobox() {
-    return getFirstName() + " " + getLastName() + ", " + getEmail();
+    return this.getFirstName() + " " + this.getLastName() + ", " + this.getEmail();
   }
 }

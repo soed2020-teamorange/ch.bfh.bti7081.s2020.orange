@@ -14,23 +14,24 @@ public class MedicalSpecialistService {
 
   private final MedicalSpecialistRepository medicalSpecialistRepository;
 
-  public MedicalSpecialist createMedicalSpecialist(String email, String passwordHash,
-      String firstName, String lastName, LocalDate birthDate) {
-    MedicalSpecialist medicalSpecialist = new MedicalSpecialist(email, passwordHash, firstName,
+  public MedicalSpecialist createMedicalSpecialist(final String email, final String passwordHash,
+      final String firstName, final String lastName, final LocalDate birthDate) {
+    final MedicalSpecialist medicalSpecialist = new MedicalSpecialist(email, passwordHash,
+        firstName,
         lastName, birthDate);
 
-    return this.medicalSpecialistRepository.save(medicalSpecialist);
+    return medicalSpecialistRepository.save(medicalSpecialist);
   }
 
-  public MedicalSpecialist saveMedicalSpecialist(MedicalSpecialist medicalSpecialist) {
+  public MedicalSpecialist saveMedicalSpecialist(final MedicalSpecialist medicalSpecialist) {
     medicalSpecialist.setRole(Role.MEDICAL_SPECIALIST);
 
-    return this.medicalSpecialistRepository.save(medicalSpecialist);
+    return medicalSpecialistRepository.save(medicalSpecialist);
   }
 
   public List<MedicalSpecialist> getAllMedicalSpecialist() {
 
-    return this.medicalSpecialistRepository.findAll();
+    return medicalSpecialistRepository.findAll();
   }
 
 }

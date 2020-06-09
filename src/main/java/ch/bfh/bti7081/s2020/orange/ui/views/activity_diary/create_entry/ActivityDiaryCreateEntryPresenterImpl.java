@@ -21,17 +21,17 @@ public class ActivityDiaryCreateEntryPresenterImpl implements ActivityDiaryCreat
 
   @Override
   public void onBeforeEnter() {
-    activityDiaryCreateEntryView.setObserver(this);
+    this.activityDiaryCreateEntryView.setObserver(this);
   }
 
   @Override
-  public void saveNewActivityEntry(ActivityEntry ae) {
-    getLogger().info("Save new activity entry [{}]", ae.toString());
-    patientActivityDiaryService.addEntry(ae);
+  public void saveNewActivityEntry(final ActivityEntry ae) {
+    this.getLogger().info("Save new activity entry [{}]", ae);
+    this.patientActivityDiaryService.addEntry(ae);
   }
 
   @Override
   public View getView() {
-    return activityDiaryCreateEntryView;
+    return this.activityDiaryCreateEntryView;
   }
 }

@@ -24,7 +24,7 @@ public abstract class Diary<T extends DiaryEntry> extends AbstractEntity {
   @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<T> entries;
 
-  public void addEntry(T entry) {
-    this.entries.add(entry);
+  public void addEntry(final T entry) {
+    entries.add(entry);
   }
 }

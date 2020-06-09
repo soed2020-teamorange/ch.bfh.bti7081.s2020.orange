@@ -2,6 +2,8 @@ package ch.bfh.bti7081.s2020.orange.ui.views.user_infos.edit;
 
 
 import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.backend.service.UserService;
 import ch.bfh.bti7081.s2020.orange.ui.exceptions.UserAlreadyExistsException;
@@ -23,28 +25,41 @@ public class UserInfosEditPresenterImpl implements UserInfosEditPresenter,
 
   @Override
   public void onBeforeEnter() {
-    userInfosEditView.setObserver(this);
-    userInfosEditView.setUser(currentUser.getUser());
+    this.userInfosEditView.setObserver(this);
+    this.userInfosEditView.setUser(this.currentUser.getUser());
+    if (this.currentUser.getUser() instanceof Patient) {
+      final Patient patient = (Patient) this.currentUser.getUser();
+      if (patient.getMedicalSpecialist() != null) {
+        //List<MedicalSpecialist> medicalSpecialistList = new ArrayList<>();
+        //medicalSpecialistList.add(patient.getMedicalSpecialist());
+        this.userInfosEditView.setMedicalSpecialist(patient.getMedicalSpecialist());
+      }
+    } else if (this.currentUser.getUser() instanceof MedicalSpecialist) {
+      final MedicalSpecialist medicalSpecialist = (MedicalSpecialist) this.currentUser.getUser();
+      if (medicalSpecialist.getPatients() != null) {
+        this.userInfosEditView.setPatients(medicalSpecialist.getPatients());
+      }
+    }
   }
 
   @Override
-  public void onSaveUser(User user) {
-    userService.saveUser(user);
-    userInfosEditView.showNotification("Angaben erfolgreich bearbeitet.");
+  public void onSaveUser(final User user) {
+    this.userService.saveUser(user);
+    this.userInfosEditView.showNotification("Angaben erfolgreich bearbeitet.");
   }
 
   @Override
-  public void emailIsUnique(String email) throws UserAlreadyExistsException {
+  public void emailIsUnique(final String email) throws UserAlreadyExistsException {
     try {
-      userService.emailIsUnique(email);
-      userInfosEditView.setEMailIsUniqueError(false);
-    } catch (UserAlreadyExistsException e) {
-      userInfosEditView.setEMailIsUniqueError(true);
+      this.userService.emailIsUnique(email);
+      this.userInfosEditView.setEMailIsUniqueError(false);
+    } catch (final UserAlreadyExistsException e) {
+      this.userInfosEditView.setEMailIsUniqueError(true);
     }
   }
 
   @Override
   public View getView() {
-    return userInfosEditView;
+    return this.userInfosEditView;
   }
 }

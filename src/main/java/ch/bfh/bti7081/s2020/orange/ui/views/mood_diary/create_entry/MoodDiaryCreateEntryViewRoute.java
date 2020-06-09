@@ -27,16 +27,16 @@ public class MoodDiaryCreateEntryViewRoute extends VerticalLayout implements Bef
 
   @PostConstruct
   public void init() {
-    add(this.getComponent(Component.class));
+    this.add(getComponent(Component.class));
   }
 
   @Override
-  public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-    moodDiaryCreateEntryPresenter.onBeforeEnter();
+  public void beforeEnter(final BeforeEnterEvent beforeEnterEvent) {
+    this.moodDiaryCreateEntryPresenter.onBeforeEnter();
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
-    return moodDiaryCreateEntryPresenter.getView().getComponent(type);
+  public <C> C getComponent(final Class<C> type) {
+    return this.moodDiaryCreateEntryPresenter.getView().getComponent(type);
   }
 }

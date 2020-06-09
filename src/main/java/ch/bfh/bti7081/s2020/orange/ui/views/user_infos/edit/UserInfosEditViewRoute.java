@@ -23,16 +23,16 @@ public class UserInfosEditViewRoute extends VerticalLayout implements BeforeEnte
 
   @PostConstruct
   public void init() {
-    add(this.getComponent(Component.class));
+    this.add(getComponent(Component.class));
   }
 
   @Override
-  public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-    userInfosEditPresenter.onBeforeEnter();
+  public void beforeEnter(final BeforeEnterEvent beforeEnterEvent) {
+    this.userInfosEditPresenter.onBeforeEnter();
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
-    return userInfosEditPresenter.getView().getComponent(type);
+  public <C> C getComponent(final Class<C> type) {
+    return this.userInfosEditPresenter.getView().getComponent(type);
   }
 }

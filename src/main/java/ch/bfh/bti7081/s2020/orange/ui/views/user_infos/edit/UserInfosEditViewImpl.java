@@ -1,13 +1,17 @@
 package ch.bfh.bti7081.s2020.orange.ui.views.user_infos.edit;
 
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.User;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -15,9 +19,11 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.validator.EmailValidator;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.spring.annotation.UIScope;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -32,24 +38,40 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
   private final Binder<User> binder = new BeanValidationBinder<>(User.class);
   private final EmailField emailEF = new EmailField("E-Mail");
   private final PasswordEncoder passwordEncoder;
+  private final Grid<Patient> patients = new Grid<>(Patient.class);
+  private final Grid<MedicalSpecialist> medicalSpecialists = new Grid<>(MedicalSpecialist.class);
+  private final H2 assignedUsersDesc = new H2();
+  private final Button editInfosButton = new Button("Bearbeiten");
+  private final Button saveButton = new Button("Speichern");
 
   @Setter
   private Observer observer;
 
   @PostConstruct
   public void init() {
-    add(new H1(AppConst.TITLE_USER_INFOS_EDIT),
-        buildForm());
+    this.patients
+        .setColumns("firstName", "lastName", "email", "phone", "birthDate", "street",
+            "streetNumber",
+            "zipCode",
+            "city",
+            "country");
+    this.medicalSpecialists
+        .setColumns("firstName", "lastName", "email", "phone");
+
+    this.add(new H1(AppConst.TITLE_USER_INFOS_EDIT), this.editInfosButton, this.buildForm(),
+        this.assignedUsersDesc);
   }
 
   private Div buildForm() {
     // Create form components
-    TextField firstNameTF = new TextField("Vorname");
-    TextField lastNameTF = new TextField("Nachname");
+    final TextField firstNameTF = new TextField("Vorname");
+    final TextField lastNameTF = new TextField("Nachname");
+    firstNameTF.setEnabled(false);
+    lastNameTF.setEnabled(false);
 
-    DatePicker birthDateDP = new DatePicker("Geburtsdatum");
+    final DatePicker birthDateDP = new DatePicker("Geburtsdatum");
     birthDateDP.setValue(LocalDate.now());
-    DatePicker.DatePickerI18n birthDateDPI18n = new DatePicker.DatePickerI18n();
+    final DatePicker.DatePickerI18n birthDateDPI18n = new DatePicker.DatePickerI18n();
     birthDateDPI18n.setWeek("Woche");
     birthDateDPI18n.setCalendar("Kalender");
     birthDateDPI18n.setClear("Löschen");
@@ -63,109 +85,149 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
             "September", "Oktober", "November", "Dezember"));
     birthDateDP.setI18n(birthDateDPI18n);
 
-    TextField streetTF = new TextField("Strasse");
-    TextField streetNumberTF = new TextField("Hausnummer");
-    TextField cityTF = new TextField("Stadt");
-    TextField zipCodeTF = new TextField("Postleitzahl");
-    TextField countryTF = new TextField("Land");
-    TextField phoneTF = new TextField("Telefonnummer");
-    PasswordField passwordPF = new PasswordField("Neues Passwort");
-    PasswordField passwordConfirmPF = new PasswordField("Neues Passwort wiederholen");
+    final TextField streetTF = new TextField("Strasse");
+    final TextField streetNumberTF = new TextField("Hausnummer");
+    final TextField cityTF = new TextField("Stadt");
+    final TextField zipCodeTF = new TextField("Postleitzahl");
+    final TextField countryTF = new TextField("Land");
+    final TextField phoneTF = new TextField("Telefonnummer");
+    final PasswordField passwordPF = new PasswordField("Neues Passwort");
+    final PasswordField passwordConfirmPF = new PasswordField("Neues Passwort wiederholen");
 
-    Button saveButton = new Button("Speichern");
+    birthDateDP.setEnabled(false);
+    this.emailEF.setEnabled(false);
+    streetTF.setEnabled(false);
+    streetNumberTF.setEnabled(false);
+    cityTF.setEnabled(false);
+    zipCodeTF.setEnabled(false);
+    countryTF.setEnabled(false);
+    phoneTF.setEnabled(false);
+    passwordPF.setEnabled(false);
+    passwordConfirmPF.setEnabled(false);
+
+    this.emailEF.setValueChangeMode(ValueChangeMode.EAGER);
+    this.saveButton.setEnabled(false);
 
     // Bind elements to business object
-    binder.forField(firstNameTF)
+    this.binder.forField(firstNameTF)
         .asRequired("Vorname muss angegeben werden.")
         .bind(User::getFirstName, User::setFirstName);
 
-    binder.forField(lastNameTF)
+    this.binder.forField(lastNameTF)
         .asRequired("Nachname muss angegeben werden.")
         .bind(User::getLastName, User::setLastName);
 
-    binder.forField(birthDateDP)
+    this.binder.forField(birthDateDP)
         .asRequired("Geburtsdatum muss gesetzt sein.")
         .withValidator(date -> date.isBefore(LocalDate.now()),
             "Geburtsdatum muss in der Vergangenheit sein.")
         .bind(User::getBirthDate, User::setBirthDate);
 
-    binder.forField(streetTF)
+    this.binder.forField(streetTF)
         .bind(User::getStreet, User::setStreet);
 
-    binder.forField(streetNumberTF)
+    this.binder.forField(streetNumberTF)
         .bind(User::getStreetNumber, User::setStreetNumber);
 
-    binder.forField(cityTF)
+    this.binder.forField(cityTF)
         .bind(User::getCity, User::setCity);
 
-    binder.forField(zipCodeTF)
+    this.binder.forField(zipCodeTF)
         .bind(User::getZipCode, User::setZipCode);
 
-    binder.forField(countryTF)
+    this.binder.forField(countryTF)
         .bind(User::getCountry, User::setCountry);
 
-    binder.forField(phoneTF)
+    this.binder.forField(phoneTF)
         .bind(User::getPhone, User::setPhone);
 
-    binder.forField(emailEF)
+    this.binder.forField(this.emailEF)
         .asRequired("E-Mail muss angegeben werden.")
         .withValidator(new EmailValidator(
             "Bitte eine korrekte E-Mail angeben."))
         .bind(User::getEmail, User::setEmail);
 
-    binder.forField(passwordPF)
+    this.binder.forField(passwordPF)
         .withValidator(p -> p.length() >= 4,
             "Passwort muss mindestens 4 Zeichen lang sein.")
         .withValidator(p -> passwordPF.getValue().equals(passwordConfirmPF.getValue()),
             "Passwörter müssen übereinstimmen.")
         .bind(p -> "",
             (p, password) -> {
-              p.setPasswordHash(passwordEncoder.encode(password));
+              p.setPasswordHash(this.passwordEncoder.encode(password));
             });
 
-    Binder.Binding<User, String> secondPassword = binder.forField(passwordConfirmPF)
+    final Binder.Binding<User, String> secondPassword = this.binder.forField(passwordConfirmPF)
         .withValidator(p -> p.length() >= 4,
             "Passwort muss mindestens 4 Zeichen lang sein.")
         .withValidator(p -> passwordPF.getValue().equals(passwordConfirmPF.getValue()),
             "Passwörter müssen übereinstimmen.")
         .bind(p -> "",
             (p, password) -> {
-              p.setPasswordHash(passwordEncoder.encode(password));
+              p.setPasswordHash(this.passwordEncoder.encode(password));
             });
 
     // Wrap components in layouts
-    FormLayout formLayout = new FormLayout(firstNameTF, lastNameTF, birthDateDP, streetTF,
+    final FormLayout formLayout = new FormLayout(firstNameTF, lastNameTF, birthDateDP, streetTF,
         streetNumberTF,
-        cityTF, zipCodeTF, countryTF, phoneTF, emailEF, passwordPF, passwordConfirmPF, saveButton);
+        cityTF, zipCodeTF, countryTF, phoneTF, this.emailEF, passwordPF, passwordConfirmPF,
+        this.saveButton);
 
-    Div wrapperLayout = new Div(formLayout);
+    final Div wrapperLayout = new Div(formLayout);
 
     passwordPF.addValueChangeListener(
         event -> secondPassword.validate());
 
-    emailEF.addValueChangeListener(
+    this.emailEF.addValueChangeListener(
         event -> {
-          if (!emailEF.isInvalid()) {
-            observer.emailIsUnique(event.toString());
+          if (!this.emailEF.isInvalid()) {
+            this.observer.emailIsUnique(event.getValue());
           }
         });
 
     // disable saveButton if form has validation errors
-    binder.addStatusChangeListener(status -> {
-          saveButton.setEnabled(!status.hasValidationErrors());
+    this.binder.addStatusChangeListener(status -> {
+          if (!this.editInfosButton.isEnabled()) {
+            this.saveButton.setEnabled(!status.hasValidationErrors());
+          }
         }
     );
 
-    // disable saveButton if form has validation errors
-    binder.addStatusChangeListener(status -> {
-          saveButton.setEnabled(!status.hasValidationErrors());
-        }
-    );
+    this.editInfosButton.addClickListener(click -> {
+      firstNameTF.setEnabled(true);
+      lastNameTF.setEnabled(true);
+      birthDateDP.setEnabled(true);
+      this.emailEF.setEnabled(true);
+      streetTF.setEnabled(true);
+      streetNumberTF.setEnabled(true);
+      cityTF.setEnabled(true);
+      zipCodeTF.setEnabled(true);
+      countryTF.setEnabled(true);
+      phoneTF.setEnabled(true);
+      passwordPF.setEnabled(true);
+      passwordConfirmPF.setEnabled(true);
+      this.saveButton.setEnabled(true);
+      this.editInfosButton.setEnabled(false);
+    });
 
-    saveButton.addClickListener(click -> {
-      getLogger()
-          .info("Successfully saved new data for user [" + binder.getBean().getEmail() + "]");
-      observer.onSaveUser(binder.getBean());
+    this.saveButton.addClickListener(click -> {
+      this.getLogger()
+          .info("Successfully saved new data for user [" + this.binder.getBean().getEmail() + "]");
+      this.observer.onSaveUser(this.binder.getBean());
+      firstNameTF.setEnabled(false);
+      lastNameTF.setEnabled(false);
+      birthDateDP.setEnabled(false);
+      this.emailEF.setEnabled(false);
+      streetTF.setEnabled(false);
+      streetNumberTF.setEnabled(false);
+      cityTF.setEnabled(false);
+      zipCodeTF.setEnabled(false);
+      countryTF.setEnabled(false);
+      phoneTF.setEnabled(false);
+      passwordPF.setEnabled(false);
+      passwordConfirmPF.setEnabled(false);
+      this.saveButton.setEnabled(false);
+      this.editInfosButton.setEnabled(true);
     });
 
     formLayout.setResponsiveSteps(
@@ -177,19 +239,34 @@ public class UserInfosEditViewImpl extends VerticalLayout implements UserInfosEd
   }
 
   @Override
-  public void setEMailIsUniqueError(boolean b) {
-    emailEF.setInvalid(b);
-    emailEF.setErrorMessage("E-Mail wird bereits verwendet.");
+  public void setEMailIsUniqueError(final boolean b) {
+    this.emailEF.setInvalid(b);
+    this.saveButton.setEnabled(!b);
+    this.emailEF.setErrorMessage("E-Mail wird bereits verwendet.");
   }
 
   @Override
-  public void setUser(User user) {
-    getLogger().info("Set user with e-mail [" + user.getEmail() + "]");
-    binder.setBean(user);
+  public void setMedicalSpecialist(final MedicalSpecialist medicalSpecialist) {
+    assignedUsersDesc.setText("zugewiesene medizinische Fachperson:");
+    medicalSpecialists.setItems(medicalSpecialist);
+    this.add(medicalSpecialists);
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
+  public void setPatients(final List<Patient> patients) {
+    assignedUsersDesc.setText("zugewiesene Patienten:");
+    this.patients.setItems(patients);
+    this.add(this.patients);
+  }
+
+  @Override
+  public void setUser(final User user) {
+    this.getLogger().info("Set user with e-mail [" + user.getEmail() + "]");
+    this.binder.setBean(user);
+  }
+
+  @Override
+  public <C> C getComponent(final Class<C> type) {
     return type.cast(this);
   }
 }

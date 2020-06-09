@@ -25,19 +25,19 @@ public class ActivityDiaryOverviewViewImpl extends VerticalLayout implements
 
   @PostConstruct
   public void init() {
-    content.setClassName("timeline-container");
+    this.content.setClassName("timeline-container");
 
-    Div noData = new Div();
+    final Div noData = new Div();
     noData.setText("Keine Daten vorhanden");
-    content.add(noData);
+    this.content.add(noData);
 
-    add(createTitle());
-    add(createButton());
-    add(content);
+    this.add(this.createTitle());
+    this.add(this.createButton());
+    this.add(this.content);
   }
 
   private Button createButton() {
-    Button button = new Button("Neuen Eintrag erstellen");
+    final Button button = new Button("Neuen Eintrag erstellen");
 
     button.addClickListener(
         e -> button.getUI()
@@ -46,21 +46,22 @@ public class ActivityDiaryOverviewViewImpl extends VerticalLayout implements
     return button;
   }
 
-  private void addContent(List<ActivityEntry> entries) {
+  private void addContent(final List<ActivityEntry> entries) {
 
-    PureTimeline timeline = new PureTimeline();
+    final PureTimeline timeline = new PureTimeline();
 
-    for (ActivityEntry entry : entries) {
-      PureTimelineItem item = new PureTimelineItem(getBoxText(entry), getBoxContent(entry));
+    for (final ActivityEntry entry : entries) {
+      final PureTimelineItem item = new PureTimelineItem(this.getBoxText(entry),
+          this.getBoxContent(entry));
 
       timeline.add(item);
     }
 
-    content.removeAll();
-    content.add(timeline);
+    this.content.removeAll();
+    this.content.add(timeline);
   }
 
-  private com.vaadin.flow.component.Component[] getBoxContent(ActivityEntry entry) {
+  private com.vaadin.flow.component.Component[] getBoxContent(final ActivityEntry entry) {
     return new com.vaadin.flow.component.Component[]{
         new H1(entry.getTitle()),
         new H2(entry.getActivity().getLabel()),
@@ -68,8 +69,8 @@ public class ActivityDiaryOverviewViewImpl extends VerticalLayout implements
     };
   }
 
-  private String getBoxText(ActivityEntry entry) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+  private String getBoxText(final ActivityEntry entry) {
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     return String.format("%s %tR - %tR", entry.getDate().format(formatter), entry.getStartTime(),
         entry.getEndTime());
@@ -80,12 +81,12 @@ public class ActivityDiaryOverviewViewImpl extends VerticalLayout implements
   }
 
   @Override
-  public void setEntries(List<ActivityEntry> entries) {
-    addContent(entries);
+  public void setEntries(final List<ActivityEntry> entries) {
+    this.addContent(entries);
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
+  public <C> C getComponent(final Class<C> type) {
     return type.cast(this);
   }
 

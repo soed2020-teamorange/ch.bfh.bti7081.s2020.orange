@@ -29,14 +29,16 @@ public class Patient extends User {
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
   private List<Prescription> prescriptions;
 
-  public Patient(String email, String passwordHash, String firstName, String lastName,
-      LocalDate birthDate) {
+  public Patient(final String email, final String passwordHash, final String firstName,
+      final String lastName,
+      final LocalDate birthDate) {
     super(email, passwordHash, firstName, lastName, birthDate, Role.PATIENT);
     prescriptions = new ArrayList<>();
   }
 
-  public Patient(String email, String passwordHash, String firstName, String lastName,
-      LocalDate birthDate, MedicalSpecialist medicalSpecialist) {
+  public Patient(final String email, final String passwordHash, final String firstName,
+      final String lastName,
+      final LocalDate birthDate, final MedicalSpecialist medicalSpecialist) {
     super(email, passwordHash, firstName, lastName, birthDate, Role.PATIENT);
     this.medicalSpecialist = medicalSpecialist;
     prescriptions = new ArrayList<>();

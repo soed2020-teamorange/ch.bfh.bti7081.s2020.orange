@@ -17,6 +17,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.validator.EmailValidator;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.spring.annotation.UIScope;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,24 +39,25 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
   private final PasswordEncoder passwordEncoder;
 
   private final EmailField emailEF = new EmailField("E-Mail");
+  private final Button saveButton = new Button("Neuen Patienten hinzufügen");
 
   @Setter
   private Observer observer;
 
   @PostConstruct
   public void init() {
-    add(new H1(AppConst.TITLE_REGISTER_PATIENT),
-        buildForm());
+    this.add(new H1(AppConst.TITLE_REGISTER_PATIENT),
+        this.buildForm());
   }
 
   private Div buildForm() {
     // Create form components
-    TextField firstNameTF = new TextField("Vorname");
-    TextField lastNameTF = new TextField("Nachname");
+    final TextField firstNameTF = new TextField("Vorname");
+    final TextField lastNameTF = new TextField("Nachname");
 
-    DatePicker birthDateDP = new DatePicker("Geburtsdatum");
+    final DatePicker birthDateDP = new DatePicker("Geburtsdatum");
     birthDateDP.setValue(LocalDate.now());
-    DatePicker.DatePickerI18n birthDateDPI18n = new DatePicker.DatePickerI18n();
+    final DatePicker.DatePickerI18n birthDateDPI18n = new DatePicker.DatePickerI18n();
     birthDateDPI18n.setWeek("Woche");
     birthDateDPI18n.setCalendar("Kalender");
     birthDateDPI18n.setClear("Löschen");
@@ -69,24 +71,24 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
             "September", "Oktober", "November", "Dezember"));
     birthDateDP.setI18n(birthDateDPI18n);
 
-    TextField streetTF = new TextField("Strasse");
-    TextField streetNumberTF = new TextField("Hausnummer");
-    TextField cityTF = new TextField("Stadt");
-    TextField zipCodeTF = new TextField("Postleitzahl");
-    TextField countryTF = new TextField("Land");
-    TextField phoneTF = new TextField("Telefonnummer");
+    final TextField streetTF = new TextField("Strasse");
+    final TextField streetNumberTF = new TextField("Hausnummer");
+    final TextField cityTF = new TextField("Stadt");
+    final TextField zipCodeTF = new TextField("Postleitzahl");
+    final TextField countryTF = new TextField("Land");
+    final TextField phoneTF = new TextField("Telefonnummer");
 
-    PasswordField passwordPF = new PasswordField("Passwort");
-    PasswordField passwordConfirmPF = new PasswordField("Passwort wiederholen");
+    final PasswordField passwordPF = new PasswordField("Passwort");
+    final PasswordField passwordConfirmPF = new PasswordField("Passwort wiederholen");
 
-    ComboBox<MedicalSpecialist> medicalSpecialistComboBox = new ComboBox<>("Therapeut");
+    final ComboBox<MedicalSpecialist> medicalSpecialistComboBox = new ComboBox<>("Therapeut");
     medicalSpecialistComboBox.setItemLabelGenerator(MedicalSpecialist::toStringForFormatCombobox);
-    medicalSpecialistComboBox.setItems(medicalSpecialists);
+    medicalSpecialistComboBox.setItems(this.medicalSpecialists);
 
-    Button saveButton = new Button("Neuen Patienten hinzufügen");
+    this.emailEF.setValueChangeMode(ValueChangeMode.EAGER);
 
     // Bind elements to business object
-    Binder<Patient> binder = new Binder<>(Patient.class);
+    final Binder<Patient> binder = new Binder<>(Patient.class);
     binder.forField(firstNameTF)
         .asRequired("Vorname muss angegeben werden.")
         .bind(Patient::getFirstName, Patient::setFirstName);
@@ -119,7 +121,7 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
     binder.forField(phoneTF)
         .bind(Patient::getPhone, Patient::setPhone);
 
-    binder.forField(emailEF)
+    binder.forField(this.emailEF)
         .asRequired("E-Mail muss angegeben werden.")
         .withValidator(new EmailValidator(
             "Bitte eine korrekte E-Mail angeben."))
@@ -135,10 +137,10 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
             "Passwort muss mindestens 4 Zeichen lang sein.")
         .bind(p -> p.getPasswordHash(),
             (p, password) -> {
-              p.setPasswordHash(passwordEncoder.encode(password));
+              p.setPasswordHash(this.passwordEncoder.encode(password));
             });
 
-    Binder.Binding<Patient, String> secondPassword = binder.forField(passwordConfirmPF)
+    final Binder.Binding<Patient, String> secondPassword = binder.forField(passwordConfirmPF)
         .asRequired("Passwort muss gesetzt sein.")
         .withValidator(p -> p.length() >= 4,
             "Passwort muss mindestens 4 Zeichen lang sein.")
@@ -146,48 +148,48 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
             "Passwörter müssen übereinstimmen.")
         .bind(p -> p.getPasswordHash(),
             (p, password) -> {
-              p.setPasswordHash(passwordEncoder.encode(password));
+              p.setPasswordHash(this.passwordEncoder.encode(password));
             });
 
     binder.readBean(new Patient());
 
     // Wrap components in layouts
 
-    FormLayout formLayout = new FormLayout(firstNameTF, lastNameTF, birthDateDP, streetTF,
+    final FormLayout formLayout = new FormLayout(firstNameTF, lastNameTF, birthDateDP, streetTF,
         streetNumberTF,
-        cityTF, zipCodeTF, countryTF, phoneTF, emailEF, medicalSpecialistComboBox, passwordPF,
-        passwordConfirmPF, saveButton);
+        cityTF, zipCodeTF, countryTF, phoneTF, this.emailEF, medicalSpecialistComboBox, passwordPF,
+        passwordConfirmPF, this.saveButton);
 
-    Div wrapperLayout = new Div(formLayout);
+    final Div wrapperLayout = new Div(formLayout);
 
     passwordPF.addValueChangeListener(
         event -> secondPassword.validate());
 
-    emailEF.addValueChangeListener(
+    this.emailEF.addValueChangeListener(
         event -> {
-          if (!emailEF.isInvalid()) {
-            observer.emailIsUnique(event.toString());
+          if (!this.emailEF.isInvalid()) {
+            this.observer.emailIsUnique(event.getValue());
           }
         });
 
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
-          saveButton.setEnabled(!status.hasValidationErrors());
+          this.saveButton.setEnabled(!status.hasValidationErrors());
         }
     );
 
-    saveButton.addClickListener(click -> {
+    this.saveButton.addClickListener(click -> {
       try {
-        Patient newPatient = new Patient();
+        final Patient newPatient = new Patient();
         binder.writeBean(newPatient);
 
         // save new patient
-        observer.createNewPatient(newPatient);
+        this.observer.createNewPatient(newPatient);
 
         // load new empty patient to the form
         binder.readBean(new Patient());
-      } catch (ValidationException e) {
-        getLogger().warn("There are some validation errors.");
+      } catch (final ValidationException e) {
+        this.getLogger().warn("There are some validation errors.");
       }
     });
 
@@ -200,19 +202,20 @@ public class RegisterPatientViewImpl extends VerticalLayout implements RegisterP
   }
 
   @Override
-  public void setEMailIsUniqueError(boolean b) {
-    emailEF.setInvalid(b);
-    emailEF.setErrorMessage("E-Mail wird bereits verwendet.");
+  public void setEMailIsUniqueError(final boolean b) {
+    this.emailEF.setInvalid(b);
+    this.saveButton.setEnabled(!b);
+    this.emailEF.setErrorMessage("E-Mail wird bereits verwendet.");
   }
 
   @Override
-  public void setMedicalSpecialists(List<MedicalSpecialist> medicalSpecialists) {
-    getLogger().info("Create list with medicalSpecialists");
+  public void setMedicalSpecialists(final List<MedicalSpecialist> medicalSpecialists) {
+    this.getLogger().info("Create list with medicalSpecialists");
     this.medicalSpecialists.addAll(medicalSpecialists);
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
+  public <C> C getComponent(final Class<C> type) {
     return type.cast(this);
   }
 }

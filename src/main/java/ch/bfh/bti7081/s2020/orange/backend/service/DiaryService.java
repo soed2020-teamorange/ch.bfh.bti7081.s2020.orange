@@ -14,14 +14,14 @@ public abstract class DiaryService<T extends Diary<K>, K extends DiaryEntry> {
   private final DiaryBaseRepository<T> repository;
 
   public List<K> getEntries() {
-    return repository.getByPatientId(currentUser.getUser().getId()).getEntries();
+    return this.repository.getByPatientId(this.currentUser.getUser().getId()).getEntries();
   }
 
-  public T addEntry(K entry) {
-    T diary = repository.getByPatientId(currentUser.getUser().getId());
+  public T addEntry(final K entry) {
+    final T diary = this.repository.getByPatientId(this.currentUser.getUser().getId());
 
     diary.addEntry(entry);
 
-    return repository.save(diary);
+    return this.repository.save(diary);
   }
 }
