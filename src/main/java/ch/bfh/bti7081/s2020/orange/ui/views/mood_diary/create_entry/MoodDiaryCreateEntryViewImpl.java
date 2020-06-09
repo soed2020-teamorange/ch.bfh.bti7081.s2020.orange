@@ -40,15 +40,15 @@ public class MoodDiaryCreateEntryViewImpl extends VerticalLayout implements
 
   @PostConstruct
   public void init() {
-    add(new H1(AppConst.TITLE_MOOD_DIARY),
-        buildForm());
+    this.add(new H1(AppConst.TITLE_MOOD_DIARY),
+        this.buildForm());
   }
 
   private Div buildForm() {
     // Create form components
-    DatePicker dateDP = new DatePicker("Datum");
+    final DatePicker dateDP = new DatePicker("Datum");
     dateDP.setValue(LocalDate.now());
-    DatePicker.DatePickerI18n dateDPI18n = new DatePicker.DatePickerI18n();
+    final DatePicker.DatePickerI18n dateDPI18n = new DatePicker.DatePickerI18n();
     dateDPI18n.setWeek("Woche");
     dateDPI18n.setCalendar("Kalender");
     dateDPI18n.setClear("Löschen");
@@ -62,25 +62,25 @@ public class MoodDiaryCreateEntryViewImpl extends VerticalLayout implements
             "September", "Oktober", "November", "Dezember"));
     dateDP.setI18n(dateDPI18n);
 
-    TimePicker timeTP = new TimePicker("Uhrzeit");
+    final TimePicker timeTP = new TimePicker("Uhrzeit");
     timeTP.setValue(LocalTime.now());
 
-    ComboBox<String> moodCB = new ComboBox<>("Stimmung");
+    final ComboBox<String> moodCB = new ComboBox<>("Stimmung");
 
-    List<String> moods = new ArrayList<>();
-    for (Mood m : Mood.values()) {
+    final List<String> moods = new ArrayList<>();
+    for (final Mood m : Mood.values()) {
       moods.add(m.getLabel());
     }
     moodCB.setItems(moods);
     moodCB.setValue(moods.get(1));
 
-    TextField titleTF = new TextField("Titel");
-    TextArea contentTA = new TextArea("Beschreibung");
-    TextField waterDrunkTF = new TextField("Anzahl Liter Wasser", "0");
-    TextField sleepHoursTF = new TextField("Anzahl Stunden Schlaf", "0");
+    final TextField titleTF = new TextField("Titel");
+    final TextArea contentTA = new TextArea("Beschreibung");
+    final TextField waterDrunkTF = new TextField("Anzahl Liter Wasser", "0");
+    final TextField sleepHoursTF = new TextField("Anzahl Stunden Schlaf", "0");
 
     // Bind elements to business object
-    Binder<MoodEntry> binder = new Binder<>(MoodEntry.class);
+    final Binder<MoodEntry> binder = new Binder<>(MoodEntry.class);
     binder.forField(dateDP)
         .asRequired("Datum muss gesetzt sein.")
         .withValidator(date -> date.isBefore(LocalDate.now().plusDays(1)),
@@ -111,7 +111,7 @@ public class MoodDiaryCreateEntryViewImpl extends VerticalLayout implements
         .withConverter(new StringToDoubleConverter("Bitte eine gültige Zahl eingeben."))
         .bind(MoodEntry::getSleepHours, MoodEntry::setSleepHours);
 
-    Button saveButton = new Button("Neuen Stimmungseintrag hinzufügen");
+    final Button saveButton = new Button("Neuen Stimmungseintrag hinzufügen");
 
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
@@ -121,36 +121,37 @@ public class MoodDiaryCreateEntryViewImpl extends VerticalLayout implements
 
     saveButton.addClickListener(click -> {
       try {
-        MoodEntry moodEntry = new MoodEntry();
+        final MoodEntry moodEntry = new MoodEntry();
         moodEntry.setMood(Mood.valueOfLabel(moodCB.getValue()));
         binder.writeBean(moodEntry);
 
         // save new patient
-        observer.saveNewMoodEntry(moodEntry);
+        this.observer.saveNewMoodEntry(moodEntry);
 
         // load new empty mood to the form
         binder.readBean(new MoodEntry());
         timeTP.setValue(LocalTime.now());
         dateDP.setValue(LocalDate.now());
 
-      } catch (ValidationException e) {
-        getLogger().warn("There are some validation errors.");
+      } catch (final ValidationException e) {
+        this.getLogger().warn("There are some validation errors.");
       }
     });
 
     // Wrap components in layouts
-    FormLayout formLayout = new FormLayout(dateDP, timeTP, moodCB, titleTF, contentTA, waterDrunkTF,
+    final FormLayout formLayout = new FormLayout(dateDP, timeTP, moodCB, titleTF, contentTA,
+        waterDrunkTF,
         sleepHoursTF,
         saveButton);
 
-    Div wrapperLayout = new Div(formLayout);
+    final Div wrapperLayout = new Div(formLayout);
 
     return wrapperLayout;
 
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
+  public <C> C getComponent(final Class<C> type) {
     return type.cast(this);
   }
 }

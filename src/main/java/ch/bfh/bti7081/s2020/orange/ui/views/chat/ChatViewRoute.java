@@ -21,18 +21,18 @@ public class ChatViewRoute extends VerticalLayout implements View, BeforeEnterOb
 
   @PostConstruct
   public void init() {
-    removeAll();
-    add(this.getComponent(Component.class));
-    addClassName("chat-view-container");
+    this.removeAll();
+    this.add(getComponent(Component.class));
+    this.addClassName("chat-view-container");
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
-    return presenter.getView().getComponent(type);
+  public <C> C getComponent(final Class<C> type) {
+    return this.presenter.getView().getComponent(type);
   }
 
   @Override
-  public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-    presenter.onBeforeEnter();
+  public void beforeEnter(final BeforeEnterEvent beforeEnterEvent) {
+    this.presenter.onBeforeEnter();
   }
 }

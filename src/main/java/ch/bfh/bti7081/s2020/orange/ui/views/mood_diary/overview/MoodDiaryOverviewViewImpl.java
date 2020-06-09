@@ -38,17 +38,17 @@ public class MoodDiaryOverviewViewImpl extends VerticalLayout implements MoodDia
 
   @PostConstruct
   public void init() {
-    Div noData = new Div();
+    final Div noData = new Div();
     noData.setText("Keine Daten vorhanden");
-    content.add(noData);
+    this.content.add(noData);
 
-    add(createTitle());
-    add(createButton());
-    add(content);
+    this.add(this.createTitle());
+    this.add(this.createButton());
+    this.add(this.content);
   }
 
   private Button createButton() {
-    Button button = new Button("Neuen Eintrag erstellen");
+    final Button button = new Button("Neuen Eintrag erstellen");
 
     button.addClickListener(
         e -> button.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_MOOD_DIARY_CREATE_ENTRY)));
@@ -56,68 +56,69 @@ public class MoodDiaryOverviewViewImpl extends VerticalLayout implements MoodDia
     return button;
   }
 
-  private void addContent(List<MoodEntry> entries) {
-    Tab chartTab = new Tab("Diagramm");
-    Chart chartPage = createChart(entries);
+  private void addContent(final List<MoodEntry> entries) {
+    final Tab chartTab = new Tab("Diagramm");
+    final Chart chartPage = this.createChart(entries);
 
-    Tab tableTab = new Tab("Tabelle");
-    Grid<MoodEntry> tablePage = createTable(entries);
+    final Tab tableTab = new Tab("Tabelle");
+    final Grid<MoodEntry> tablePage = this.createTable(entries);
     tablePage.setVisible(false);
 
-    Map<Tab, com.vaadin.flow.component.Component> tabsToPages = new HashMap<>();
+    final Map<Tab, com.vaadin.flow.component.Component> tabsToPages = new HashMap<>();
     tabsToPages.put(chartTab, chartPage);
     tabsToPages.put(tableTab, tablePage);
-    Tabs tabs = new Tabs(chartTab, tableTab);
+    final Tabs tabs = new Tabs(chartTab, tableTab);
     tabs.setWidth("100%");
-    Div pages = new Div(chartPage, tablePage);
+    final Div pages = new Div(chartPage, tablePage);
     pages.setWidth("100%");
-    Set<com.vaadin.flow.component.Component> pagesShown = Stream.of(chartPage)
+    final Set<com.vaadin.flow.component.Component> pagesShown = Stream.of(chartPage)
         .collect(Collectors.toSet());
 
     tabs.addSelectedChangeListener(event -> {
       pagesShown.forEach(page -> page.setVisible(false));
       pagesShown.clear();
-      com.vaadin.flow.component.Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
+      final com.vaadin.flow.component.Component selectedPage = tabsToPages
+          .get(tabs.getSelectedTab());
       selectedPage.setVisible(true);
       pagesShown.add(selectedPage);
     });
 
-    content.removeAll();
-    content.add(tabs);
-    content.add(pages);
+    this.content.removeAll();
+    this.content.add(tabs);
+    this.content.add(pages);
   }
 
   private H1 createTitle() {
     return new H1(AppConst.TITLE_MOOD_DIARY);
   }
 
-  private Chart createChart(List<MoodEntry> entries) {
-    Chart chart = new Chart(ChartType.LINE);
+  private Chart createChart(final List<MoodEntry> entries) {
+    final Chart chart = new Chart(ChartType.LINE);
 
-    final Configuration configuration = chart.getConfiguration();
+    Configuration configuration = chart.getConfiguration();
 
-    DataSeries moodSeries = new DataSeries("Stimmung");
-    DataSeries sleepHoursSeries = new DataSeries("Stunden Schlaf");
-    DataSeries waterDrunkSeries = new DataSeries("Liter Wasser");
+    final DataSeries moodSeries = new DataSeries("Stimmung");
+    final DataSeries sleepHoursSeries = new DataSeries("Stunden Schlaf");
+    final DataSeries waterDrunkSeries = new DataSeries("Liter Wasser");
     moodSeries.setyAxis(1);
 
-    for (MoodEntry entry : entries) {
-      long timestamp = entry.getDate().atTime(entry.getTime()).toEpochSecond(ZoneOffset.UTC);
-      moodSeries.add(new DataSeriesItem(timestamp * 1000, mapMood(entry.getMood())));
+    for (final MoodEntry entry : entries) {
+      final long timestamp = entry.getDate().atTime(entry.getTime()).toEpochSecond(ZoneOffset.UTC);
+      moodSeries.add(new DataSeriesItem(timestamp * 1000, this.mapMood(entry.getMood())));
       sleepHoursSeries.add(new DataSeriesItem(timestamp * 1000, entry.getSleepHours()));
       waterDrunkSeries.add(new DataSeriesItem(timestamp * 1000, entry.getWaterDrunk()));
     }
 
     configuration.setTitle("Stimmungsanalyse");
 
-    XAxis xAxis = configuration.getxAxis();
+    final XAxis xAxis = configuration.getxAxis();
     xAxis.setType(AxisType.DATETIME);
 
-    YAxis numberYAxis = configuration.getyAxis();
+    final YAxis numberYAxis = configuration.getyAxis();
     numberYAxis.setOpposite(true);
     numberYAxis.setTitle("Schlaf (Stunden) / Wasser (Liter)");
 
-    YAxis moodYAxis = new YAxis();
+    final YAxis moodYAxis = new YAxis();
     moodYAxis.setTitle("Stimmung (Text)");
     moodYAxis.setTickPositions(new Number[]{1, 2, 3, 4, 5});
     moodYAxis.getLabels().setFormatter("function(){"
@@ -193,7 +194,7 @@ public class MoodDiaryOverviewViewImpl extends VerticalLayout implements MoodDia
     return chart;
   }
 
-  private Number mapMood(Mood mood) {
+  private Number mapMood(final Mood mood) {
     switch (mood) {
       case DEPRESSED:
         return 1;
@@ -210,10 +211,10 @@ public class MoodDiaryOverviewViewImpl extends VerticalLayout implements MoodDia
     return null;
   }
 
-  private Grid<MoodEntry> createTable(List<MoodEntry> entries) {
-    Grid<MoodEntry> entryGrid = new Grid<>(MoodEntry.class);
+  private Grid<MoodEntry> createTable(final List<MoodEntry> entries) {
+    final Grid<MoodEntry> entryGrid = new Grid<>(MoodEntry.class);
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     entryGrid.removeAllColumns();
     entryGrid.addColumn(entry -> entry.getDate().format(formatter)).setHeader("Datum");
@@ -230,13 +231,13 @@ public class MoodDiaryOverviewViewImpl extends VerticalLayout implements MoodDia
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
+  public <C> C getComponent(final Class<C> type) {
     return type.cast(this);
   }
 
 
   @Override
-  public void setEntries(List<MoodEntry> entries) {
-    addContent(entries);
+  public void setEntries(final List<MoodEntry> entries) {
+    this.addContent(entries);
   }
 }

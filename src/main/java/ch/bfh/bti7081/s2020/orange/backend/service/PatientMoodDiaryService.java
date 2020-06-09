@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class PatientMoodDiaryService extends DiaryService<MoodDiary, MoodEntry> {
 
-  public PatientMoodDiaryService(CurrentUser currentUser, MoodDiaryRepository repository) {
+  public PatientMoodDiaryService(final CurrentUser currentUser,
+      final MoodDiaryRepository repository) {
     super(currentUser, repository);
   }
 }

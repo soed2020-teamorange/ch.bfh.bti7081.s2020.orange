@@ -38,7 +38,7 @@ public class Application extends SpringBootServletInitializer implements HasLogg
   private final MessageRepository messageRepository;
   private final MoodDiaryRepository moodDiaryRepository;
 
-  public static void main(String[] args) {
+  public static void main(final String[] args) {
     SpringApplication.run(Application.class, args);
   }
 
@@ -48,30 +48,30 @@ public class Application extends SpringBootServletInitializer implements HasLogg
   }
 
   @Bean
-  Flux<Message> messages(UnicastProcessor<Message> publisher) {
+  Flux<Message> messages(final UnicastProcessor<Message> publisher) {
     return publisher.replay(0).autoConnect();
   }
 
   @Bean
   public CommandLineRunner demo() {
     return (args) -> {
-      MedicalSpecialist specialist = medicalSpecialistService
+      final MedicalSpecialist specialist = this.medicalSpecialistService
           .createMedicalSpecialist("specialist@pms.ch",
-              passwordEncoder.encode("1234"),
+              this.passwordEncoder.encode("1234"),
               "Specialist", "Tester", LocalDate.now().minusDays(120));
       specialist.setPhone("+41791234567");
-      medicalSpecialistService.saveMedicalSpecialist(specialist);
+      this.medicalSpecialistService.saveMedicalSpecialist(specialist);
 
-      MedicalSpecialist specialist2 = medicalSpecialistService
+      final MedicalSpecialist specialist2 = this.medicalSpecialistService
           .createMedicalSpecialist("specialist2@pms.ch",
-              passwordEncoder.encode("1234"),
+              this.passwordEncoder.encode("1234"),
               "Specialist2", "Tester2", LocalDate.now().minusDays(150));
 
-      Patient patient = patientService
-          .createPatient("patient@pms.ch", passwordEncoder.encode("1234"), "Patient",
+      final Patient patient = this.patientService
+          .createPatient("patient@pms.ch", this.passwordEncoder.encode("1234"), "Patient",
               "Tester", LocalDate.now().minusDays(1500), specialist);
 
-      MoodDiary moodDiary = moodDiaryRepository.getByPatientId(patient.getId());
+      final MoodDiary moodDiary = this.moodDiaryRepository.getByPatientId(patient.getId());
       moodDiary.addEntry(
           new MoodEntry("test1", "desc1", Mood.DEPRESSED, LocalDate.now().minusDays(3),
               LocalTime.now(), 6, 1));
@@ -81,13 +81,13 @@ public class Application extends SpringBootServletInitializer implements HasLogg
       moodDiary.addEntry(
           new MoodEntry("test3", "desc3", Mood.NEUTRAL, LocalDate.now().minusDays(1),
               LocalTime.now(), 7, 3));
-      moodDiaryRepository.save(moodDiary);
+      this.moodDiaryRepository.save(moodDiary);
 
-      Patient patient2 = patientService
-          .createPatient("patient2@pms.ch", passwordEncoder.encode("1234"), "Patient2",
+      final Patient patient2 = this.patientService
+          .createPatient("patient2@pms.ch", this.passwordEncoder.encode("1234"), "Patient2",
               "Tester", LocalDate.now().minusDays(2000), specialist);
-      Patient patient3 = patientService
-          .createPatient("patient3@pms.ch", passwordEncoder.encode("1234"), "Patient3",
+      final Patient patient3 = this.patientService
+          .createPatient("patient3@pms.ch", this.passwordEncoder.encode("1234"), "Patient3",
               "Tester", LocalDate.now().minusDays(3550));
     };
   }

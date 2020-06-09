@@ -8,16 +8,16 @@ public enum Activity {
 
   private final String label;
 
-  Activity(String label) {
+  Activity(final String label) {
     this.label = label;
   }
 
   public String getLabel() {
-    return label;
+    return this.label;
   }
 
-  public static Activity valueOfLabel(String label) {
-    for (Activity a : values()) {
+  public static Activity valueOfLabel(final String label) {
+    for (final Activity a : Activity.values()) {
       if (a.getLabel().equals(label)) {
         return a;
       }

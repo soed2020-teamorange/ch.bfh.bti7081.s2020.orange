@@ -52,3 +52,18 @@ vaadin-context-menu-overlay {
 .timeline-container pure-timeline {
   width: 100%;
 }
+
+.home-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.home-content > div {
+  flex: 1 0 50%;
+  margin-right: 16px;
+  max-width: calc(50% - 16px);
+}
+
+.home-content vaadin-button {
+  display: block;
+}

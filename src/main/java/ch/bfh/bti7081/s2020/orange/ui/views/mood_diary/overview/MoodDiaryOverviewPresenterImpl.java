@@ -17,11 +17,11 @@ public class MoodDiaryOverviewPresenterImpl implements MoodDiaryOverviewPresente
 
   @Override
   public void onBeforeEnter() {
-    view.setEntries(moodDiaryService.getEntries());
+    this.view.setEntries(this.moodDiaryService.getEntries());
   }
 
   @Override
   public View getView() {
-    return view;
+    return this.view;
   }
 }

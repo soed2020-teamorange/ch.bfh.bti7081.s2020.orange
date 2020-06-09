@@ -27,16 +27,16 @@ public class ActivityDiaryCreateEntryViewRoute extends VerticalLayout implements
 
   @PostConstruct
   public void init() {
-    add(this.getComponent(Component.class));
+    this.add(getComponent(Component.class));
   }
 
   @Override
-  public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-    activityDiaryCreateEntryPresenter.onBeforeEnter();
+  public void beforeEnter(final BeforeEnterEvent beforeEnterEvent) {
+    this.activityDiaryCreateEntryPresenter.onBeforeEnter();
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
-    return activityDiaryCreateEntryPresenter.getView().getComponent(type);
+  public <C> C getComponent(final Class<C> type) {
+    return this.activityDiaryCreateEntryPresenter.getView().getComponent(type);
   }
 }

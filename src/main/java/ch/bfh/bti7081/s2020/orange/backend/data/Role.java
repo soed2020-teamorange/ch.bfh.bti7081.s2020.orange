@@ -10,7 +10,7 @@ public class Role {
   }
 
   public static String[] getAllRoles() {
-    return new String[]{PATIENT, MEDICAL_SPECIALIST, ADMIN};
+    return new String[]{Role.PATIENT, Role.MEDICAL_SPECIALIST, Role.ADMIN};
   }
 
 }

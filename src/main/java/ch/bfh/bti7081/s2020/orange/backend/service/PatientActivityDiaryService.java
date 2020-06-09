@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class PatientActivityDiaryService extends DiaryService<ActivityDiary, ActivityEntry> {
 
-  public PatientActivityDiaryService(CurrentUser currentUser, ActivityDiaryRepository repository) {
+  public PatientActivityDiaryService(final CurrentUser currentUser,
+      final ActivityDiaryRepository repository) {
     super(currentUser, repository);
   }
 }

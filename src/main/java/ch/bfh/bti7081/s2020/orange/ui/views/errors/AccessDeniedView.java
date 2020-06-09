@@ -24,18 +24,18 @@ public class AccessDeniedView extends VerticalLayout implements
     HasErrorParameter<AccessDeniedException>, RouterLayout {
 
   public AccessDeniedView() {
-    RouterLink link = Component.from(
+    final RouterLink link = Component.from(
         ElementFactory.createRouterLink("", "Zurück zur Startseite."),
         RouterLink.class);
 
-    getElement().appendChild(new H1("Oops, Sie haben keine Berechtigungen! ").getElement(),
+    this.getElement().appendChild(new H1("Oops, Sie haben keine Berechtigungen! ").getElement(),
         link.getElement());
 
   }
 
   @Override
-  public int setErrorParameter(BeforeEnterEvent beforeEnterEvent,
-      ErrorParameter<AccessDeniedException> errorParameter) {
+  public int setErrorParameter(final BeforeEnterEvent beforeEnterEvent,
+      final ErrorParameter<AccessDeniedException> errorParameter) {
 
     return HttpServletResponse.SC_FORBIDDEN;
   }

@@ -19,16 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 public class CustomRouteNotFoundError extends RouteNotFoundError {
 
   public CustomRouteNotFoundError() {
-    RouterLink link = Component.from(
+    final RouterLink link = Component.from(
         ElementFactory.createRouterLink("", "Zurück zur Startseite."),
         RouterLink.class);
-    getElement().appendChild(new H1("Oops, diese Seite existiert nicht! ").getElement(),
+    this.getElement().appendChild(new H1("Oops, diese Seite existiert nicht! ").getElement(),
         link.getElement());
   }
 
   @Override
-  public int setErrorParameter(BeforeEnterEvent event,
-      ErrorParameter<NotFoundException> parameter) {
+  public int setErrorParameter(final BeforeEnterEvent event,
+      final ErrorParameter<NotFoundException> parameter) {
     return HttpServletResponse.SC_NOT_FOUND;
   }
 }

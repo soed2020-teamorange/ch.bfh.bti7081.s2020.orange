@@ -4,7 +4,7 @@ import ch.bfh.bti7081.s2020.orange.application.security.CurrentUser;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
-import com.vaadin.componentfactory.Chat.ChatNewMessageEvent;
+import com.vaadin.componentfactory.Chat;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.listbox.ListBox;
 import com.vaadin.flow.component.splitlayout.SplitLayout;
@@ -26,33 +26,33 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
 
   private final CurrentUser currentUser;
 
-  com.vaadin.componentfactory.Chat chat = createChat();
+  com.vaadin.componentfactory.Chat chat = this.createChat();
   ListBox<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat> listBox = new ListBox<>();
   Div chatContent = new Div();
 
   @PostConstruct
   public void init() {
-    this.setWidth("100%");
-    this.setSplitterPosition(50);
+    setWidth("100%");
+    setSplitterPosition(50);
 
-    listBox.addValueChangeListener(item -> {
-      chatContent.removeAll();
-      chat = createChat();
-      chatContent.add(chat);
+    this.listBox.addValueChangeListener(item -> {
+      this.chatContent.removeAll();
+      this.chat = this.createChat();
+      this.chatContent.add(this.chat);
 
       if (null != item.getValue()) {
-        observer.onLoadChat(item.getValue().getId());
+        this.observer.onLoadChat(item.getValue().getId());
       }
     });
 
-    chatContent.add(this.chat);
+    this.chatContent.add(chat);
 
-    addToPrimary(listBox);
-    addToSecondary(chatContent);
+    this.addToPrimary(this.listBox);
+    this.addToSecondary(this.chatContent);
   }
 
   private com.vaadin.componentfactory.Chat createChat() {
-    com.vaadin.componentfactory.Chat chat = new com.vaadin.componentfactory.Chat();
+    final com.vaadin.componentfactory.Chat chat = new com.vaadin.componentfactory.Chat();
 
     // somehow loading indicator is shown, even if we setLoading(false)
     chat.setLoadingIndicator(new Div());
@@ -61,51 +61,53 @@ public class ChatViewImpl extends SplitLayout implements ChatView {
     return chat;
   }
 
-  private void onAddNewMessage(ChatNewMessageEvent chatNewMessageEvent) {
-    observer.onAddMessage(chatNewMessageEvent.getMessage());
+  private void onAddNewMessage(final Chat.ChatNewMessageEvent chatNewMessageEvent) {
+    this.observer.onAddMessage(chatNewMessageEvent.getMessage());
 
     chatNewMessageEvent.getSource().clearInput();
     chatNewMessageEvent.getSource().scrollToBottom();
   }
 
   @Override
-  public void addMessage(Message message) {
-    getUI().ifPresentOrElse(ui ->
-            ui.access(() -> chat.addNewMessage(toChatMessage(message))),
+  public void addMessage(final Message message) {
+    this.getUI().ifPresentOrElse(ui ->
+            ui.access(() -> this.chat.addNewMessage(this.toChatMessage(message))),
         // if ui isn't yet present
-        () -> chat.addNewMessage(toChatMessage(message))
+        () -> this.chat.addNewMessage(this.toChatMessage(message))
     );
 
   }
 
   @Override
-  public void setChats(List<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat> chats) {
-    listBox.setItems(chats);
+  public void setChats(final List<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat> chats) {
+    this.listBox.setItems(chats);
 
-    if (currentUser.getUser() instanceof MedicalSpecialist) {
-      listBox.setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
-              c -> c.getPatient().getFirstName() + " " + c.getPatient().getLastName()
-          )
-      );
-    } else if (currentUser.getUser() instanceof Patient) {
-      listBox.setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
-              c -> c.getMedicalSpecialist().getFirstName() + " " + c.getMedicalSpecialist()
-                  .getLastName()
-          )
-      );
+    if (this.currentUser.getUser() instanceof MedicalSpecialist) {
+      this.listBox
+          .setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
+                  c -> c.getPatient().getFirstName() + " " + c.getPatient().getLastName()
+              )
+          );
+    } else if (this.currentUser.getUser() instanceof Patient) {
+      this.listBox
+          .setRenderer(new TextRenderer<ch.bfh.bti7081.s2020.orange.backend.data.entities.Chat>(
+                  c -> c.getMedicalSpecialist().getFirstName() + " " + c.getMedicalSpecialist()
+                      .getLastName()
+              )
+          );
     }
 
-    listBox.setValue(chats.get(0));
+    this.listBox.setValue(chats.get(0));
   }
 
-  private com.vaadin.componentfactory.model.Message toChatMessage(Message message) {
+  private com.vaadin.componentfactory.model.Message toChatMessage(final Message message) {
     return new com.vaadin.componentfactory.model.Message(message.getContent(), null,
         message.getSender().getFirstName() + " " + message.getSender().getLastName(),
-        currentUser.getUser().getId().equals(message.getSender().getId()));
+        this.currentUser.getUser().getId().equals(message.getSender().getId()));
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
+  public <C> C getComponent(final Class<C> type) {
     return type.cast(this);
   }
 }

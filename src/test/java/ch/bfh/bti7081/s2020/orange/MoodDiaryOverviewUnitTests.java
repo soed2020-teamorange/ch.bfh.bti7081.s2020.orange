@@ -19,24 +19,24 @@ public class MoodDiaryOverviewUnitTests {
 
   @Test
   public void shouldCreateChartOnSetEntries() {
-    MoodDiaryOverviewViewImpl view = new MoodDiaryOverviewViewImpl();
-    MoodEntry entry = new MoodEntry(Mood.NEUTRAL, LocalDate.now(), LocalTime.now(), 8, 2);
+    final MoodDiaryOverviewViewImpl view = new MoodDiaryOverviewViewImpl();
+    final MoodEntry entry = new MoodEntry(Mood.NEUTRAL, LocalDate.now(), LocalTime.now(), 8, 2);
 
     view.init();
     view.setEntries(List.of(entry));
 
-    Chart chart = findComponent(view, Chart.class);
+    final Chart chart = this.findComponent(view, Chart.class);
 
-    DataSeries moodSeries = (DataSeries) chart.getConfiguration().getSeries().stream()
+    final DataSeries moodSeries = (DataSeries) chart.getConfiguration().getSeries().stream()
         .filter(serie -> serie.getName().equals("Stimmung")).findFirst().get();
 
-    DataSeries sleepHoursSeries = (DataSeries) chart.getConfiguration().getSeries().stream()
+    final DataSeries sleepHoursSeries = (DataSeries) chart.getConfiguration().getSeries().stream()
         .filter(serie -> serie.getName().equals("Stunden Schlaf")).findFirst().get();
 
-    DataSeries waterDrunkSeries = (DataSeries) chart.getConfiguration().getSeries().stream()
+    final DataSeries waterDrunkSeries = (DataSeries) chart.getConfiguration().getSeries().stream()
         .filter(serie -> serie.getName().equals("Liter Wasser")).findFirst().get();
 
-    long expectedTimestamp =
+    final long expectedTimestamp =
         entry.getDate().atTime(entry.getTime()).toEpochSecond(ZoneOffset.UTC) * 1000;
 
     assertEquals(moodSeries.getData().get(0).getY(), entry.getMood().ordinal());
@@ -48,13 +48,13 @@ public class MoodDiaryOverviewUnitTests {
     assertEquals(waterDrunkSeries.getData().get(0).getX(), expectedTimestamp);
   }
 
-  private <T> T findComponent(Component input, Class<T> clazz) {
+  private <T> T findComponent(final Component input, final Class<T> clazz) {
     if (clazz.isInstance(input)) {
       return clazz.cast(input);
     }
 
-    for (Component comp : input.getChildren().collect(Collectors.toList())) {
-      T found = findComponent(comp, clazz);
+    for (final Component comp : input.getChildren().collect(Collectors.toList())) {
+      final T found = this.findComponent(comp, clazz);
 
       if (null != found) {
         return found;
