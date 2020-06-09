@@ -6,16 +6,14 @@ import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_CHAT;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_HOME;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_LOGOUT;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_MOOD_DIARY;
+import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_PRESCRIPTION_OVERVIEW;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_REGISTER_PATIENT;
 import static ch.bfh.bti7081.s2020.orange.ui.utils.AppConst.TITLE_USER_INFOS_EDIT;
 
-import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
-import ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.overview.ActivityDiaryOverviewViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.mood_diary.overview.MoodDiaryOverviewViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.register_patient.RegisterPatientViewRoute;
-import ch.bfh.bti7081.s2020.orange.ui.views.user_infos.edit.UserInfosEditViewRoute;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasComponents;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -30,9 +28,15 @@ import com.vaadin.flow.router.ParentLayout;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinServlet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+
+import ch.bfh.bti7081.s2020.orange.application.security.SecurityUtils;
+import ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.overview.ActivityDiaryOverviewViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.chat.ChatViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.home.HomeViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.mood_diary.overview.MoodDiaryOverviewViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.prescription.patientOverview.PrescriptionPatientViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.register_patient.RegisterPatientViewRoute;
+import ch.bfh.bti7081.s2020.orange.ui.views.user_infos.edit.UserInfosEditViewRoute;
 
 @ParentLayout(AppView.class)
 public class MainView extends AppLayout {
@@ -102,6 +106,12 @@ public class MainView extends AppLayout {
       tabs.add(
           MainView.createTab(VaadinIcon.CLIPBOARD_CROSS, TITLE_REGISTER_PATIENT,
               RegisterPatientViewRoute.class));
+    }
+    
+    if (SecurityUtils.isAccessGranted(PrescriptionPatientViewRoute.class)) {
+    	tabs.add(
+			createTab(VaadinIcon.CLIPBOARD_HEART, TITLE_PRESCRIPTION_OVERVIEW,
+				PrescriptionPatientViewRoute.class));
     }
 
     if (SecurityUtils.isAccessGranted(ActivityDiaryOverviewViewRoute.class)) {

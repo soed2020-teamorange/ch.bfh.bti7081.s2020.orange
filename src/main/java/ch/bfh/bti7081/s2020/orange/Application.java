@@ -1,26 +1,30 @@
 package ch.bfh.bti7081.s2020.orange;
 
-import ch.bfh.bti7081.s2020.orange.backend.data.Mood;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodDiary;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodEntry;
-import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
-import ch.bfh.bti7081.s2020.orange.backend.repositories.ChatRepository;
-import ch.bfh.bti7081.s2020.orange.backend.repositories.MessageRepository;
-import ch.bfh.bti7081.s2020.orange.backend.repositories.MoodDiaryRepository;
-import ch.bfh.bti7081.s2020.orange.backend.service.MedicalSpecialistService;
-import ch.bfh.bti7081.s2020.orange.backend.service.PatientService;
-import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import lombok.RequiredArgsConstructor;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import ch.bfh.bti7081.s2020.orange.backend.data.Mood;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MedicalSpecialist;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Medicament;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Message;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodDiary;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.MoodEntry;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
+import ch.bfh.bti7081.s2020.orange.backend.repositories.ChatRepository;
+import ch.bfh.bti7081.s2020.orange.backend.repositories.MedicamentRepository;
+import ch.bfh.bti7081.s2020.orange.backend.repositories.MessageRepository;
+import ch.bfh.bti7081.s2020.orange.backend.repositories.MoodDiaryRepository;
+import ch.bfh.bti7081.s2020.orange.backend.service.MedicalSpecialistService;
+import ch.bfh.bti7081.s2020.orange.backend.service.PatientService;
+import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
+import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.UnicastProcessor;
 
@@ -37,6 +41,7 @@ public class Application extends SpringBootServletInitializer implements HasLogg
   private final ChatRepository chatRepository;
   private final MessageRepository messageRepository;
   private final MoodDiaryRepository moodDiaryRepository;
+  private final MedicamentRepository medicamentRepository;
 
   public static void main(final String[] args) {
     SpringApplication.run(Application.class, args);
@@ -82,6 +87,11 @@ public class Application extends SpringBootServletInitializer implements HasLogg
           new MoodEntry("test3", "desc3", Mood.NEUTRAL, LocalDate.now().minusDays(1),
               LocalTime.now(), 7, 3));
       this.moodDiaryRepository.save(moodDiary);
+      
+      Medicament med1 = new Medicament("Antidepressiva 1", "Roche", 100000);
+      Medicament med2 = new Medicament("Schmerzmittel X", "Bayer", 20000);
+      medicamentRepository.save(med1);
+      medicamentRepository.save(med2);
 
       final Patient patient2 = this.patientService
           .createPatient("patient2@pms.ch", this.passwordEncoder.encode("1234"), "Patient2",
