@@ -25,41 +25,41 @@ public class UserInfosEditPresenterImpl implements UserInfosEditPresenter,
 
   @Override
   public void onBeforeEnter() {
-    userInfosEditView.setObserver(this);
-    userInfosEditView.setUser(currentUser.getUser());
-    if (currentUser.getUser() instanceof Patient) {
-      Patient patient = (Patient) currentUser.getUser();
+    this.userInfosEditView.setObserver(this);
+    this.userInfosEditView.setUser(this.currentUser.getUser());
+    if (this.currentUser.getUser() instanceof Patient) {
+      final Patient patient = (Patient) this.currentUser.getUser();
       if (patient.getMedicalSpecialist() != null) {
         //List<MedicalSpecialist> medicalSpecialistList = new ArrayList<>();
         //medicalSpecialistList.add(patient.getMedicalSpecialist());
-        userInfosEditView.setMedicalSpecialist(patient.getMedicalSpecialist());
+        this.userInfosEditView.setMedicalSpecialist(patient.getMedicalSpecialist());
       }
-    } else if (currentUser.getUser() instanceof MedicalSpecialist) {
-      MedicalSpecialist medicalSpecialist = (MedicalSpecialist) currentUser.getUser();
+    } else if (this.currentUser.getUser() instanceof MedicalSpecialist) {
+      final MedicalSpecialist medicalSpecialist = (MedicalSpecialist) this.currentUser.getUser();
       if (medicalSpecialist.getPatients() != null) {
-        userInfosEditView.setPatients(medicalSpecialist.getPatients());
+        this.userInfosEditView.setPatients(medicalSpecialist.getPatients());
       }
     }
   }
 
   @Override
-  public void onSaveUser(User user) {
-    userService.saveUser(user);
-    userInfosEditView.showNotification("Angaben erfolgreich bearbeitet.");
+  public void onSaveUser(final User user) {
+    this.userService.saveUser(user);
+    this.userInfosEditView.showNotification("Angaben erfolgreich bearbeitet.");
   }
 
   @Override
-  public void emailIsUnique(String email) throws UserAlreadyExistsException {
+  public void emailIsUnique(final String email) throws UserAlreadyExistsException {
     try {
-      userService.emailIsUnique(email);
-      userInfosEditView.setEMailIsUniqueError(false);
-    } catch (UserAlreadyExistsException e) {
-      userInfosEditView.setEMailIsUniqueError(true);
+      this.userService.emailIsUnique(email);
+      this.userInfosEditView.setEMailIsUniqueError(false);
+    } catch (final UserAlreadyExistsException e) {
+      this.userInfosEditView.setEMailIsUniqueError(true);
     }
   }
 
   @Override
   public View getView() {
-    return userInfosEditView;
+    return this.userInfosEditView;
   }
 }

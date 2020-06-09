@@ -27,17 +27,17 @@ public class MoodDiaryOverviewViewRoute extends VerticalLayout implements Before
 
   @PostConstruct
   public void init() {
-    removeAll();
-    add(this.getComponent(Component.class));
+    this.removeAll();
+    this.add(getComponent(Component.class));
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
-    return presenter.getView().getComponent(type);
+  public <C> C getComponent(final Class<C> type) {
+    return this.presenter.getView().getComponent(type);
   }
 
   @Override
-  public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-    presenter.onBeforeEnter();
+  public void beforeEnter(final BeforeEnterEvent beforeEnterEvent) {
+    this.presenter.onBeforeEnter();
   }
 }

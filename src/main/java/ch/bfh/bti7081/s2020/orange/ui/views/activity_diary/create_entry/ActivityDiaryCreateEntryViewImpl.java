@@ -39,15 +39,15 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
 
   @PostConstruct
   public void init() {
-    add(new H1(AppConst.TITLE_ACTIVITY_DIARY),
-        buildForm());
+    this.add(new H1(AppConst.TITLE_ACTIVITY_DIARY),
+        this.buildForm());
   }
 
   private Div buildForm() {
     // Create form components
-    DatePicker dateDP = new DatePicker("Datum");
+    final DatePicker dateDP = new DatePicker("Datum");
     dateDP.setValue(LocalDate.now());
-    DatePicker.DatePickerI18n dateDPI18n = new DatePicker.DatePickerI18n();
+    final DatePicker.DatePickerI18n dateDPI18n = new DatePicker.DatePickerI18n();
     dateDPI18n.setWeek("Woche");
     dateDPI18n.setCalendar("Kalender");
     dateDPI18n.setClear("Löschen");
@@ -61,26 +61,26 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
             "September", "Oktober", "November", "Dezember"));
     dateDP.setI18n(dateDPI18n);
 
-    TimePicker timeStartTP = new TimePicker("Start-Uhrzeit");
+    final TimePicker timeStartTP = new TimePicker("Start-Uhrzeit");
     timeStartTP.setValue(LocalTime.now().minusHours(1));
 
-    TimePicker timeEndTP = new TimePicker("Ende-Uhrzeit");
+    final TimePicker timeEndTP = new TimePicker("Ende-Uhrzeit");
     timeEndTP.setValue(LocalTime.now());
 
-    ComboBox<String> activityCB = new ComboBox<>("Aktivität");
+    final ComboBox<String> activityCB = new ComboBox<>("Aktivität");
 
-    List<String> activites = new ArrayList<>();
-    for (Activity m : Activity.values()) {
+    final List<String> activites = new ArrayList<>();
+    for (final Activity m : Activity.values()) {
       activites.add(m.getLabel());
     }
     activityCB.setItems(activites);
     activityCB.setValue(activites.get(0));
 
-    TextField titleTF = new TextField("Titel");
-    TextArea contentTA = new TextArea("Beschreibung");
+    final TextField titleTF = new TextField("Titel");
+    final TextArea contentTA = new TextArea("Beschreibung");
 
     // Bind elements to business object
-    Binder<ActivityEntry> binder = new Binder<>(ActivityEntry.class);
+    final Binder<ActivityEntry> binder = new Binder<>(ActivityEntry.class);
     binder.forField(dateDP)
         .asRequired("Datum muss gesetzt sein.")
         .withValidator(date -> date.isBefore(LocalDate.now().plusDays(1)),
@@ -90,11 +90,6 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
     binder.forField(timeStartTP)
         .asRequired("Zeit muss gesetzt sein.")
         .bind(ActivityEntry::getStartTime, ActivityEntry::setStartTime);
-
-    Binder.Binding<ActivityEntry, LocalTime> endTimeBinding = binder.forField(timeEndTP)
-        .asRequired("Zeit muss gesetzt sein.")
-        .withValidator(e -> timeStartTP.getValue().isBefore(e), "Startzeit muss vor Endzeit sein.")
-        .bind(ActivityEntry::getEndTime, ActivityEntry::setEndTime);
 
     binder.forField(titleTF)
         .asRequired("Bitte einen Titel eingeben.")
@@ -106,7 +101,7 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
         .withValidator(l -> l.length() <= 800, "Bitte maximal 800 Zeichen verwenden.")
         .bind(ActivityEntry::getContent, ActivityEntry::setContent);
 
-    Button saveButton = new Button("Neuen Aktivität hinzufügen");
+    final Button saveButton = new Button("Neuen Aktivität hinzufügen");
 
     // TODO: fix NullPointer
     // timeStartTP.addValueChangeListener(
@@ -121,12 +116,12 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
 
     saveButton.addClickListener(click -> {
       try {
-        ActivityEntry activityEntry = new ActivityEntry();
+        final ActivityEntry activityEntry = new ActivityEntry();
         activityEntry.setActivity(Activity.valueOfLabel(activityCB.getValue()));
         binder.writeBean(activityEntry);
 
         // save new patient
-        observer.saveNewActivityEntry(activityEntry);
+        this.observer.saveNewActivityEntry(activityEntry);
 
         // load new empty activity to the form
         binder.readBean(new ActivityEntry());
@@ -134,24 +129,25 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
         timeEndTP.setValue(LocalTime.now());
         dateDP.setValue(LocalDate.now());
 
-      } catch (ValidationException e) {
-        getLogger().warn("There are some validation errors.");
+      } catch (final ValidationException e) {
+        this.getLogger().warn("There are some validation errors.");
       }
     });
 
     // Wrap components in layouts
-    FormLayout formLayout = new FormLayout(dateDP, timeStartTP, timeEndTP, activityCB, titleTF,
+    final FormLayout formLayout = new FormLayout(dateDP, timeStartTP, timeEndTP, activityCB,
+        titleTF,
         contentTA,
         saveButton);
 
-    Div wrapperLayout = new Div(formLayout);
+    final Div wrapperLayout = new Div(formLayout);
 
     return wrapperLayout;
 
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
+  public <C> C getComponent(final Class<C> type) {
     return type.cast(this);
   }
 }

@@ -15,7 +15,7 @@ public class HomePresenterImpl implements HomePresenter {
 
   @Override
   public View getView() {
-    return homeView;
+    return this.homeView;
   }
 
 }

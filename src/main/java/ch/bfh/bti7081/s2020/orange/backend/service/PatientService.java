@@ -28,52 +28,54 @@ public class PatientService {
   private final ChatRepository chatRepository;
   private final MessageRepository messageRepository;
 
-  public Patient createPatient(String email, String passwordHash, String firstName,
-      String lastName, LocalDate birthDate) {
-    Patient patient = new Patient(email, passwordHash, firstName, lastName, birthDate);
+  public Patient createPatient(final String email, final String passwordHash,
+      final String firstName,
+      final String lastName, final LocalDate birthDate) {
+    final Patient patient = new Patient(email, passwordHash, firstName, lastName, birthDate);
 
-    return createPatient(patient);
+    return this.createPatient(patient);
   }
 
-  public Patient createPatient(String email, String passwordHash, String firstName,
-      String lastName, LocalDate birthDate, MedicalSpecialist medicalSpecialist) {
-    Patient patient = new Patient(email, passwordHash, firstName, lastName, birthDate);
+  public Patient createPatient(final String email, final String passwordHash,
+      final String firstName,
+      final String lastName, final LocalDate birthDate, final MedicalSpecialist medicalSpecialist) {
+    final Patient patient = new Patient(email, passwordHash, firstName, lastName, birthDate);
     patient.setMedicalSpecialist(medicalSpecialist);
 
-    return createPatient(patient);
+    return this.createPatient(patient);
   }
 
-  private Patient createPatient(Patient patient) {
-    Patient savedPatient = this.patientRepository.save(patient);
+  private Patient createPatient(final Patient patient) {
+    final Patient savedPatient = patientRepository.save(patient);
 
-    MoodDiary moodDiary = new MoodDiary();
+    final MoodDiary moodDiary = new MoodDiary();
     moodDiary.setPatient(savedPatient);
-    moodDiaryRepository.save(moodDiary);
+    this.moodDiaryRepository.save(moodDiary);
 
-    ActivityDiary activityDiary = new ActivityDiary();
+    final ActivityDiary activityDiary = new ActivityDiary();
     activityDiary.setPatient(savedPatient);
-    activityDiaryRepository.save(activityDiary);
+    this.activityDiaryRepository.save(activityDiary);
 
-    Chat chat = Chat.builder().patient(savedPatient)
+    final Chat chat = Chat.builder().patient(savedPatient)
         .medicalSpecialist(savedPatient.getMedicalSpecialist())
         .build();
-    chatRepository.save(chat);
+    this.chatRepository.save(chat);
 
-    Message welcomeMessage = Message.builder().chat(chat).content(
+    final Message welcomeMessage = Message.builder().chat(chat).content(
         String.format(
             "Herzlich Willkommen %s! Sie können mir über den Chat jederzeit schreiben und ich werde Ihnen schnellst möglich antworten.",
             savedPatient.getFirstName())).creationDate(LocalDateTime.now())
         .sender(patient.getMedicalSpecialist()).state(
             MessageState.UNREAD).build();
-    messageRepository.save(welcomeMessage);
+    this.messageRepository.save(welcomeMessage);
 
     return savedPatient;
   }
 
-  public Patient updatePatient(Patient p) {
+  public Patient updatePatient(final Patient p) {
     p.setRole(Role.PATIENT);
 
-    return this.patientRepository.save(p);
+    return patientRepository.save(p);
   }
 
 }

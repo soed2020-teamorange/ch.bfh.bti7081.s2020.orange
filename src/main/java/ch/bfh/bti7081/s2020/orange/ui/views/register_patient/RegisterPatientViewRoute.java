@@ -26,16 +26,16 @@ public class RegisterPatientViewRoute extends VerticalLayout implements BeforeEn
 
   @PostConstruct
   public void init() {
-    add(this.getComponent(Component.class));
+    this.add(getComponent(Component.class));
   }
 
   @Override
-  public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-    registerPatientPresenter.onBeforeEnter();
+  public void beforeEnter(final BeforeEnterEvent beforeEnterEvent) {
+    this.registerPatientPresenter.onBeforeEnter();
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
-    return registerPatientPresenter.getView().getComponent(type);
+  public <C> C getComponent(final Class<C> type) {
+    return this.registerPatientPresenter.getView().getComponent(type);
   }
 }

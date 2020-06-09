@@ -13,14 +13,14 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@Route(value = AppConst.PAGE_LOGIN)
-@PageTitle(value = AppConst.TITLE_LOGIN)
+@Route(AppConst.PAGE_LOGIN)
+@PageTitle(AppConst.TITLE_LOGIN)
 @Viewport(AppConst.VIEWPORT)
 public class LoginView extends LoginOverlay
     implements AfterNavigationObserver, BeforeEnterObserver {
 
   public LoginView() {
-    LoginI18n i18n = LoginI18n.createDefault();
+    final LoginI18n i18n = LoginI18n.createDefault();
     i18n.setHeader(new LoginI18n.Header());
     i18n.getHeader().setTitle("Projekt MHC-PMS");
     i18n.getHeader().setDescription("Team Orange");
@@ -32,23 +32,23 @@ public class LoginView extends LoginOverlay
     i18n.getForm().setUsername("E-Mail");
     i18n.getForm().setPassword("Passwort");
 
-    setI18n(i18n);
-    setForgotPasswordButtonVisible(false);
-    setAction("login");
+    this.setI18n(i18n);
+    this.setForgotPasswordButtonVisible(false);
+    this.setAction("login");
   }
 
   @Override
-  public void beforeEnter(BeforeEnterEvent event) {
+  public void beforeEnter(final BeforeEnterEvent event) {
     if (SecurityUtils.isUserLoggedIn()) {
       event.forwardTo(HomeViewRoute.class);
     } else {
-      setOpened(true);
+      this.setOpened(true);
     }
   }
 
   @Override
-  public void afterNavigation(AfterNavigationEvent event) {
-    setError(
+  public void afterNavigation(final AfterNavigationEvent event) {
+    this.setError(
         event.getLocation().getQueryParameters().getParameters().containsKey(
             "error"));
   }

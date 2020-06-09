@@ -26,28 +26,29 @@ public class RegisterPatientPresenterImpl implements RegisterPatientPresenter,
 
   @Override
   public void onBeforeEnter() {
-    registerPatientView.setObserver(this);
-    registerPatientView.setMedicalSpecialists(medicalSpecialistService.getAllMedicalSpecialist());
+    this.registerPatientView.setObserver(this);
+    this.registerPatientView
+        .setMedicalSpecialists(this.medicalSpecialistService.getAllMedicalSpecialist());
   }
 
   @Override
-  public void createNewPatient(Patient p) {
-    getLogger().info("Registered new patient with email {}", p.getEmail());
-    patientService.updatePatient(p);
+  public void createNewPatient(final Patient p) {
+    this.getLogger().info("Registered new patient with email {}", p.getEmail());
+    this.patientService.updatePatient(p);
   }
 
   @Override
-  public void emailIsUnique(String email) throws UserAlreadyExistsException {
+  public void emailIsUnique(final String email) throws UserAlreadyExistsException {
     try {
-      userService.emailIsUnique(email);
-      registerPatientView.setEMailIsUniqueError(false);
-    } catch (UserAlreadyExistsException e) {
-      registerPatientView.setEMailIsUniqueError(true);
+      this.userService.emailIsUnique(email);
+      this.registerPatientView.setEMailIsUniqueError(false);
+    } catch (final UserAlreadyExistsException e) {
+      this.registerPatientView.setEMailIsUniqueError(true);
     }
   }
 
   @Override
   public View getView() {
-    return registerPatientView;
+    return this.registerPatientView;
   }
 }

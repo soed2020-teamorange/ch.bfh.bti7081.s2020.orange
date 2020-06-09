@@ -33,8 +33,9 @@ public class MoodEntry extends DiaryEntry {
   @PositiveOrZero
   private double waterDrunk;
 
-  public MoodEntry(String title, String content, Mood mood, LocalDate date, LocalTime time,
-      double sleepHours, double waterDrunk) {
+  public MoodEntry(final String title, final String content, final Mood mood, final LocalDate date,
+      final LocalTime time,
+      final double sleepHours, final double waterDrunk) {
     super(title, content);
 
     this.mood = mood;

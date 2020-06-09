@@ -26,8 +26,9 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class User extends AbstractEntity {
 
-  public User(String email, String passwordHash, String firstName, String lastName,
-      LocalDate birthDate, String role) {
+  public User(final String email, final String passwordHash, final String firstName,
+      final String lastName,
+      final LocalDate birthDate, final String role) {
     this.email = email;
     this.passwordHash = passwordHash;
     this.firstName = firstName;
@@ -82,7 +83,7 @@ public class User extends AbstractEntity {
   @PrePersist
   @PreUpdate
   private void prepareData() {
-    this.email = email == null ? null : email.toLowerCase();
+    email = this.email == null ? null : this.email.toLowerCase();
   }
 
 }

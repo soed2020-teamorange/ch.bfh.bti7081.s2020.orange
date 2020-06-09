@@ -22,15 +22,16 @@ public class MessageService {
   private final Flux<Message> messages;
   private final ChatService chatService;
 
-  public void addMessage(Long chatId, String content, User user) {
-    Chat chat = chatService.getById(chatId);
+  public void addMessage(final Long chatId, final String content, final User user) {
+    final Chat chat = this.chatService.getById(chatId);
 
-    Message message = new Message(content, LocalDateTime.now(), MessageState.UNREAD, user, chat);
+    final Message message = new Message(content, LocalDateTime.now(), MessageState.UNREAD, user,
+        chat);
 
-    publisher.onNext(messageRepository.save(message));
+    this.publisher.onNext(this.messageRepository.save(message));
   }
 
   public Flux<Message> getMessages() {
-    return messages;
+    return this.messages;
   }
 }

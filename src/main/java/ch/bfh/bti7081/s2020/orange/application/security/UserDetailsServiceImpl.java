@@ -31,8 +31,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
    * @param username User's e-mail address
    */
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findByEmailIgnoreCase(username);
+  public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+    final User user = this.userRepository.findByEmailIgnoreCase(username);
     if (null == user) {
       throw new UsernameNotFoundException("No user present with username: " + username);
     } else {

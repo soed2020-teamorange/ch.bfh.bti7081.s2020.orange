@@ -12,15 +12,15 @@ public class UserService {
 
   private final UserRepository userRepository;
 
-  public boolean emailIsUnique(String email) throws UserAlreadyExistsException {
-    if (userRepository.existsByEmail(email)) {
+  public boolean emailIsUnique(final String email) throws UserAlreadyExistsException {
+    if (this.userRepository.existsByEmail(email)) {
       throw new UserAlreadyExistsException(email);
     }
     return true;
   }
 
-  public User saveUser(User user) {
-    return userRepository.save(user);
+  public User saveUser(final User user) {
+    return this.userRepository.save(user);
   }
 
 }

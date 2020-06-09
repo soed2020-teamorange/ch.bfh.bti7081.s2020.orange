@@ -26,62 +26,62 @@ public class HomeViewImpl extends VerticalLayout implements HomeView {
   @PostConstruct
   public void init() {
 
-    H1 titleLabel = new H1(
-        String.format("Herzlich Willkommen %s %s", currentUser.getUser().getFirstName(),
-            currentUser.getUser().getLastName()));
+    final H1 titleLabel = new H1(
+        String.format("Herzlich Willkommen %s %s", this.currentUser.getUser().getFirstName(),
+            this.currentUser.getUser().getLastName()));
 
-    H2 accessLabel = new H2("Schnellzugriffe");
+    final H2 accessLabel = new H2("Schnellzugriffe");
 
-    Text info = new Text("");
+    final Text info = new Text("");
 
-    Div content = new Div();
+    final Div content = new Div();
     content.addClassName("home-content");
 
-    if (currentUser.getUser().getRole().equals(Role.PATIENT)) {
-      Patient patient = (Patient) currentUser.getUser();
+    if (this.currentUser.getUser().getRole().equals(Role.PATIENT)) {
+      final Patient patient = (Patient) this.currentUser.getUser();
 
       info.setText(String.format("Ihr zugewiesener Therapeut: %s %s",
           patient.getMedicalSpecialist().getFirstName(),
           patient.getMedicalSpecialist().getLastName()));
 
-      content.add(createChatInfo("Mit dem Chat können Sie Ihren Therapeuten kontaktieren."));
+      content.add(this.createChatInfo("Mit dem Chat können Sie Ihren Therapeuten kontaktieren."));
 
-      content.add(createPersInfo(
+      content.add(this.createPersInfo(
           "Sehen Sie ihre aktuelle Informationen und den zugewiesenen Therapeuten an. Die Angaben können auch bearbeitet werden."));
 
-      content.add(createActivityInfo());
+      content.add(this.createActivityInfo());
 
-      content.add(createMoodInfo());
+      content.add(this.createMoodInfo());
     } else {
-      content.add(createChatInfo("Mit dem Chat können Sie Ihre Patienten kontaktieren."));
-      content.add(createPersInfo(
+      content.add(this.createChatInfo("Mit dem Chat können Sie Ihre Patienten kontaktieren."));
+      content.add(this.createPersInfo(
           "Sehen Sie ihre aktuelle Informationen und die zugewiesenen Patienten an. Die Angaben können auch bearbeitet werden."));
 
-      content.add(createPatientInfo());
+      content.add(this.createPatientInfo());
     }
 
-    add(titleLabel);
-    add(info);
+    this.add(titleLabel);
+    this.add(info);
 
-    add(accessLabel);
+    this.add(accessLabel);
 
-    add(content);
+    this.add(content);
   }
 
   private Div createMoodInfo() {
-    H3 moodTitle = new H3("Stimmungstagebuch");
-    Text moodDesc = new Text(
+    final H3 moodTitle = new H3("Stimmungstagebuch");
+    final Text moodDesc = new Text(
         "Erfassen Sie ihre Stimmung und analysieren Sie diese danach.");
-    Button moodButton = new Button("Zur Übersicht");
+    final Button moodButton = new Button("Zur Übersicht");
     moodButton
         .addClickListener(
-            e -> getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_MOOD_DIARY_OVERVIEW)));
-    Button moodCreateButton = new Button("Eintrag erstellen");
+            e -> this.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_MOOD_DIARY_OVERVIEW)));
+    final Button moodCreateButton = new Button("Eintrag erstellen");
     moodCreateButton
         .addClickListener(
-            e -> getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_MOOD_DIARY_CREATE_ENTRY)));
+            e -> this.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_MOOD_DIARY_CREATE_ENTRY)));
 
-    Div moodInfo = new Div();
+    final Div moodInfo = new Div();
     moodInfo.add(moodTitle);
     moodInfo.add(moodDesc);
     moodInfo.add(moodButton);
@@ -90,19 +90,20 @@ public class HomeViewImpl extends VerticalLayout implements HomeView {
   }
 
   private Div createActivityInfo() {
-    H3 activityTitle = new H3("Aktivitätenbuch");
-    Text activityDesc = new Text(
+    final H3 activityTitle = new H3("Aktivitätenbuch");
+    final Text activityDesc = new Text(
         "Erfassen Sie ihre Tätigkeiten und analysieren Sie diese danach.");
-    Button activityButton = new Button("Zur Übersicht");
+    final Button activityButton = new Button("Zur Übersicht");
     activityButton
         .addClickListener(
-            e -> getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_ACTIVITY_DIARY_OVERVIEW)));
-    Button activityCreateButton = new Button("Eintrag erstellen");
+            e -> this.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_ACTIVITY_DIARY_OVERVIEW)));
+    final Button activityCreateButton = new Button("Eintrag erstellen");
     activityCreateButton
         .addClickListener(
-            e -> getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_ACTIVITY_DIARY_CREATE_ENTRY)));
+            e -> this.getUI()
+                .ifPresent(ui -> ui.navigate(AppConst.PAGE_ACTIVITY_DIARY_CREATE_ENTRY)));
 
-    Div activityInfo = new Div();
+    final Div activityInfo = new Div();
     activityInfo.add(activityTitle);
     activityInfo.add(activityDesc);
     activityInfo.add(activityButton);
@@ -110,28 +111,28 @@ public class HomeViewImpl extends VerticalLayout implements HomeView {
     return activityInfo;
   }
 
-  private Div createPersInfo(String text) {
-    H3 persInfoTitle = new H3("Persönliche Informationen");
-    Text persInfoDesc = new Text(text);
-    Button persInfoButton = new Button("Zu persönlichen Informationen");
+  private Div createPersInfo(final String text) {
+    final H3 persInfoTitle = new H3("Persönliche Informationen");
+    final Text persInfoDesc = new Text(text);
+    final Button persInfoButton = new Button("Zu persönlichen Informationen");
     persInfoButton
         .addClickListener(
-            e -> getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_USER_INFOS_EDIT)));
+            e -> this.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_USER_INFOS_EDIT)));
 
-    Div persInfoInfo = new Div();
+    final Div persInfoInfo = new Div();
     persInfoInfo.add(persInfoTitle);
     persInfoInfo.add(persInfoDesc);
     persInfoInfo.add(persInfoButton);
     return persInfoInfo;
   }
 
-  private Div createChatInfo(String text) {
-    H3 chatTitle = new H3("Chat");
-    Text chatDesc = new Text(text);
-    Button chatButton = new Button("Zum Chat");
-    chatButton.addClickListener(e -> getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_CHAT)));
+  private Div createChatInfo(final String text) {
+    final H3 chatTitle = new H3("Chat");
+    final Text chatDesc = new Text(text);
+    final Button chatButton = new Button("Zum Chat");
+    chatButton.addClickListener(e -> this.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_CHAT)));
 
-    Div chatInfo = new Div();
+    final Div chatInfo = new Div();
     chatInfo.add(chatTitle);
     chatInfo.add(chatDesc);
     chatInfo.add(chatButton);
@@ -139,13 +140,13 @@ public class HomeViewImpl extends VerticalLayout implements HomeView {
   }
 
   private Div createPatientInfo() {
-    H3 chatTitle = new H3("Patient registrieren");
-    Text chatDesc = new Text("Registrieren Sie hier einen neuen Kunden.");
-    Button chatButton = new Button("Zum Patient erstellen");
+    final H3 chatTitle = new H3("Patient registrieren");
+    final Text chatDesc = new Text("Registrieren Sie hier einen neuen Kunden.");
+    final Button chatButton = new Button("Zum Patient erstellen");
     chatButton.addClickListener(
-        e -> getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_REGISTER_PATIENT)));
+        e -> this.getUI().ifPresent(ui -> ui.navigate(AppConst.PAGE_REGISTER_PATIENT)));
 
-    Div chatInfo = new Div();
+    final Div chatInfo = new Div();
     chatInfo.add(chatTitle);
     chatInfo.add(chatDesc);
     chatInfo.add(chatButton);
@@ -153,7 +154,7 @@ public class HomeViewImpl extends VerticalLayout implements HomeView {
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
+  public <C> C getComponent(final Class<C> type) {
     return type.cast(this);
   }
 }

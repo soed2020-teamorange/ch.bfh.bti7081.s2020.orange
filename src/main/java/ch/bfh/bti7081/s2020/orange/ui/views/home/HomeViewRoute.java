@@ -21,13 +21,13 @@ public class HomeViewRoute extends VerticalLayout implements View {
 
   @PostConstruct
   public void init() {
-    removeAll();
+    this.removeAll();
 
-    add(this.getComponent(Component.class));
+    this.add(getComponent(Component.class));
   }
 
   @Override
-  public <C> C getComponent(Class<C> type) {
-    return homePresenter.getView().getComponent(type);
+  public <C> C getComponent(final Class<C> type) {
+    return this.homePresenter.getView().getComponent(type);
   }
 }
