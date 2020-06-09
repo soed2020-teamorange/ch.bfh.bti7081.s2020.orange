@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2020.orange.ui.views.activity_diary.create_entry;
 
 import ch.bfh.bti7081.s2020.orange.backend.data.Activity;
 import ch.bfh.bti7081.s2020.orange.backend.data.entities.ActivityEntry;
+import ch.bfh.bti7081.s2020.orange.backend.data.entities.Patient;
 import ch.bfh.bti7081.s2020.orange.ui.utils.AppConst;
 import ch.bfh.bti7081.s2020.orange.ui.utils.HasLogger;
 import com.vaadin.flow.component.button.Button;
@@ -87,6 +88,11 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
             "Datum muss in der Vergangenheit sein.")
         .bind(ActivityEntry::getDate, ActivityEntry::setDate);
 
+    final Binder.Binding<ActivityEntry, LocalTime> endTimeBinding = binder.forField(timeEndTP)
+            .asRequired("Zeit muss gesetzt sein.")
+            .withValidator(e -> e.isAfter(timeStartTP.getValue()), "Startzeit muss vor Endzeit sein.")
+            .bind(ActivityEntry::getEndTime, ActivityEntry::setEndTime);
+
     binder.forField(timeStartTP)
         .asRequired("Zeit muss gesetzt sein.")
         .bind(ActivityEntry::getStartTime, ActivityEntry::setStartTime);
@@ -102,11 +108,10 @@ public class ActivityDiaryCreateEntryViewImpl extends VerticalLayout implements
         .bind(ActivityEntry::getContent, ActivityEntry::setContent);
 
     final Button saveButton = new Button("Neuen Aktivität hinzufügen");
-
-    // TODO: fix NullPointer
-    // timeStartTP.addValueChangeListener(
-    //        event -> endTimeBinding.validate()
-    //);
+    
+    timeStartTP.addValueChangeListener(
+            event -> endTimeBinding.validate()
+    );
 
     // disable saveButton if form has validation errors
     binder.addStatusChangeListener(status -> {
