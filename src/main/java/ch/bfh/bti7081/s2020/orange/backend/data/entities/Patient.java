@@ -26,6 +26,7 @@ public class Patient extends User {
   @ManyToOne
   private MedicalSpecialist medicalSpecialist;
   
+  @ToString.Exclude
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient")
   private List<Prescription> prescriptions;
 
