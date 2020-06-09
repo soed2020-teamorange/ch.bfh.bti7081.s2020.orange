@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2020.orange.backend.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ public class PrescriptionService {
 	}
 	
 	public List<Prescription> getByPatient(Patient patient) {
+		if(patient == null) {
+			return new ArrayList<>();
+		}
 		return prescriptionRepository.findAllByPatientId(patient.getId());
 	}
 	

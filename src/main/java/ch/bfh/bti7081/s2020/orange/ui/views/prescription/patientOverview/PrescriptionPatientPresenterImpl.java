@@ -55,8 +55,10 @@ public class PrescriptionPatientPresenterImpl
 	@Override
 	public void patientChanged(Patient newPatient) {
 		selectedPatient = newPatient;
-		List<Prescription> prescriptions = prescriptionService.getByPatient(selectedPatient);
-		prescriptionPatientView.setPrescriptions(prescriptions);
+		if(selectedPatient != null) {
+			List<Prescription> prescriptions = prescriptionService.getByPatient(selectedPatient);
+			prescriptionPatientView.setPrescriptions(prescriptions);
+		}
 	}
 
 	@Override
