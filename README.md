@@ -29,4 +29,4 @@
 	
 * Task 09
 	* [Präsentation](https://github.com/soed2020-teamorange/ch.bfi.bti7081.s2020.orange/blob/master/doc/tasks/task_09/task09.pdf)
-	* [Demo](https://github.com/soed2020-teamorange/ch.bfi.bti7081.s2020.orange/blob/master/doc/tasks/task_09/demo.mov)
+	* [Demo](https://github.com/soed2020-teamorange/ch.bfi.bti7081.s2020.orange/blob/master/doc/tasks/task_09/demo.mp4)
