@@ -86,7 +86,7 @@ public class PrescriptionEditorViewImpl extends VerticalLayout implements Prescr
 		binder.forField(medicamentCB).asRequired("Medikament muss angegeben werden.").bind(Prescription::getMedicament,
 				Prescription::setMedicament);
 		binder.forField(validFromDP).asRequired("Gültigkeitsdatum muss angegeben werden.")
-				.bind(Prescription::getValidFrom, Prescription::setValidUntil);
+				.bind(Prescription::getValidFrom, Prescription::setValidFrom);
 		binder.forField(validToDP).asRequired("Gültigkeitsdatum muss angegeben werden.")
 				.bind(Prescription::getValidUntil, Prescription::setValidUntil);
 		binder.forField(startingOnDP).asRequired("Start der Einnahme muss angegeben werden.")
@@ -184,11 +184,15 @@ public class PrescriptionEditorViewImpl extends VerticalLayout implements Prescr
 		getLogger().info("Display Prescription with id [" + prescription.getId() + "]");
 		binder.setBean(prescription);
 		setDosages(prescription.getDosages());
+		medicamentCB.clear();
+		medicamentCB.setValue(prescription.getMedicament());
 	}
 
 	@Override
 	public void setMedicaments(List<Medicament> medicaments) {
+		Medicament oldValue = medicamentCB.getValue();
 		medicamentCB.setItems(medicaments);
+		medicamentCB.setValue(oldValue);
 	}
 	
 }
